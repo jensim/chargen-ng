@@ -1,5 +1,5 @@
 # chargen-ng
-[![Build Status](https://travis-ci.org/jensim/chargen-ng.svg?branch=master)](http://travis-ci.org/jensim/chargen-ng)
+[![Build Status](https://travis-ci.org/jensim/chargen-ng.png?branch=master)](http://travis-ci.org/jensim/chargen-ng)
 [![Dependency Status](https://david-dm.org/jensim/chargen-ng.png)](https://david-dm.org/jensim/chargen-ng)
 [![devDependency Status](https://david-dm.org/jensim/chargen-ng/dev-status.png)](https://david-dm.org/jensim/chargen-ng#info=devDependencies)
 
