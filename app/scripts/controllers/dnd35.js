@@ -2,13 +2,13 @@
 
 /**
  * @ngdoc function
- * @name chargenNgApp.controller:AboutCtrl
+ * @name chargenNgApp.controller:Dnd35Ctrl
  * @description
- * # AboutCtrl
+ * # Dnd35Ctrl
  * Controller of the chargenNgApp
  */
 angular.module('chargenNgApp')
-  .controller('AboutCtrl', function () {
+  .controller('Dnd35Ctrl', function () {
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
