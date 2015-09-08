@@ -8,10 +8,16 @@
  * Controller of the chargenNgApp
  */
 angular.module('chargenNgApp')
-  .controller('MutantCtrl', function () {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-  });
+    .controller('MutantCtrl', ['$scope', 'mutantMongoServiceFactory', function ($scope, mutantMongoServiceFactory) {
+
+        $scope.gameCharacters = mutantMongoServiceFactory.getCharacters();
+        $scope.gameClasses = mutantMongoServiceFactory.getClasses();
+        $scope.gameJobs = mutantMongoServiceFactory.getJobs();
+
+        $scope.createCharacter = function () {
+            console.log('not yet implemented');
+        };
+        $scope.loadCharacter = function (character) {
+            $scope.activeCharacter = character;
+        };
+    }]);

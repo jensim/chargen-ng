@@ -48,18 +48,12 @@
         </div>
     </div>
 
-    <div class="container">
-        <div ng-view=""></div>
+    <div class="container-fluid">
+        <div data-ng-view=""></div>
     </div>
-
-    <div class="footer">
-        <div class="container">
-            <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
-        </div>
-    </div>
-
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+    <!--
     <script>
         ! function(A, n, g, u, l, a, r) {
             A.GoogleAnalyticsObject = l, A[l] = A[l] || function() {
@@ -72,6 +66,7 @@
         ga('send', 'pageview');
 
     </script>
+    -->
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
@@ -91,11 +86,15 @@
     <script src="scripts/app.js"></script>
     <script src="scripts/controllers/navigation.js"></script>
     <script src="scripts/controllers/main.js"></script>
+
+    <script src="scripts/services/mutant-mongo-service-factory.js"></script>
+
     <script src="scripts/controllers/mutant.js"></script>
     <script src="scripts/controllers/dnd35.js"></script>
     <script src="scripts/controllers/dnd5.js"></script>
     <script src="scripts/controllers/svavelvinter.js"></script>
     <script src="scripts/controllers/dod.js"></script>
+
     <!-- endbuild -->
 </body>
 

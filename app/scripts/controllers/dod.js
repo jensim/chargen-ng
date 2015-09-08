@@ -8,10 +8,6 @@
  * Controller of the chargenNgApp
  */
 angular.module('chargenNgApp')
-  .controller('DodCtrl', function () {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-  });
+    .controller('DodCtrl', ['$scope', function ($scope) {
+
+    }]);
