@@ -19,5 +19,6 @@ angular.module('chargenNgApp')
         };
         $scope.loadCharacter = function (character) {
             $scope.activeCharacter = character;
+            $scope.create = undefined;
         };
     }]);

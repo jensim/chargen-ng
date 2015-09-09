@@ -18,9 +18,9 @@ angular.module('chargenNgApp')
                 description: 'Upper crust'
             },
             mm: {
-                name: 'Muterad m&auml;nniska',
+                name: 'Muterad människa',
                 sp: 84,
-                description: 'L&ouml;skefolket'
+                description: 'Löskefolket'
             },
             psi: {
                 name: 'Psi-mutant',
@@ -30,7 +30,7 @@ angular.module('chargenNgApp')
             rbt: {
                 name: 'Robot',
                 sp: 84,
-                description: 'Tj&auml;aren och underverket'
+                description: 'Tjänaren och underverket'
             }
         };
 
@@ -47,6 +47,10 @@ angular.module('chargenNgApp')
                 return [{
                     name: 'one',
                     klass: klasses.imm,
+                    job: jobs.bonde
+                }, {
+                    name: 'two',
+                    klass: klasses.psi,
                     job: jobs.bonde
                 }];
             },

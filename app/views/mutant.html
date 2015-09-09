@@ -1,60 +1,181 @@
-<div class="col-lg-4 col-md-6 col-sm-12" data-ng-hide="activeCharacter">
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h3 class="panel-title">Skapa ny karakt&auml;r</h3>
-        </div>
-        <div class="panel-body">
-            <form name="createCharForm" data-ng-submit="createCharForm.$valid && createCharacter()">
-                <div class="form-group">
-                    <label for="createInputClass">Klass:</label>
-                    <select class="form-control" data-ng-model="create.klass" name="Klass" required="true" data-ng-required="true" id="createInputClass" data-ng-options="klass.name for klass in gameClasses">
-                    </select>
-                    <span data-ng-show="create.klass.description">
+<div class="row mutant">
+    <div class="col-lg-4 col-md-6 col-sm-12" data-ng-hide="activeCharacter">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Skapa ny karakt&auml;r</h3>
+            </div>
+            <div class="panel-body">
+                <form name="createCharForm" data-ng-submit="createCharForm.$valid && createCharacter()">
+                    <div class="form-group">
+                        <label for="createInputClass">Klass:</label>
+                        <select class="form-control" data-ng-model="create.klass" name="Klass" required="true" data-ng-required="true" id="createInputClass" data-ng-options="klass.name for klass in gameClasses">
+                        </select>
+                        <span data-ng-show="create.klass.description">
                         <b>Beskrivning:</b> {{create.klass.description}}
                     </span>
-                    <span data-ng-show="createCharForm.Klass.$error.required" class="label label-danger">
-                        Obligatoriskt f'lt...
+                        <span data-ng-show="createCharForm.Klass.$error.required" class="label label-danger">
+                        Obligatoriskt fält...
                     </span>
-                </div>
-                <div class="form-group">
-                    <label for="createInputJob">Yrke:</label>
-                    <select class="form-control" data-ng-model="create.job" name="Yrke" required="true" data-ng-required="true" id="createInputJob" data-ng-options="job.name for job in gameJobs">
-                    </select>
-                    <span data-ng-show="create.job.description">
+                    </div>
+                    <div class="form-group">
+                        <label for="createInputJob">Yrke:</label>
+                        <select class="form-control" data-ng-model="create.job" name="Yrke" required="true" data-ng-required="true" id="createInputJob" data-ng-options="job.name for job in gameJobs">
+                        </select>
+                        <span data-ng-show="create.job.description">
                         <b>Beskrivning:</b> {{create.job.description}}
                     </span>
-                    <span data-ng-show="createCharForm.Yrke.$error.required" class="label label-danger">
-                        Obligatoriskt f'lt...
+                        <span data-ng-show="createCharForm.Yrke.$error.required" class="label label-danger">
+                        Obligatoriskt fält...
                     </span>
-                </div>
-                <button class="btn btn-primary pull-right" data-ng-disabled="createCharForm.$invalid">Skapa</button>
-            </form>
+                    </div>
+                    <div class="btn-group pull-right" role="group">
+                        <button class="btn btn-default btn-md" data-ng-click="create=undefined">Återställ formulär</button>
+                        <button class="btn btn-primary btn-md" data-ng-disabled="createCharForm.$invalid">Skapa</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 
-<div class="col-lg-4 col-md-6 col-sm-12" data-ng-show="gameCharacters">
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h3 class="panel-title">Sparade karakt&auml;rer</h3>
-        </div>
-        <div class="panel-body">
-            <div class="list-group" data-ng-repeat="character in gameCharacters">
-                <a class="list-group-item clearfix">
-                    <span class="glyphicon glyphicon-file"></span> {{character.name}}
-                    <span class="pull-right">
+    <div class="col-lg-4 col-md-6 col-sm-12" data-ng-show="gameCharacters">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Ladda sparad karakt&auml;r
+                <span class="glyphicon glyphicon-minus pull-right" data-toggle="collapse" data-target="#loadCharacterBody"></span>
+            </h3>
+            </div>
+            <div class="panel-body collapse in" id="loadCharacterBody">
+                <div class="list-group" data-ng-repeat="character in gameCharacters">
+                    <a class="list-group-item clearfix">
+                        <span class="glyphicon glyphicon-file"></span> {{character.name}}
+                        <span class="pull-right">
                         <button class="btn btn-xs btn-info" data-ng-click="loadCharacter(character)">
                         <span class="glyphicon glyphicon-cloud-download"></span> Ladda
-                    </button>
-                    <button class="btn btn-xs btn-warning">
-                        <span class="glyphicon glyphicon-trash"></span>
-                    </button>
-                    </span>
-                </a>
+                        </button>
+                        <button class="btn btn-xs btn-warning">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+                        </span>
+                    </a>
+                </div>
+                <button class="btn btn-sm btn-info pull-right" data-ng-click="loadCharacter()" data-ng-disabled="activeCharacter === undefined">
+                    <span class="glyphicon glyphicon-plus"></span> Skapa ny
+                </button>
             </div>
-            <button class="btn btn-sm btn-info pull-right">
-                <span class="glyphicon glyphicon-plus" data-ng-click="loadCharacter(undefined)"></span> Skapa ny
-            </button>
+        </div>
+    </div>
+
+    <div class="col-lg-4 col-md-6 col-sm-12" data-ng-show="activeCharacter">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Grundegenskaper</h3>
+            </div>
+            <div class="panel-body">
+
+                <span>
+                    STYRKA (STY) : <i class="fi-die-two"></i>
+                </span>
+                <br/>
+                <span>
+                    FYSIK (FYS) : <i class="fi-die-two"></i>
+                </span>
+                <br/>
+                <span>
+                    STORLEK (STO) : <i class="fi-die-two"></i>
+                </span>
+                <br/>
+                <span>
+                    SMIDIGHET (SMI) : <i class="fi-die-two"></i>
+                </span>
+                <br/>
+                <span>
+                    INTELLIGENS (INT) : <i class="fi-die-two"></i>
+                </span>
+                <br/>
+                <span>
+                    VILJA (VIL) : <i class="fi-die-two"></i>
+                </span>
+                <br/>
+                <span>
+                    PERSONLIGHET (PER) : <i class="fi-die-two"></i>
+                </span>
+                <br/>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4 col-md-6 col-sm-12" data-ng-show="activeCharacter">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Sekundära egenskaper</h3>
+            </div>
+            <div class="panel-body">
+                <p>
+                    <span>SKADEBONUS (SB) :</span>
+                    <br/>
+                    <span>INITIATIVBONUS (IB) :</span>
+                    <br/>
+                    <span>BÄRFÖRMÅGA (BF) :</span>
+                    <br/>
+                    <span>REAKTIONSVÄRDE (R E A) :</span>
+                    <br/>
+                </p>
+                <p>
+                    <span>RYKTE :</span>
+                    <br/>
+                    <span>FF – STRID :</span>
+                    <br/>
+                    <span>KROPPSPOÄNG (K P) :</span>
+                    <br/>
+                    <span>STATUS :</span>
+                    <br/>
+                    <span>FF – SPRINGA :</span>
+                    <br/>
+                    <span>FF – SPRINT:</span>
+                    <br/>
+                    <span>TRAUMATRÖSKEL (T T) :</span>
+                    <br/>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4 col-md-6 col-sm-12" data-ng-show="activeCharacter">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Naturliga färdigheter</h3>
+            </div>
+            <div class="panel-body">
+                asdf
+            </div>
+            <div class="panel-heading">
+                <h3 class="panel-title">Tränade färdigheter</h3>
+            </div>
+            <div class="panel-body">
+                asdf
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4 col-md-6 col-sm-12" data-ng-show="activeCharacter">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">something</h3>
+            </div>
+            <div class="panel-body">
+                something
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4 col-md-6 col-sm-12" data-ng-show="activeCharacter">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">something</h3>
+            </div>
+            <div class="panel-body">
+                something
+            </div>
         </div>
     </div>
 </div>
