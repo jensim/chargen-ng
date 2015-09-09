@@ -5,7 +5,7 @@
                 <h3 class="panel-title">Skapa ny karakt&auml;r</h3>
             </div>
             <div class="panel-body">
-                <form name="createCharForm" data-ng-submit="createCharForm.$valid && createCharacter()">
+                <form name="mutantCreateCharForm" data-ng-submit="mutantCreateCharForm.$valid && createCharacter()">
                     <div class="form-group">
                         <label for="createInputClass">Klass:</label>
                         <select class="form-control" data-ng-model="create.klass" name="Klass" required="true" data-ng-required="true" id="createInputClass" data-ng-options="klass.name for klass in gameClasses">
@@ -13,7 +13,7 @@
                         <span data-ng-show="create.klass.description">
                         <b>Beskrivning:</b> {{create.klass.description}}
                     </span>
-                        <span data-ng-show="createCharForm.Klass.$error.required" class="label label-danger">
+                        <span data-ng-show="mutantCreateCharForm.Klass.$error.required" class="label label-danger">
                         Obligatoriskt fält...
                     </span>
                     </div>
@@ -24,13 +24,13 @@
                         <span data-ng-show="create.job.description">
                         <b>Beskrivning:</b> {{create.job.description}}
                     </span>
-                        <span data-ng-show="createCharForm.Yrke.$error.required" class="label label-danger">
+                        <span data-ng-show="mutantCreateCharForm.Yrke.$error.required" class="label label-danger">
                         Obligatoriskt fält...
                     </span>
                     </div>
                     <div class="btn-group pull-right" role="group">
                         <button class="btn btn-default btn-md" data-ng-click="create=undefined">Återställ formulär</button>
-                        <button class="btn btn-primary btn-md" data-ng-disabled="createCharForm.$invalid">Skapa</button>
+                        <button class="btn btn-primary btn-md" data-ng-disabled="mutantCreateCharForm.$invalid">Skapa</button>
                     </div>
                 </form>
             </div>
@@ -70,36 +70,18 @@
             <div class="panel-heading">
                 <h3 class="panel-title">Grundegenskaper</h3>
             </div>
-            <div class="panel-body">
-
-                <span>
-                    STYRKA (STY) : <i class="fi-die-two"></i>
-                </span>
-                <br/>
-                <span>
-                    FYSIK (FYS) : <i class="fi-die-two"></i>
-                </span>
-                <br/>
-                <span>
-                    STORLEK (STO) : <i class="fi-die-two"></i>
-                </span>
-                <br/>
-                <span>
-                    SMIDIGHET (SMI) : <i class="fi-die-two"></i>
-                </span>
-                <br/>
-                <span>
-                    INTELLIGENS (INT) : <i class="fi-die-two"></i>
-                </span>
-                <br/>
-                <span>
-                    VILJA (VIL) : <i class="fi-die-two"></i>
-                </span>
-                <br/>
-                <span>
-                    PERSONLIGHET (PER) : <i class="fi-die-two"></i>
-                </span>
-                <br/>
+            <div class="panel-body" data-ng-init="mutantPrimAttrFormEdit=false">
+                <div data-ng-repeat="a in activeCharacter.attrPrim">
+                    <div data-ng-hide="mutantPrimAttrFormEdit">
+                        {{a.name}} ({{a.short}}): {{a.value}} / {{a.mod}}
+                    </div>
+                    <div data-ng-show="mutantPrimAttrFormEdit">
+                        {{a.name}} ({{a.short}}):
+                        <input ng-model="a.value" maxlength="2" size="2">
+                        <input ng-model="a.mod" maxlength="2" size="2">
+                    </div>
+                </div>
+                <button class="btn btn-primary btn-sm" data-ng-click="mutantPrimAttrFormEdit = !mutantPrimAttrFormEdit">{{mutantPrimAttrFormEdit ? 'Lås' : 'Ändra'}}</button>
             </div>
         </div>
     </div>
