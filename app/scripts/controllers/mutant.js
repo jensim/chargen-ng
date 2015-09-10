@@ -26,4 +26,7 @@ angular.module('chargenNgApp')
             $scope.activeCharacter = character;
             $scope.create = undefined;
         };
+        $scope.skillSum = function (attr) {
+            return 3;
+        };
     }]);

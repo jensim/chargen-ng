@@ -10,9 +10,11 @@
                         <label for="createInputClass">Klass:</label>
                         <select class="form-control" data-ng-model="create.klass" name="Klass" required="true" data-ng-required="true" id="createInputClass" data-ng-options="klass.name for klass in gameClasses">
                         </select>
-                        <span data-ng-show="create.klass.description">
-                        <b>Beskrivning:</b> {{create.klass.description}}
-                    </span>
+                        <div class="list-group" data-ng-show="create.klass.description">
+                            <a class="list-group-item">
+                                <b>Beskrivning:</b> {{create.klass.description}}
+                            </a>
+                        </div>
                         <span data-ng-show="mutantCreateCharForm.Klass.$error.required" class="label label-danger">
                         Obligatoriskt fält...
                     </span>
@@ -21,9 +23,11 @@
                         <label for="createInputJob">Yrke:</label>
                         <select class="form-control" data-ng-model="create.job" name="Yrke" required="true" data-ng-required="true" id="createInputJob" data-ng-options="job.name for job in gameJobs">
                         </select>
-                        <span data-ng-show="create.job.description">
-                        <b>Beskrivning:</b> {{create.job.description}}
-                    </span>
+                        <div class="list-group" data-ng-show="create.job.description">
+                            <a class="list-group-item">
+                                <b>Beskrivning:</b> {{create.job.description}}
+                            </a>
+                        </div>
                         <span data-ng-show="mutantCreateCharForm.Yrke.$error.required" class="label label-danger">
                         Obligatoriskt fält...
                     </span>
@@ -68,7 +72,9 @@
     <div class="col-lg-4 col-md-6 col-sm-12" data-ng-show="activeCharacter">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">Grundegenskaper</h3>
+                <h3 class="panel-title">Grundegenskaper
+                    <i class="glyphicon glyphicon-cog pull-right" data-ng-click="mutantAttrPrimFormEdit = !mutantAttrPrimFormEdit"></i>
+                </h3>
             </div>
             <div class="panel-body" data-ng-init="mutantAttrPrimFormEdit=false">
                 <div data-ng-repeat="a in activeCharacter.attrPrim">
@@ -81,7 +87,6 @@
                         <input ng-model="a.mod" maxlength="2" size="2">
                     </div>
                 </div>
-                <button class="btn btn-primary btn-sm pull-right" data-ng-click="mutantAttrPrimFormEdit = !mutantAttrPrimFormEdit">{{mutantAttrPrimFormEdit ? 'Lås' : 'Ändra'}}</button>
             </div>
         </div>
     </div>
@@ -89,7 +94,9 @@
     <div class="col-lg-4 col-md-6 col-sm-12" data-ng-show="activeCharacter">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">Sekundära egenskaper</h3>
+                <h3 class="panel-title">Sekundära egenskaper
+                    <i class="glyphicon glyphicon-cog pull-right" data-ng-click="mutantAttrSecFormEdit = !mutantAttrSecFormEdit"></i>
+                </h3>
             </div>
             <div class="panel-body">
                 <div data-ng-repeat="a in activeCharacter.attrSec">
@@ -101,7 +108,6 @@
                         <input ng-model="a.value" maxlength="2" size="2">
                     </div>
                 </div>
-                <button class="btn btn-primary btn-sm pull-right" data-ng-click="mutantAttrSecFormEdit = !mutantAttrSecFormEdit">{{mutantAttrSecFormEdit ? 'Lås' : 'Ändra'}}</button>
             </div>
         </div>
     </div>
@@ -109,26 +115,39 @@
     <div class="col-lg-4 col-md-6 col-sm-12" data-ng-show="activeCharacter">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">Naturliga färdigheter</h3>
+                <h3 class="panel-title">Färdigheter
+                    <i class="glyphicon glyphicon-info-sign pull-right" data-ng-show="mutantSkillFormEdit"></i>
+                    <i class="glyphicon glyphicon-cog pull-right" data-ng-click="mutantSkillFormEdit = !mutantSkillFormEdit"></i>
+                </h3>
             </div>
             <div class="panel-body">
-                <div data-ng-repeat="a in activeCharacter.skills">
-                    {{a.name}} <!--TODO: filter natural-->
+
+                <div data-ng-repeat="a in activeCharacter.skills | orderBy:['-natural','name']">
+                    <div data-ng-hide="mutantSkillFormEdit">
+                        {{a.name}} ({{a.attrPrim.short}}): {{skillSum(a)}}
+                    </div>
+                    <div data-ng-show="mutantSkillFormEdit">
+                        {{a.name}} ({{a.attrPrim.short}}):
+                        <input data-ng-model="a.valueErf" maxlength="2" size="2">
+                        <input data-ng-model="a.valueErfFree" maxlength="2" size="2">
+                        <input data-ng-model="a.valueSp" maxlength="2" size="2">
+                        <input data-ng-model="a.valueSpFree" maxlength="2" size="2">
+                        <input type="checkbox" data-ng-model="a.natural"> {{skillSum(a)}}
+                        <button class="btn btn-xs btn-warning">
+                            <i class="glyphicon glyphicon-trash"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
-            <div class="panel-heading">
-                <h3 class="panel-title">Tränade färdigheter</h3>
-            </div>
-            <div class="panel-body">
-                asdf
-            </div>
         </div>
     </div>
 
     <div class="col-lg-4 col-md-6 col-sm-12" data-ng-show="activeCharacter">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">something</h3>
+                <h3 class="panel-title">something
+                    <i class="glyphicon glyphicon-cog pull-right"></i>
+                </h3>
             </div>
             <div class="panel-body">
                 something
@@ -139,7 +158,9 @@
     <div class="col-lg-4 col-md-6 col-sm-12" data-ng-show="activeCharacter">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">something</h3>
+                <h3 class="panel-title">something
+                    <i class="glyphicon glyphicon-cog pull-right"></i>
+                </h3>
             </div>
             <div class="panel-body">
                 something
