@@ -70,18 +70,18 @@
             <div class="panel-heading">
                 <h3 class="panel-title">Grundegenskaper</h3>
             </div>
-            <div class="panel-body" data-ng-init="mutantPrimAttrFormEdit=false">
+            <div class="panel-body" data-ng-init="mutantAttrPrimFormEdit=false">
                 <div data-ng-repeat="a in activeCharacter.attrPrim">
-                    <div data-ng-hide="mutantPrimAttrFormEdit">
-                        {{a.name}} ({{a.short}}): {{a.value}} / {{a.mod}}
+                    <div data-ng-hide="mutantAttrPrimFormEdit">
+                        {{a.name}} ({{a.short}}): {{a.value}} / {{a.mod}} <i class="fi-die-three"></i>
                     </div>
-                    <div data-ng-show="mutantPrimAttrFormEdit">
+                    <div data-ng-show="mutantAttrPrimFormEdit">
                         {{a.name}} ({{a.short}}):
                         <input ng-model="a.value" maxlength="2" size="2">
                         <input ng-model="a.mod" maxlength="2" size="2">
                     </div>
                 </div>
-                <button class="btn btn-primary btn-sm" data-ng-click="mutantPrimAttrFormEdit = !mutantPrimAttrFormEdit">{{mutantPrimAttrFormEdit ? 'Lås' : 'Ändra'}}</button>
+                <button class="btn btn-primary btn-sm pull-right" data-ng-click="mutantAttrPrimFormEdit = !mutantAttrPrimFormEdit">{{mutantAttrPrimFormEdit ? 'Lås' : 'Ändra'}}</button>
             </div>
         </div>
     </div>
@@ -92,32 +92,16 @@
                 <h3 class="panel-title">Sekundära egenskaper</h3>
             </div>
             <div class="panel-body">
-                <p>
-                    <span>SKADEBONUS (SB) :</span>
-                    <br/>
-                    <span>INITIATIVBONUS (IB) :</span>
-                    <br/>
-                    <span>BÄRFÖRMÅGA (BF) :</span>
-                    <br/>
-                    <span>REAKTIONSVÄRDE (R E A) :</span>
-                    <br/>
-                </p>
-                <p>
-                    <span>RYKTE :</span>
-                    <br/>
-                    <span>FF – STRID :</span>
-                    <br/>
-                    <span>KROPPSPOÄNG (K P) :</span>
-                    <br/>
-                    <span>STATUS :</span>
-                    <br/>
-                    <span>FF – SPRINGA :</span>
-                    <br/>
-                    <span>FF – SPRINT:</span>
-                    <br/>
-                    <span>TRAUMATRÖSKEL (T T) :</span>
-                    <br/>
-                </p>
+                <div data-ng-repeat="a in activeCharacter.attrSec">
+                    <div data-ng-hide="mutantAttrSecFormEdit">
+                        {{a.name}} {{a.value}}
+                    </div>
+                    <div data-ng-show="mutantAttrSecFormEdit">
+                        {{a.name}}
+                        <input ng-model="a.value" maxlength="2" size="2">
+                    </div>
+                </div>
+                <button class="btn btn-primary btn-sm pull-right" data-ng-click="mutantAttrSecFormEdit = !mutantAttrSecFormEdit">{{mutantAttrSecFormEdit ? 'Lås' : 'Ändra'}}</button>
             </div>
         </div>
     </div>
@@ -128,7 +112,9 @@
                 <h3 class="panel-title">Naturliga färdigheter</h3>
             </div>
             <div class="panel-body">
-                asdf
+                <div data-ng-repeat="a in activeCharacter.skills">
+                    {{a.name}} <!--TODO: filter natural-->
+                </div>
             </div>
             <div class="panel-heading">
                 <h3 class="panel-title">Tränade färdigheter</h3>

@@ -22,7 +22,7 @@ angular.module('chargenNgApp')
             console.log('not yet implemented');
         };
         $scope.loadCharacter = function (character) {
-            jsonLog(character);
+            //jsonLog(character);
             $scope.activeCharacter = character;
             $scope.create = undefined;
         };
