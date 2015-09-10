@@ -103,7 +103,7 @@ angular.module('chargenNgApp')
             name: 'one',
             klass: klasses.imm,
             job: jobs.bonde,
-            attrPrim
+            attrPrim: attrPrim
                 }];
 
         // Public API here
