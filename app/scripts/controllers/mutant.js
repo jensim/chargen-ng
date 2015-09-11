@@ -31,22 +31,24 @@ angular.module('chargenNgApp')
             timesGE += skill.valueSp + skill.valueSpFree;
             var fromGE = timesGE * (skill.attrPrim.value + skill.attrPrim.mod);
             var fromTrain = skill.valueErf + skill.valueErfFree;
-            console.log(skill.name + ' skillsum: ' + fromGE + fromTrain);
             return fromGE + fromTrain;
         };
         $scope.getUsedSP = function () {
             var sum = 0;
-            for (skill in $scope.activeCharacter.skills) {
-                sum += $scope.activeCharacter.skills[skill].valueSp;
+            if ($scope.activeCharacter) {
+                for (var skill in $scope.activeCharacter.skills) {
+                    sum += $scope.activeCharacter.skills[skill].valueSp;
+                }
+                //TODO:calculate from powers
             }
-            //TODO:calculate from powers
-            console.error('getUsedSP is not calculating SP from abilities');
             return sum;
         };
         $scope.getUsedErf = function () {
             var sum = 0;
-            for (skill in $scope.activeCharacter.skills) {
-                sum += $scope.getSkillUsedErf($scope.activeCharacter.skills(skill));
+            if ($scope.activeCharacter) {
+                for (var skill in $scope.activeCharacter.skills) {
+                    sum += $scope.getSkillUsedErf($scope.activeCharacter.skills[skill]);
+                }
             }
             return sum;
         };

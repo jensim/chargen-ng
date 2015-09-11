@@ -83,10 +83,11 @@
                     </div>
                     <div data-ng-show="mutantAttrPrimFormEdit">
                         {{a.name}} ({{a.short}}):
-                        <input ng-model="a.value" maxlength="2" size="2" min="0" type="number">>
-                        <input ng-model="a.mod" maxlength="2" size="2" min="0" type="number">>
+                        <input ng-model="a.value" maxlength="2" size="2" min="0" type="number">
+                        <input ng-model="a.mod" maxlength="2" size="2" min="0" type="number">
                     </div>
                 </div>
+                Använd SP: {{getUsedSP()}} Använd Erf: {{getUsedErf()}}
             </div>
         </div>
     </div>
