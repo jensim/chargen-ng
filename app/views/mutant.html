@@ -83,8 +83,8 @@
                     </div>
                     <div data-ng-show="mutantAttrPrimFormEdit">
                         {{a.name}} ({{a.short}}):
-                        <input ng-model="a.value" maxlength="2" size="2">
-                        <input ng-model="a.mod" maxlength="2" size="2">
+                        <input ng-model="a.value" maxlength="2" size="2" min="0" type="number">>
+                        <input ng-model="a.mod" maxlength="2" size="2" min="0" type="number">>
                     </div>
                 </div>
             </div>
@@ -107,7 +107,7 @@
                     </div>
                     <div data-ng-show="mutantAttrSecFormEdit">
                         {{a.name}}
-                        <input ng-model="a.value" maxlength="2" size="2">
+                        <input ng-model="a.value" maxlength="2" size="2" min="0" type="number">
                     </div>
                 </div>
             </div>
@@ -124,18 +124,20 @@
                 </h3>
             </div>
             <div class="panel-body">
-
+                <div data-ng-show="mutantSkillFormEdit">
+                    name, (), sp,sp2,erf,erf2,natural,delete
+                </div>
                 <div data-ng-repeat="a in activeCharacter.skills | orderBy:['-natural','name']">
                     <div data-ng-hide="mutantSkillFormEdit">
                         {{a.name}} ({{a.attrPrim.short}}): {{skillSum(a)}}
                     </div>
                     <div data-ng-show="mutantSkillFormEdit">
                         {{a.name}} ({{a.attrPrim.short}}):
-                        <input data-ng-model="a.valueErf" maxlength="2" size="2">
-                        <input data-ng-model="a.valueErfFree" maxlength="2" size="2">
-                        <input data-ng-model="a.valueSp" maxlength="2" size="2">
-                        <input data-ng-model="a.valueSpFree" maxlength="2" size="2">
-                        <input type="checkbox" data-ng-model="a.natural"> {{skillSum(a)}}
+                        <input type="number" data-ng-model="a.valueSp" maxlength="2" size="2" min="0">
+                        <input type="number" data-ng-model="a.valueSpFree" maxlength="2" size="2" min="0">
+                        <input type="number" data-ng-model="a.valueErf" maxlength="2" size="2" min="0">
+                        <input type="number" data-ng-model="a.valueErfFree" maxlength="2" size="2" min="0">
+                        <input type="checkbox" data-ng-model="a.natural"> {{skillSum(a)}} {{getSkillUsedErf(a)}}
                         <button class="btn btn-xs btn-warning">
                             <i class="glyphicon glyphicon-trash"></i>
                         </button>
