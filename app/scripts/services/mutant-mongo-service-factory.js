@@ -137,7 +137,7 @@ angular.module('chargenNgApp')
                 valueSp: 0,
                 valueSpFree: 0
             },
-            percepton: {
+            perception: {
                 name: 'IAKTAGELSEFÖRMÅGA',
                 description: '',
                 natural: true,
@@ -346,15 +346,256 @@ angular.module('chargenNgApp')
                 valueErfFree: 0,
                 valueSp: 0,
                 valueSpFree: 0
+            },
+            heavyGuns: {
+                name: 'Tunga vapen',
+                description: '',
+                natural: false,
+                attrPrim: attrPrim.SMI,
+                valueErf: 0,
+                valueErfFree: 0,
+                valueSp: 0,
+                valueSpFree: 0
+            },
+            underWorld: {
+                name: 'Undre världen',
+                description: '',
+                natural: false,
+                attrPrim: attrPrim.PER,
+                valueErf: 0,
+                valueErfFree: 0,
+                valueSp: 0,
+                valueSpFree: 0
+            },
+            evade: {
+                name: 'Undvika',
+                description: '',
+                natural: false,
+                attrPrim: attrPrim.SMI,
+                valueErf: 0,
+                valueErfFree: 0,
+                valueSp: 0,
+                valueSpFree: 0
+            },
+            vagon: {
+                name: 'Vagn',
+                description: '',
+                natural: false,
+                attrPrim: attrPrim.SMI,
+                valueErf: 0,
+                valueErfFree: 0,
+                valueSp: 0,
+                valueSpFree: 0
+            },
+            wildlifeHabit: {
+                name: 'Vildmarksvana',
+                description: '',
+                natural: false,
+                attrPrim: attrPrim.INT,
+                valueErf: 0,
+                valueErfFree: 0,
+                valueSp: 0,
+                valueSpFree: 0
+            },
+            zoneKnowledge: {
+                name: 'Zonkunskap',
+                description: '',
+                natural: false,
+                attrPrim: attrPrim.INT,
+                valueErf: 0,
+                valueErfFree: 0,
+                valueSp: 0,
+                valueSpFree: 0
             }
         };
         var jobs = {
+            administrator:{
+                name: 'Administratör',
+                description: '',
+                startcapital: 80,
+                trainedSkills: [
+                    angular.copy(skills.education),
+                    angular.copy(skills.ride),
+                    angular.copy(skills.technology),
+                    angular.copy(skills.evade),
+                    angular.copy(skills.vagon)
+                ]
+            },
+            worker:{
+                name: 'Arbetare',
+                description: '',
+                startcapital: 50,
+                trainedSkills: [
+                    angular.copy(skills.sleightofhand),
+                    angular.copy(skills.ride),
+                    angular.copy(skills.gambling),
+                    angular.copy(skills.evade)
+                ]
+            },
             bonde: {
                 name: 'Bonde',
-                description: 'jobba m jord o lort',
-                startcapital: 0,
-                trainedSkills: [skills.repair]
-            }
+                description: '',
+                startcapital: 50,
+                trainedSkills: [
+                    angular.copy(skills.repair),
+                    angular.copy(skills.gambling),
+                    angular.copy(skills.evade),
+                    angular.copy(skills.vagon),
+                    angular.copy(skills.wildlifeHabit)
+                ]
+            },
+            aristocrat: {
+                name: 'Aristokrat',
+                description: '',
+                startcapital: 500,
+                trainedSkills: [
+                    angular.copy(skills.education),
+                    angular.copy(skills.ride),
+                    angular.copy(skills.gambling),
+                    angular.copy(skills.technology),
+                    angular.copy(skills.evade)
+                ]
+            },
+            trader: {
+                name: 'Handelsman',
+                description: '',
+                startcapital: 100,
+                trainedSkills: [
+                    angular.copy(skills.education),
+                    angular.copy(skills.technology),
+                    angular.copy(skills.vagon),
+                    angular.copy(skills.underWorld),
+                    angular.copy(skills.evade)
+                ]
+            },
+            craftsman: {
+                name: 'Hantverkare',
+                description: '',
+                startcapital: 80,
+                trainedSkills: [
+                    angular.copy(skills.education),
+                    angular.copy(skills.repair),
+                    angular.copy(skills.gambling),
+                    angular.copy(skills.technology),
+                    angular.copy(skills.evade)
+                ]
+            },
+            hunter: {
+                name: 'Jägare',
+                description: '',
+                startcapital: 50,
+                trainedSkills: [
+                    angular.copy(skills.boat),
+                    angular.copy(skills.traps),
+                    angular.copy(skills.wildlifeHabit),
+                    angular.copy(skills.zoneKnowledge),
+                    angular.copy(skills.evade)
+                ]
+            },
+            knower: {
+                name: 'Kunskapare',
+                description: '',
+                startcapital: 80,
+                trainedSkills: [
+                    angular.copy(skills.education),
+                    angular.copy(skills.technology),
+                    angular.copy(skills.science),
+                    angular.copy(skills.repair),
+                    angular.copy(skills.evade),
+                    angular.copy(skills.zoneKnowledge),
+                    angular.copy(skills.wildlifeHabit)
+                    
+                ]
+            },
+            doctor: {
+                name: 'Läkare',
+                description: '',
+                startcapital: 80,
+                trainedSkills: [
+                    angular.copy(skills.education),
+                    angular.copy(skills.medicin),
+                    angular.copy(skills.technology),
+                    angular.copy(skills.evade),
+                    angular.copy(skills.vagon)
+                    
+                ]
+            },
+            police: {
+                name: 'Polis',
+                description: '',
+                startcapital: 60,
+                trainedSkills: [
+                    angular.copy(skills.education),
+                    angular.copy(skills.ride),
+                    angular.copy(skills.gambling),
+                    angular.copy(skills.underWorld),
+                    angular.copy(skills.evade)
+                    
+                ]
+            },
+            postmann: {
+                name: 'Postiljon',
+                description: '',
+                startcapital: 60,
+                trainedSkills: [
+                    angular.copy(skills.education),
+                    angular.copy(skills.ride),
+                    angular.copy(skills.technology),
+                    angular.copy(skills.evade),
+                    angular.copy(skills.wildlifeHabit)
+                    
+                ]
+            },
+            sailer: {
+                name: 'Sjöman',
+                description: '',
+                startcapital: 50,
+                trainedSkills: [
+                    angular.copy(skills.education),
+                    angular.copy(skills.boat),
+                    angular.copy(skills.repair),
+                    angular.copy(skills.gambling),
+                    angular.copy(skills.evade)
+                    
+                ]
+            },
+            soldier: {
+                name: 'Soldat',
+                description: '',
+                startcapital: 60,
+                trainedSkills: [
+                    angular.copy(skills.repair),
+                    angular.copy(skills.gambling),
+                    angular.copy(skills.explosives),
+                    angular.copy(skills.martialarts),
+                    angular.copy(skills.evade),
+                    angular.copy(skills.heavyGuns)
+                ]
+            },
+            thief: {
+                name: 'Tjuv',
+                description: '',
+                startcapital: 50,
+                trainedSkills: [
+                    angular.copy(skills.sleightofhand),
+                    angular.copy(skills.traps),
+                    angular.copy(skills.lockpick),
+                    angular.copy(skills.underWorld),
+                    angular.copy(skills.evade)
+                ]
+            },
+            explorer: {
+                name: 'Upptäcksresande',
+                description: '',
+                startcapital: 50,
+                trainedSkills: [
+                    angular.copy(skills.ride),
+                    angular.copy(skills.technology),
+                    angular.copy(skills.evade),
+                    angular.copy(skills.wildlifeHabit),
+                    angular.copy(skills.zoneKnowledge)
+                ]
+            },
         };
         var attrSec = {
             sb: {
@@ -453,16 +694,13 @@ angular.module('chargenNgApp')
                     }
                     var existsIndex = -1;
                     for (var i = 0; i < $localStorage.characters.length; i += 1) {
-                        //logJson($localStorage.characters[i]);
                         if ($localStorage.characters[i].name === character.name) {
                             existsIndex = i;
                         }
                     }
                     if (existsIndex >= 0) {
-                        console.log('Update...(index:)' + existsIndex);
                         $localStorage.characters[existsIndex] = character;
                     } else {
-                        console.log('New...(index:)' + i);
                         $localStorage.characters.push(character);
                     }
                 }
@@ -470,7 +708,6 @@ angular.module('chargenNgApp')
             deleteCharacter: function (character) {
                 for (var i = 0; i < $localStorage.characters.length; i += 1) {
                     if ($localStorage.characters[i].name === character.name) {
-                        console.log('Delete character: ' + i);
                         $localStorage.characters.splice(i, 1);
                         return;
                     }
