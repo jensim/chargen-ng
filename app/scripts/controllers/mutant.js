@@ -12,19 +12,28 @@ var jsonLog = function (j) {
 };
 
 angular.module('chargenNgApp')
-    .controller('MutantCtrl', ['$scope', 'mutantMongoServiceFactory', function ($scope, mutantMongoServiceFactory) {
+    .controller('MutantCtrl', ['$scope', 'mutantMongoServiceFactory', '$localStorage', function ($scope, mutantMongoServiceFactory, $localStorage) {
 
-        $scope.gameCharacters = mutantMongoServiceFactory.getCharacters();
+        $scope.$storage = $localStorage;
         $scope.gameClasses = mutantMongoServiceFactory.getClasses();
         $scope.gameJobs = mutantMongoServiceFactory.getJobs();
+        $scope.activeCharacter = $localStorage.activeCharacter;
+        //$localStorage.characters = [];
 
         $scope.createCharacter = function () {
-            console.log('not yet implemented');
+            if ($scope.create.klass && $scope.create.job) {
+                $localStorage.activeCharacter = mutantMongoServiceFactory.newCharacter($scope.create.klass, $scope.create.job);
+            }
+        };
+        $scope.saveCharacter = function () {
+            mutantMongoServiceFactory.saveCharacter($localStorage.activeCharacter);
         };
         $scope.loadCharacter = function (character) {
-            //jsonLog(character);
-            $scope.activeCharacter = character;
+            $localStorage.activeCharacter = character;
             $scope.create = undefined;
+        };
+        $scope.deleteCharacter = function (character) {
+            mutantMongoServiceFactory.deleteCharacter(character);
         };
         $scope.skillSum = function (skill) {
             var timesGE = skill.natural ? 1 : 0;
@@ -33,11 +42,23 @@ angular.module('chargenNgApp')
             var fromTrain = skill.valueErf + skill.valueErfFree;
             return fromGE + fromTrain;
         };
+        $scope.getUsedGE = function () {
+            var sum = 0;
+            if ($localStorage.activeCharacter) {
+                var attr;
+                for (attr in $localStorage.activeCharacter.attrPrim) {
+                    sum += $localStorage.activeCharacter.attrPrim[attr].value
+                }
+            }
+            return sum;
+
+        };
         $scope.getUsedSP = function () {
             var sum = 0;
-            if ($scope.activeCharacter) {
-                for (var skill in $scope.activeCharacter.skills) {
-                    sum += $scope.activeCharacter.skills[skill].valueSp;
+            if ($localStorage.activeCharacter) {
+                var skill;
+                for (skill in $localStorage.activeCharacter.skills) {
+                    sum += $localStorage.activeCharacter.skills[skill].valueSp;
                 }
                 //TODO:calculate from powers
             }
@@ -45,9 +66,10 @@ angular.module('chargenNgApp')
         };
         $scope.getUsedErf = function () {
             var sum = 0;
-            if ($scope.activeCharacter) {
-                for (var skill in $scope.activeCharacter.skills) {
-                    sum += $scope.getSkillUsedErf($scope.activeCharacter.skills[skill]);
+            if ($localStorage.activeCharacter) {
+                var skill;
+                for (skill in $scope.activeCharacter.skills) {
+                    sum += $scope.getSkillUsedErf($localStorage.activeCharacter.skills[skill]);
                 }
             }
             return sum;

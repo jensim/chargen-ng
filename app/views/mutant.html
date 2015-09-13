@@ -1,5 +1,5 @@
 <div class="row mutant">
-    <div class="col-lg-4 col-md-6 col-sm-12" data-ng-hide="activeCharacter">
+    <div class="col-lg-4 col-md-6 col-sm-12" data-ng-hide="$storage.activeCharacter">
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <h3 class="panel-title">Skapa ny karakt&auml;r</h3>
@@ -41,35 +41,29 @@
         </div>
     </div>
 
-    <div class="col-lg-4 col-md-6 col-sm-12" data-ng-show="gameCharacters">
+    <div class="col-lg-4 col-md-6 col-sm-12" data-ng-show="$storage.activeCharacter">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">Ladda sparad karakt&auml;r
-                <span class="glyphicon glyphicon-minus pull-right" data-toggle="collapse" data-target="#loadCharacterBody"></span>
-            </h3>
+                <h3 class="panel-title">Karaktär: {{$storage.activeCharacter.name}}</h3>
             </div>
-            <div class="panel-body collapse in" id="loadCharacterBody">
-                <div class="list-group" data-ng-repeat="character in gameCharacters">
-                    <a class="list-group-item clearfix">
-                        <span class="glyphicon glyphicon-file"></span> {{character.name}}
-                        <span class="pull-right">
-                        <button class="btn btn-xs btn-info" data-ng-click="loadCharacter(character)">
-                        <span class="glyphicon glyphicon-cloud-download"></span> Ladda
-                        </button>
-                        <button class="btn btn-xs btn-warning">
-                            <span class="glyphicon glyphicon-trash"></span>
-                        </button>
-                        </span>
-                    </a>
-                </div>
-                <button class="btn btn-sm btn-info pull-right" data-ng-click="loadCharacter()" data-ng-disabled="activeCharacter === undefined">
-                    <span class="glyphicon glyphicon-plus"></span> Skapa ny
-                </button>
+            <div class="panel-body">
+                Namn:
+                <input ng-model="$storage.activeCharacter.name" type="text">
+                <button class="btn btn-primary btn-md pull-right" data-ng-click="saveCharacter()">Spara..</button>
+            </div>
+            <div class="panel-heading">
+                <h3 class="panel-title">Stats</h3>
+            </div>
+            <div class="panel-body">
+                <p>Använd GE: {{getUsedGE()}} / {{$storage.activeCharacter.klass.ge}}</p>
+                <p>Använd SP: {{getUsedSP()}}</p>
+                <p>Använd Erf: {{getUsedErf()}}
+                </p>
             </div>
         </div>
     </div>
 
-    <div class="col-lg-4 col-md-6 col-sm-12" data-ng-show="activeCharacter">
+    <div class="col-lg-4 col-md-6 col-sm-12" data-ng-show="$storage.activeCharacter">
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <h3 class="panel-title">Grundegenskaper
@@ -77,9 +71,9 @@
                 </h3>
             </div>
             <div class="panel-body" data-ng-init="mutantAttrPrimFormEdit=false">
-                <div data-ng-repeat="a in activeCharacter.attrPrim">
+                <div data-ng-repeat="a in $storage.activeCharacter.attrPrim">
                     <div data-ng-hide="mutantAttrPrimFormEdit">
-                        {{a.name}} ({{a.short}}): {{a.value}} / {{a.mod}} <i class="fi-die-three"></i>
+                        {{a.name}} ({{a.short}}): {{a.value}} / {{a.mod}} <i class="fi-die-three text-danger"></i>
                     </div>
                     <div data-ng-show="mutantAttrPrimFormEdit">
                         {{a.name}} ({{a.short}}):
@@ -87,12 +81,12 @@
                         <input ng-model="a.mod" maxlength="2" size="2" min="0" type="number">
                     </div>
                 </div>
-                Använd SP: {{getUsedSP()}} Använd Erf: {{getUsedErf()}}
+
             </div>
         </div>
     </div>
 
-    <div class="col-lg-4 col-md-6 col-sm-12" data-ng-show="activeCharacter">
+    <div class="col-lg-4 col-md-6 col-sm-12" data-ng-show="$storage.activeCharacter">
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <h3 class="panel-title">Sekundära egenskaper
@@ -102,7 +96,7 @@
                 </h3>
             </div>
             <div class="panel-body">
-                <div data-ng-repeat="a in activeCharacter.attrSec">
+                <div data-ng-repeat="a in $storage.activeCharacter.attrSec">
                     <div data-ng-hide="mutantAttrSecFormEdit">
                         {{a.name}} {{a.value}}
                     </div>
@@ -115,7 +109,7 @@
         </div>
     </div>
 
-    <div class="col-lg-4 col-md-6 col-sm-12" data-ng-show="activeCharacter">
+    <div class="col-lg-4 col-md-6 col-sm-12" data-ng-show="$storage.activeCharacter">
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <h3 class="panel-title">Färdigheter
@@ -128,7 +122,7 @@
                 <div data-ng-show="mutantSkillFormEdit">
                     name, (), sp,sp2,erf,erf2,natural,delete
                 </div>
-                <div data-ng-repeat="a in activeCharacter.skills | orderBy:['-natural','name']">
+                <div data-ng-repeat="a in $storage.activeCharacter.skills | orderBy:['-natural','name']">
                     <div data-ng-hide="mutantSkillFormEdit">
                         {{a.name}} ({{a.attrPrim.short}}): {{skillSum(a)}}
                     </div>
@@ -148,7 +142,7 @@
         </div>
     </div>
 
-    <div class="col-lg-4 col-md-6 col-sm-12" data-ng-show="activeCharacter">
+    <div class="col-lg-4 col-md-6 col-sm-12" data-ng-show="$storage.activeCharacter">
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <h3 class="panel-title">Vapen
@@ -161,7 +155,7 @@
         </div>
     </div>
 
-    <div class="col-lg-4 col-md-6 col-sm-12" data-ng-show="activeCharacter">
+    <div class="col-lg-4 col-md-6 col-sm-12" data-ng-show="$storage.activeCharacter">
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <h3 class="panel-title">Rustning
@@ -174,7 +168,7 @@
         </div>
     </div>
 
-    <div class="col-lg-4 col-md-6 col-sm-12" data-ng-show="activeCharacter">
+    <div class="col-lg-4 col-md-6 col-sm-12" data-ng-show="$storage.activeCharacter">
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <h3 class="panel-title">Ägodelar
@@ -187,7 +181,7 @@
         </div>
     </div>
 
-    <div class="col-lg-4 col-md-6 col-sm-12" data-ng-show="activeCharacter">
+    <div class="col-lg-4 col-md-6 col-sm-12" data-ng-show="$storage.activeCharacter">
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <h3 class="panel-title">Strid - snabbverktyg
@@ -199,5 +193,34 @@
             </div>
         </div>
     </div>
+
+    <div class="col-lg-4 col-md-6 col-sm-12" data-ng-show="$storage.characters">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Ladda sparad karakt&auml;r
+                <span class="glyphicon glyphicon-minus pull-right" data-toggle="collapse" data-target="#loadCharacterBody"></span>
+            </h3>
+            </div>
+            <div class="panel-body collapse in" id="loadCharacterBody">
+                <div class="list-group" data-ng-repeat="character in $storage.characters">
+                    <a class="list-group-item clearfix">
+                        <span class="glyphicon glyphicon-file"></span> {{character.name}}
+                        <span class="pull-right">
+                        <button class="btn btn-xs btn-info" data-ng-click="loadCharacter(character)">
+                        <span class="glyphicon glyphicon-cloud-download"></span> Ladda
+                        </button>
+                        <button class="btn btn-xs btn-warning" data-ng-click="deleteCharacter(character)">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+                        </span>
+                    </a>
+                </div>
+                <button class="btn btn-sm btn-info pull-right" data-ng-click="loadCharacter()" data-ng-disabled="$storage.activeCharacter === undefined">
+                    <span class="glyphicon glyphicon-plus"></span> Skapa ny
+                </button>
+            </div>
+        </div>
+    </div>
+
 </div>
-{{activeCharacter | json}}
+{{$storage.activeCharacter | json}}

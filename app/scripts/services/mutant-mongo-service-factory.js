@@ -7,35 +7,39 @@
  * # mutantMongoServiceFactory
  * Factory in the chargenNgApp.
  */
+var logJson = function (text) {
+    console.log(JSON.stringify(text, null, '\t'));
+};
+
 angular.module('chargenNgApp')
-    .factory('mutantMongoServiceFactory', ['$http', function ($http) {
+    .factory('mutantMongoServiceFactory', ['$http', '$localStorage', function ($http, $localStorage) {
         // Service logic
         // ...
         var klasses = {
             imm: {
                 name: 'Icke muterad människa',
-                sp: 91,
+                ge: 91,
                 minPrimAttr: 5,
                 maxPrimAttr: 20,
                 description: 'IMM lägger till två på allagrundegenskaper (GE), vilket innebär att de slår 3T6+2 på alla grundegenskaper. I detpoängbaserade systemet får IMM 91 poäng att sätta utpå sina grundegenskaper. IMM har också som enda klass tillgång till talanger. IMM får välja två valfria naturliga färdigheter som de kan köpa till 4xGE istället för 3xGE. En IMM kan alltså vara betydligt skickligare än RP från övriga klasser på två naturliga färdigheter.'
             },
             mm: {
                 name: 'Muterad människa eller djur',
-                sp: 77,
+                ge: 77,
                 minPrimAttr: 3,
                 maxPrimAttr: 18,
                 description: 'Mutationer'
             },
             psi: {
                 name: 'Psi-mutant',
-                sp: 77,
+                ge: 77,
                 minPrimAttr: 3,
                 maxPrimAttr: 18,
                 description: 'Farliga'
             },
             rbt: {
                 name: 'Robot',
-                sp: 77,
+                ge: 77,
                 minPrimAttr: 3,
                 maxPrimAttr: 18,
                 description: 'Tjänaren och underverket'
@@ -344,7 +348,6 @@ angular.module('chargenNgApp')
                 valueSpFree: 0
             }
         };
-
         var jobs = {
             bonde: {
                 name: 'Bonde',
@@ -353,7 +356,6 @@ angular.module('chargenNgApp')
                 trainedSkills: [skills.repair]
             }
         };
-
         var attrSec = {
             sb: {
                 name: 'SKADEBONUS (SB)',
@@ -411,29 +413,75 @@ angular.module('chargenNgApp')
                 value: 0
             }
         };
-        var templateChars = [{
-            name: 'one',
-            klass: klasses.imm,
-            job: jobs.bonde,
-            attrPrim: attrPrim,
-            attrSec: attrSec,
-            skills: jobs.bonde.trainedSkills
-                }];
+
         //angular.copy(jobs.bonde.trainedSkills, templateChars[0].skills);
-        var i = 0;
-        var skillKeys = Object.keys(skills);
-        for (; i < skillKeys.length; i += 1) {
-            if (skills[skillKeys[i]].natural) {
-                templateChars[0].skills.push(skills[skillKeys[i]]);
-            }else{
-                //console.error('skill not natural'+ JSON.stringify(skills[i]));
-            }
-        }
 
         // Public API here
         return {
-            getCharacters: function () {
-                return templateChars;
+            newCharacter: function (iklass, ijob) {
+                var newChar = {
+                    name: 'ny',
+                    klass: angular.copy(iklass),
+                    job: angular.copy(ijob),
+                    attrPrim: angular.copy(attrPrim),
+                    attrSec: angular.copy(attrSec),
+                    skills: angular.copy(ijob.trainedSkills)
+                };
+                delete(newChar.klass.description);
+                var attr;
+                for (attr in newChar.attrPrim) {
+                    delete newChar.attrPrim[attr].description;
+                }
+                for (attr in newChar.attrSec) {
+                    delete newChar.attrSec[attr].description;
+                }
+                var skill;
+                for (skill in skills) {
+                    if (skills[skill].natural) {
+                        var newSkill = angular.copy(skills[skill]);
+                        delete newSkill.description;
+                        newChar.skills.push(newSkill);
+                    }
+                }
+                return newChar;
+            },
+            saveCharacter: function (character) {
+                if (character) {
+                    if ($localStorage.characters === undefined) {
+                        $localStorage.characters = [character];
+                        return;
+                    }
+                    var existsIndex = -1;
+                    for (var i = 0; i < $localStorage.characters.length; i += 1) {
+                        //logJson($localStorage.characters[i]);
+                        if ($localStorage.characters[i].name === character.name) {
+                            existsIndex = i;
+                        }
+                    }
+                    if (existsIndex >= 0) {
+                        console.log('Update...(index:)' + existsIndex);
+                        $localStorage.characters[existsIndex] = character;
+                    } else {
+                        console.log('New...(index:)' + i);
+                        $localStorage.characters.push(character);
+                    }
+                }
+            },
+            deleteCharacter: function (character) {
+                for (var i = 0; i < $localStorage.characters.length; i += 1) {
+                    if ($localStorage.characters[i].name === character.name) {
+                        console.log('Delete character: ' + i);
+                        $localStorage.characters.splice(i, 1);
+                        return;
+                    }
+                }
+            },
+            loadCharacters: function () {
+                if ($localStorage.characters) {
+                    return $localStorage.characters;
+                } else {
+                    return {};
+                }
             },
             getClasses: function () {
                 return klasses;
