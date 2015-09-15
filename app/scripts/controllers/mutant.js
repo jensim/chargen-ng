@@ -46,12 +46,13 @@ angular.module('chargenNgApp')
             $scope.weaponEdit = weapon;
         };
         $scope.saveWeapon = function () {
-            if (!$localStorage.activeCharacter.weapons) {
+            if (!$localStorage.activeCharacter.weapons && $scope.create.weapon) {
                 $localStorage.activeCharacter.weapons = [$scope.create.weapon];
                 //jsonLog($localStorage.activeCharacter.weapons);
                 console.log('Push 1');
-            } else if (!$scope.weaponEdit) {
+            } else if (!$scope.weaponEdit && $scope.create && $scope.create.weapon) {
                 $localStorage.activeCharacter.weapons.push($scope.create.weapon);
+                $scope.weaponEdit = $scope.create.weapon;
                 console.log('Push 2');
             }
         };
@@ -60,7 +61,8 @@ angular.module('chargenNgApp')
                 return;
             }
             //            delete $localStorage.activeCharacter.weapons[$scope.weaponEdit];
-            for (var i = 0; i < $localStorage.activeCharacter.weapons.length; ++i) {
+            var i;
+            for (i = 0; i < $localStorage.activeCharacter.weapons.length; ++i) {
                 var weapon = $localStorage.activeCharacter.weapons[i];
                 if ($scope.weaponEdit === weapon) {
                     $localStorage.activeCharacter.weapons.splice(i, 1);
@@ -70,6 +72,33 @@ angular.module('chargenNgApp')
             $scope.create = {
                 weapon: undefined
             };
+        };
+        $scope.random = function (max, min) {
+            if (max !== undefined && min !== undefined) {
+                return Math.floor((Math.random() * max) + min);
+            } else {
+                return -1;
+            }
+        };
+        $scope.randomDice = function (dice) {
+            if (dice === undefined) {
+                return '';
+            } else {
+                jsonLog(dice);
+                var sum = 0;
+
+                var i;
+                for (i = 0; i < dice.num; ++i) {
+                    var diceRoll = $scope.random(dice.die, 1);
+                    console.log('diceRoll:' + diceRoll);
+                    sum += diceRoll;
+                }
+                if (dice.static) {
+                    sum += dice.static;
+                }
+
+                return sum;
+            }
         };
         $scope.skillSum = function (skill) {
             var timesGE = skill.natural ? 1 : 0;

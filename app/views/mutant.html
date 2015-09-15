@@ -73,17 +73,18 @@
                 </h3>
             </div>
             <div class="panel-body" data-ng-init="mutantAttrPrimFormEdit=false">
-                <div data-ng-repeat="a in $storage.activeCharacter.attrPrim">
-                    <div data-ng-hide="mutantAttrPrimFormEdit">
-                        {{a.name}} ({{a.short}}): {{a.value}} / {{a.mod}} <i class="fi-die-three text-danger"></i>
-                    </div>
-                    <div data-ng-show="mutantAttrPrimFormEdit">
-                        {{a.name}} ({{a.short}}):
-                        <input ng-model="a.value" maxlength="2" size="2" min="0" type="number">
-                        <input ng-model="a.mod" maxlength="2" size="2" min="0" type="number">
-                    </div>
-                </div>
-
+                <ul class="list-group">
+                    <li class="list-group-item" data-ng-repeat="a in $storage.activeCharacter.attrPrim">
+                        <div data-ng-hide="mutantAttrPrimFormEdit">
+                            {{a.name}} ({{a.short}}): {{a.value}} / {{a.mod}} <i class="fi-die-three text-danger pull-right" data-ng-click="a.lastRoll = random(99, 0)"></i><span class="pull-right">{{a.lastRoll}} </span>
+                        </div>
+                        <div data-ng-show="mutantAttrPrimFormEdit">
+                            {{a.name}} ({{a.short}}):
+                            <input ng-model="a.value" maxlength="2" size="2" min="0" type="number">
+                            <input ng-model="a.mod" maxlength="2" size="2" min="0" type="number">
+                        </div>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
@@ -98,15 +99,17 @@
                 </h3>
             </div>
             <div class="panel-body">
-                <div data-ng-repeat="a in $storage.activeCharacter.attrSec">
-                    <div data-ng-hide="mutantAttrSecFormEdit">
-                        {{a.name}} {{a.value}}
-                    </div>
-                    <div data-ng-show="mutantAttrSecFormEdit">
-                        {{a.name}}
-                        <input ng-model="a.value" maxlength="2" size="2" min="0" type="number">
-                    </div>
-                </div>
+                <ul class="list-group">
+                    <li class="list-group-item" data-ng-repeat="a in $storage.activeCharacter.attrSec">
+                        <div data-ng-hide="mutantAttrSecFormEdit">
+                            {{a.name}} {{a.value}}
+                        </div>
+                        <div data-ng-show="mutantAttrSecFormEdit">
+                            {{a.name}}
+                            <input ng-model="a.value" maxlength="2" size="2" min="0" type="number">
+                        </div>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
@@ -124,10 +127,10 @@
                 <div data-ng-show="mutantSkillFormEdit">
                     name, (), sp,sp2,erf,erf2,natural,delete
                 </div>
-                <ul class="">
-                    <li class="list-item" data-ng-repeat="a in $storage.activeCharacter.skills | orderBy:['-natural','name']">
+                <ul class="list-group">
+                    <li class="list-group-item" data-ng-repeat="a in $storage.activeCharacter.skills | orderBy:['-natural','name']">
                         <div data-ng-hide="mutantSkillFormEdit">
-                            {{a.name}} ({{a.attrPrim.short}}): {{skillSum(a)}}
+                            {{a.name}} ({{a.attrPrim.short}}): {{skillSum(a)}} <i class="fi-die-three text-danger pull-right" data-ng-click="a.lastRoll = random(99, 0)"></i><span class="pull-right">{{a.lastRoll}} </span>
                         </div>
                         <div data-ng-show="mutantSkillFormEdit">
                             {{a.name}} ({{a.attrPrim.short}}):
@@ -149,16 +152,14 @@
     <div class="col-lg-4 col-md-6 col-sm-12" data-ng-show="$storage.activeCharacter">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">Vapen
-                    <i class="glyphicon glyphicon-cog pull-right"></i>
-                </h3>
+                <h3 class="panel-title">Vapen</h3>
             </div>
             <div class="panel-body">
                 <ul class="list-group">
                     <li class="list-group-item" data-ng-repeat="w in $storage.activeCharacter.weapons | orderBy:[name]" data-ng-click="editWeapon(w)">{{w.name}}</li>
                 </ul>
                 <p>
-                    <button class="btn btn-primary pull-right" data-ng-click="saveWeapon()" data-ng-hide="weaponEdit">
+                    <button class="btn btn-primary pull-right" data-ng-click="saveWeapon()" data-ng-hide="weaponEdit" data-ng-show="create.weapon">
                         Spara
                     </button>
                     <button class="btn btn-primary pull-right" data-ng-click="deleteWeapon()" data-ng-show="weaponEdit">
@@ -182,8 +183,12 @@
                 </div>
                 <div class="input-group">
                     <label>SKADA: </label>
-                    <input name="weaponDamage" data-ng-model="create.weapon.damage" type="text">
+                    <input name="weaponDiceNum" data-ng-model="create.weapon.dice.num" type="number"> T
+                    <input name="weaponDiceDie" data-ng-model="create.weapon.dice.die" type="number"> +
+                    <input name="weaponDiceStatic" data-ng-model="create.weapon.dice.static" type="number">
                 </div>
+                {{create.weapon.lastRoll}}
+                <i class="fi-die-three text-danger" data-ng-click="create.weapon.lastRoll = randomDice(create.weapon.dice)"></i>
                 <div class="input-group">
                     <label>PEN: </label>
                     <input name="weaponPen" data-ng-model="create.weapon.penetration" type="number">
@@ -220,12 +225,25 @@
     <div class="col-lg-4 col-md-6 col-sm-12" data-ng-show="$storage.activeCharacter">
         <div class="panel panel-primary">
             <div class="panel-heading">
+                <h3 class="panel-title">Förmågor
+                    <i class="glyphicon glyphicon-cog pull-right"></i>
+                </h3>
+            </div>
+            <div class="panel-body">
+                Förmåga, Beskrivning
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4 col-md-6 col-sm-12" data-ng-show="$storage.activeCharacter">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
                 <h3 class="panel-title">Rustning
                     <i class="glyphicon glyphicon-cog pull-right"></i>
                 </h3>
             </div>
             <div class="panel-body">
-                something
+                Rustning, ABS, BEG, Vikt
             </div>
         </div>
     </div>
@@ -238,7 +256,7 @@
                 </h3>
             </div>
             <div class="panel-body">
-                something
+                Utrustning, vikt
             </div>
         </div>
     </div>
@@ -247,6 +265,19 @@
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <h3 class="panel-title">Strid - snabbverktyg
+                    <i class="glyphicon glyphicon-cog pull-right"></i>
+                </h3>
+            </div>
+            <div class="panel-body">
+                something
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4 col-md-6 col-sm-12" data-ng-show="$storage.activeCharacter">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Övrigt
                     <i class="glyphicon glyphicon-cog pull-right"></i>
                 </h3>
             </div>
