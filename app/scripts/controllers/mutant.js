@@ -35,6 +35,42 @@ angular.module('chargenNgApp')
         $scope.deleteCharacter = function (character) {
             mutantMongoServiceFactory.deleteCharacter(character);
         };
+        $scope.editWeapon = function (weapon) {
+            if (!$scope.create) {
+                $scope.create = {
+                    weapon: weapon
+                };
+            } else {
+                $scope.create.weapon = weapon;
+            }
+            $scope.weaponEdit = weapon;
+        };
+        $scope.saveWeapon = function () {
+            if (!$localStorage.activeCharacter.weapons) {
+                $localStorage.activeCharacter.weapons = [$scope.create.weapon];
+                //jsonLog($localStorage.activeCharacter.weapons);
+                console.log('Push 1');
+            } else if (!$scope.weaponEdit) {
+                $localStorage.activeCharacter.weapons.push($scope.create.weapon);
+                console.log('Push 2');
+            }
+        };
+        $scope.deleteWeapon = function () {
+            if (!$scope.weaponEdit || !$localStorage.activeCharacter.weapons) {
+                return;
+            }
+            //            delete $localStorage.activeCharacter.weapons[$scope.weaponEdit];
+            for (var i = 0; i < $localStorage.activeCharacter.weapons.length; ++i) {
+                var weapon = $localStorage.activeCharacter.weapons[i];
+                if ($scope.weaponEdit === weapon) {
+                    $localStorage.activeCharacter.weapons.splice(i, 1);
+                }
+            }
+            $scope.weaponEdit = undefined;
+            $scope.create = {
+                weapon: undefined
+            };
+        };
         $scope.skillSum = function (skill) {
             var timesGE = skill.natural ? 1 : 0;
             timesGE += skill.valueSp + skill.valueSpFree;
@@ -68,7 +104,7 @@ angular.module('chargenNgApp')
             var sum = 0;
             if ($localStorage.activeCharacter) {
                 var skill;
-                for (skill in $scope.activeCharacter.skills) {
+                for (skill in $localStorage.activeCharacter.skills) {
                     sum += $scope.getSkillUsedErf($localStorage.activeCharacter.skills[skill]);
                 }
             }

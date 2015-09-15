@@ -409,7 +409,7 @@ angular.module('chargenNgApp')
             }
         };
         var jobs = {
-            administrator:{
+            administrator: {
                 name: 'Administratör',
                 description: '',
                 startcapital: 80,
@@ -421,7 +421,7 @@ angular.module('chargenNgApp')
                     angular.copy(skills.vagon)
                 ]
             },
-            worker:{
+            worker: {
                 name: 'Arbetare',
                 description: '',
                 startcapital: 50,
@@ -504,7 +504,7 @@ angular.module('chargenNgApp')
                     angular.copy(skills.evade),
                     angular.copy(skills.zoneKnowledge),
                     angular.copy(skills.wildlifeHabit)
-                    
+
                 ]
             },
             doctor: {
@@ -517,7 +517,7 @@ angular.module('chargenNgApp')
                     angular.copy(skills.technology),
                     angular.copy(skills.evade),
                     angular.copy(skills.vagon)
-                    
+
                 ]
             },
             police: {
@@ -530,7 +530,7 @@ angular.module('chargenNgApp')
                     angular.copy(skills.gambling),
                     angular.copy(skills.underWorld),
                     angular.copy(skills.evade)
-                    
+
                 ]
             },
             postmann: {
@@ -543,7 +543,7 @@ angular.module('chargenNgApp')
                     angular.copy(skills.technology),
                     angular.copy(skills.evade),
                     angular.copy(skills.wildlifeHabit)
-                    
+
                 ]
             },
             sailer: {
@@ -556,7 +556,7 @@ angular.module('chargenNgApp')
                     angular.copy(skills.repair),
                     angular.copy(skills.gambling),
                     angular.copy(skills.evade)
-                    
+
                 ]
             },
             soldier: {
@@ -595,7 +595,7 @@ angular.module('chargenNgApp')
                     angular.copy(skills.wildlifeHabit),
                     angular.copy(skills.zoneKnowledge)
                 ]
-            },
+            }
         };
         var attrSec = {
             sb: {

@@ -124,22 +124,24 @@
                 <div data-ng-show="mutantSkillFormEdit">
                     name, (), sp,sp2,erf,erf2,natural,delete
                 </div>
-                <div data-ng-repeat="a in $storage.activeCharacter.skills | orderBy:['-natural','name']">
-                    <div data-ng-hide="mutantSkillFormEdit">
-                        {{a.name}} ({{a.attrPrim.short}}): {{skillSum(a)}}
-                    </div>
-                    <div data-ng-show="mutantSkillFormEdit">
-                        {{a.name}} ({{a.attrPrim.short}}):
-                        <input type="number" data-ng-model="a.valueSp" maxlength="2" size="2" min="0">
-                        <input type="number" data-ng-model="a.valueSpFree" maxlength="2" size="2" min="0">
-                        <input type="number" data-ng-model="a.valueErf" maxlength="2" size="2" min="0">
-                        <input type="number" data-ng-model="a.valueErfFree" maxlength="2" size="2" min="0">
-                        <input type="checkbox" data-ng-model="a.natural"> {{skillSum(a)}} {{getSkillUsedErf(a)}}
-                        <button class="btn btn-xs btn-warning">
-                            <i class="glyphicon glyphicon-trash"></i>
-                        </button>
-                    </div>
-                </div>
+                <ul class="">
+                    <li class="list-item" data-ng-repeat="a in $storage.activeCharacter.skills | orderBy:['-natural','name']">
+                        <div data-ng-hide="mutantSkillFormEdit">
+                            {{a.name}} ({{a.attrPrim.short}}): {{skillSum(a)}}
+                        </div>
+                        <div data-ng-show="mutantSkillFormEdit">
+                            {{a.name}} ({{a.attrPrim.short}}):
+                            <input type="number" data-ng-model="a.valueSp" maxlength="2" size="2" min="0">
+                            <input type="number" data-ng-model="a.valueSpFree" maxlength="2" size="2" min="0">
+                            <input type="number" data-ng-model="a.valueErf" maxlength="2" size="2" min="0">
+                            <input type="number" data-ng-model="a.valueErfFree" maxlength="2" size="2" min="0">
+                            <input type="checkbox" data-ng-model="a.natural"> {{skillSum(a)}} {{getSkillUsedErf(a)}}
+                            <button class="btn btn-xs btn-warning">
+                                <i class="glyphicon glyphicon-trash"></i>
+                            </button>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
@@ -152,7 +154,65 @@
                 </h3>
             </div>
             <div class="panel-body">
-                something
+                <ul class="list-group">
+                    <li class="list-group-item" data-ng-repeat="w in $storage.activeCharacter.weapons | orderBy:[name]" data-ng-click="editWeapon(w)">{{w.name}}</li>
+                </ul>
+                <p>
+                    <button class="btn btn-primary pull-right" data-ng-click="saveWeapon()" data-ng-hide="weaponEdit">
+                        Spara
+                    </button>
+                    <button class="btn btn-primary pull-right" data-ng-click="deleteWeapon()" data-ng-show="weaponEdit">
+                        <span class="glyphicon glyphicon-minus"></span> Ta bort
+                    </button>
+                    <button class="btn btn-primary pull-right" data-ng-click="create.weapon = {}; weaponEdit=undefined;" data-ng-show="weaponEdit">
+                        <span class="glyphicon glyphicon-save-file"></span> Nytt formulär
+                    </button>
+                </p>
+                <div class="input-group">
+                    <label>VAPEN: </label>
+                    <input name="weaponName" data-ng-model="create.weapon.name" type="text">
+                </div>
+                <div class="input-group">
+                    <label>FATTN: </label>
+                    <input name="weaponFattn" data-ng-model="create.weapon.grip" type="text">
+                </div>
+                <div class="input-group">
+                    <label>INIT: </label>
+                    <input name="weaponInit" data-ng-model="create.weapon.init" type="number">
+                </div>
+                <div class="input-group">
+                    <label>SKADA: </label>
+                    <input name="weaponDamage" data-ng-model="create.weapon.damage" type="text">
+                </div>
+                <div class="input-group">
+                    <label>PEN: </label>
+                    <input name="weaponPen" data-ng-model="create.weapon.penetration" type="number">
+                </div>
+                <div class="input-group">
+                    <label>RÄCKVIDD: </label>
+                    <input name="weaponReach" data-ng-model="create.weapon.reach" type="text">
+                </div>
+                <div class="input-group">
+                    <label>TÅL: </label>
+                    <input name="weaponDur" data-ng-model="create.weapon.durabillity" type="text">
+                </div>
+                <div class="input-group">
+                    <label>PÅL: </label>
+                    <input name="weaponDep" data-ng-model="create.weapon.dep" type="number">
+                    <label>/MAX: </label>
+                    <input name="weaponDepMax" data-ng-model="create.weapon.depmax" type="number">
+                </div>
+                <div class="input-group">
+                    <label>VIKT: </label>
+                    <input name="weaponWeight" data-ng-model="create.weapon.weight" type="number">
+                </div>
+                <div class="input-group">
+                    <label>AMMO</label>
+                    <input name="weaponAmmo" data-ng-model="create.weapon.ammo" type="number">
+                    <label>/MAX</label>
+                    <input name="weaponAmmoMax" data-ng-model="create.weapon.ammoMax" type="number">
+                </div>
+
             </div>
         </div>
     </div>
@@ -173,7 +233,7 @@
     <div class="col-lg-4 col-md-6 col-sm-12" data-ng-show="$storage.activeCharacter">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">Ägodelar
+                <h3 class="panel-title">Utrustning
                     <i class="glyphicon glyphicon-cog pull-right"></i>
                 </h3>
             </div>
