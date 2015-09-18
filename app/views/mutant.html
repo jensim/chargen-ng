@@ -164,17 +164,23 @@
                 <ul class="list-group">
                     <li class="list-group-item" data-ng-repeat="w in $storage.activeCharacter.weapons | orderBy:[name]" data-ng-click="editWeapon(w)">{{w.name}}</li>
                 </ul>
-                <p>
-                    <button class="btn btn-primary pull-right" data-ng-click="saveWeapon()" data-ng-hide="weaponEdit" data-ng-show="create.weapon">
-                        Spara
-                    </button>
-                    <button class="btn btn-primary pull-right" data-ng-click="deleteWeapon()" data-ng-show="weaponEdit">
-                        <span class="glyphicon glyphicon-minus"></span> Ta bort
-                    </button>
-                    <button class="btn btn-primary pull-right" data-ng-click="create.weapon = {}; weaponEdit=undefined;" data-ng-show="weaponEdit">
-                        <span class="glyphicon glyphicon-save-file"></span> Nytt formulär
-                    </button>
-                </p>
+                <div class="pull-right" style="display: inline-block;">
+                    <p>
+                        <button class="btn btn-primary" data-ng-click="saveWeapon()" data-ng-hide="weaponEdit" data-ng-show="create.weapon">
+                            Spara
+                        </button>
+                    </p>
+                    <p>
+                        <button class="btn btn-primary" data-ng-click="deleteWeapon()" data-ng-show="weaponEdit">
+                            <span class="glyphicon glyphicon-minus"></span> Ta bort
+                        </button>
+                    </p>
+                    <p>
+                        <button class="btn btn-primary" data-ng-click="create.weapon = {}; weaponEdit=undefined;" data-ng-show="weaponEdit">
+                            <span class="glyphicon glyphicon-save-file"></span> Nytt formulär
+                        </button>
+                    </p>
+                </div>
                 <div class="input-group">
                     <label>VAPEN: </label>
                     <input name="weaponName" data-ng-model="create.weapon.name" type="text">
@@ -191,7 +197,7 @@
                     <label>SKADA: </label>
                     <input name="weaponDiceNum" data-ng-model="create.weapon.dice" type="text">
                 </div>
-                <diceroller dice="{{create.weapon.dice}}" style="font-size: 1.5em;" />
+                <diceroller dice="{{create.weapon.dice}}"></diceroller>
                 <div class="input-group">
                     <label>PEN: </label>
                     <input name="weaponPen" data-ng-model="create.weapon.penetration" type="number">
@@ -220,7 +226,6 @@
                     <label>/MAX</label>
                     <input name="weaponAmmoMax" data-ng-model="create.weapon.ammoMax" type="number">
                 </div>
-
             </div>
         </div>
     </div>
