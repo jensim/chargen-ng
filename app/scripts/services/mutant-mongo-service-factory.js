@@ -619,69 +619,58 @@ angular.module('chargenNgApp')
         $localStorage.attrSec = {
             sb: {
                 name: 'SKADEBONUS (SB)',
-                description: '',
-                value: 0,
-                type: 'text'
+                description: 'Enl tabell',
+                value: 0
             },
             ib: {
                 name: 'INITIATIVBONUS (IB)',
-                description: '',
-                value: 0,
-                type: 'number'
+                description: 'SMI',
+                value: 0
             },
             bf: {
                 name: 'BÄRFÖRMÅGA (BF)',
-                description: '',
-                value: 0,
-                type: 'number'
+                description: 'STY. Men varje kilo över detta ger 1% straff på SMI-baserade färdigheter.',
+                value: 0
             },
             rea: {
                 name: 'REAKTIONSVÄRDE (REA)',
-                description: '',
-                value: 0,
-                type: 'number'
+                description: 'PER %',
+                value: 0
             },
             ryk: {
                 name: 'RYKTE',
-                description: '',
-                value: 0,
-                type: 'number'
+                description: 'Kan förtjänas, IMM kan välja.',
+                value: 0
             },
             sts: {
                 name: 'STATUS',
-                description: '',
-                value: 0,
-                type: 'number'
+                description: 'Kan förtjänas, IMM kan välja.',
+                value: 0
             },
             ffstrid: {
                 name: 'FF – STRID',
-                description: '',
-                value: 0,
-                type: 'number'
+                description: 'SMI / 5 avrundat nedåt',
+                value: 0
             },
             ffspring: {
                 name: 'FF – SPRINGA',
-                description: '',
-                value: 0,
-                type: 'number'
+                description: 'SMI / 2 avrundat nedåt',
+                value: 0
             },
             ffsprint: {
                 name: 'FF – SPRINT',
-                description: '',
-                value: 0,
-                type: 'number'
+                description: 'SMI avrundat nedåt',
+                value: 0
             },
             kp: {
                 name: 'KROPPSPOÄNG (KP)',
-                description: '',
-                value: 0,
-                type: 'number'
+                description: 'STO + FYS',
+                value: 0
             },
             tt: {
                 name: 'TRAUMATRÖSKEL (TT)',
-                description: '',
-                value: 0,
-                type: 'number'
+                description: '(STO + FYS) / 2',
+                value: 0
             }
         };
 
@@ -698,20 +687,10 @@ angular.module('chargenNgApp')
                     attrSec: angular.copy($localStorage.attrSec),
                     skills: angular.copy(ijob.trainedSkills)
                 };
-                delete newChar.klass.description;
-                var attr;
-                for (attr in newChar.attrPrim) {
-                    delete newChar.attrPrim[attr].description;
-                }
-                for (attr in newChar.attrSec) {
-                    delete newChar.attrSec[attr].description;
-                }
                 var skill;
                 for (skill in $localStorage.skills) {
-                    if (skills[skill].natural) {
-                        var newSkill = angular.copy(skills[skill]);
-                        delete newSkill.description;
-                        newChar.skills.push(newSkill);
+                    if ($localStorage.skills[skill].natural) {
+                        newChar.skills.push(angular.copy($localStorage.skills[skill]));
                     }
                 }
                 return newChar;

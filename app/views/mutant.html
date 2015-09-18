@@ -8,7 +8,7 @@
                 <form name="mutantCreateCharForm" data-ng-submit="mutantCreateCharForm.$valid && createCharacter()">
                     <div class="form-group">
                         <label for="createInputClass">Klass:</label>
-                        <select class="form-control" data-ng-model="create.klass" name="Klass" required="true" data-ng-required="true" id="createInputClass" data-ng-options="klass.name for klass in gameClasses">
+                        <select class="form-control" data-ng-model="create.klass" name="Klass" required="true" data-ng-required="true" id="createInputClass" data-ng-options="klass.name for klass in $storage.klasses">
                         </select>
                         <div class="list-group" data-ng-show="create.klass.description">
                             <a class="list-group-item">
@@ -21,7 +21,7 @@
                     </div>
                     <div class="form-group">
                         <label for="createInputJob">Yrke:</label>
-                        <select class="form-control" data-ng-model="create.job" name="Yrke" required="true" data-ng-required="true" id="createInputJob" data-ng-options="job.name for job in gameJobs">
+                        <select class="form-control" data-ng-model="create.job" name="Yrke" required="true" data-ng-required="true" id="createInputJob" data-ng-options="job.name for job in $storage.jobs">
                         </select>
                         <div class="list-group" data-ng-show="create.job.description">
                             <a class="list-group-item">
@@ -97,6 +97,8 @@
                 <h3 class="panel-title">Sekundära egenskaper
                     <i class="glyphicon glyphicon-cog pull-right" data-ng-click="mutantAttrSecFormEdit = !mutantAttrSecFormEdit"></i>
                     <div class="pull-right">&nbsp;</div>
+                    <i class="glyphicon glyphicon-info-sign pull-right" data-ng-click="mutantAttrSecFormInfo = !mutantAttrSecFormInfo" data-ng-hide="mutantAttrSecFormEdit"></i>
+                    <div class="pull-right">&nbsp;</div>
                     <i class="fa fa-calculator pull-right" data-ng-click="calcSecAttr()" data-ng-show="mutantAttrSecFormEdit"></i>
                     <div class="pull-right">&nbsp;</div>
                     <diceroller dice="1D100" class="pull-right" data-ng-hide="mutantAttrSecFormEdit"></diceroller>
@@ -112,6 +114,11 @@
                             {{a.name}}
                             <input ng-model="a.value" maxlength="4" size="4">
                             <i class="fa fa-calculator pull-right" data-ng-click="calcSecAttr(a)"></i>
+                            <br/>
+
+                        </div>
+                        <div class="text-primary" style="font-size: 0.8em;" data-ng-show="mutantAttrSecFormEdit||mutantAttrSecFormInfo">
+                            {{a.description}}
                         </div>
                     </li>
                 </ul>
