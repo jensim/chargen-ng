@@ -673,6 +673,32 @@ angular.module('chargenNgApp')
                 value: 0
             }
         };
+        $localStorage.abillities = {
+            imm: [{
+                name: 'Arvegods',
+                description: '',
+                cost: 1
+            }, {
+                name: 'Egendom',
+                description: '',
+                cost: 2
+            }],
+            mm: [{
+                name: 'Blixtsnabba Reflexer',
+                description: '',
+                cost: 3
+            }],
+            psi: [{
+                name: 'Astral projektion',
+                description: '',
+                cost: 3
+            }],
+            rbt: [{
+                name: 'Analysenhet',
+                description: '',
+                cost: 1
+            }]
+        };
 
         //angular.copy(jobs.bonde.trainedSkills, templateChars[0].skills);
 
