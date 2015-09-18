@@ -9,7 +9,7 @@
 angular.module('chargenNgApp')
     .directive('diceroller', ['$timeout', function ($timeout) {
         return {
-            templateUrl: 'scripts/directives/diceroller.html',
+            templateUrl: 'views/directive-templates/diceroller.html',
             restrict: 'E',
             scope: true,
             controller: function ($scope, $element) {
