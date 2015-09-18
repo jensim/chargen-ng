@@ -6,11 +6,11 @@ input[type="number"] {
 }
 .glyphicon,
 .fa,
-fi-die-one,
-fi-die-two,
-fi-die-three,
-fi-die-four,
-fi-die-five,
-fi-die-six {
+.fi-die-one,
+.fi-die-two,
+.fi-die-three,
+.fi-die-four,
+.fi-die-five,
+.fi-die-six {
     font-size: 1.3em;
 }
