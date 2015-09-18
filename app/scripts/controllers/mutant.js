@@ -112,7 +112,7 @@ angular.module('chargenNgApp')
             if ($localStorage.activeCharacter) {
                 var attr;
                 for (attr in $localStorage.activeCharacter.attrPrim) {
-                    sum += $localStorage.activeCharacter.attrPrim[attr].value
+                    sum += $localStorage.activeCharacter.attrPrim[attr].value;
                 }
             }
             return sum;

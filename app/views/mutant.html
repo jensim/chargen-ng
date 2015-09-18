@@ -76,7 +76,8 @@
                 <ul class="list-group">
                     <li class="list-group-item" data-ng-repeat="a in $storage.activeCharacter.attrPrim">
                         <div data-ng-hide="mutantAttrPrimFormEdit">
-                            {{a.name}} ({{a.short}}): {{a.value}} / {{a.mod}} <i class="fi-die-three text-danger pull-right" data-ng-click="a.lastRoll = random(99, 0)"></i><span class="pull-right">{{a.lastRoll}} </span>
+                            {{a.name}} ({{a.short}}): {{a.value}} / {{a.mod}}
+                            <diceroller dice="1D100" class="pull-right" />
                         </div>
                         <div data-ng-show="mutantAttrPrimFormEdit">
                             {{a.name}} ({{a.short}}):
@@ -130,7 +131,8 @@
                 <ul class="list-group">
                     <li class="list-group-item" data-ng-repeat="a in $storage.activeCharacter.skills | orderBy:['-natural','name']">
                         <div data-ng-hide="mutantSkillFormEdit">
-                            {{a.name}} ({{a.attrPrim.short}}): {{skillSum(a)}} <i class="fi-die-three text-danger pull-right" data-ng-click="a.lastRoll = random(99, 0)"></i><span class="pull-right">{{a.lastRoll}} </span>
+                            {{a.name}} ({{a.attrPrim.short}}): {{skillSum(a)}}
+                            <diceroller dice="1D100" class="pull-right" />
                         </div>
                         <div data-ng-show="mutantSkillFormEdit">
                             {{a.name}} ({{a.attrPrim.short}}):
@@ -183,12 +185,9 @@
                 </div>
                 <div class="input-group">
                     <label>SKADA: </label>
-                    <input name="weaponDiceNum" data-ng-model="create.weapon.dice.num" type="number"> T
-                    <input name="weaponDiceDie" data-ng-model="create.weapon.dice.die" type="number"> +
-                    <input name="weaponDiceStatic" data-ng-model="create.weapon.dice.static" type="number">
+                    <input name="weaponDiceNum" data-ng-model="create.weapon.dice" type="text">
                 </div>
-                {{create.weapon.lastRoll}}
-                <i class="fi-die-three text-danger" data-ng-click="create.weapon.lastRoll = randomDice(create.weapon.dice)"></i>
+                <diceroller dice="{{create.weapon.dice}}" />
                 <div class="input-group">
                     <label>PEN: </label>
                     <input name="weaponPen" data-ng-model="create.weapon.penetration" type="number">
