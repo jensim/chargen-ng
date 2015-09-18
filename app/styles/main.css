@@ -4,3 +4,13 @@
 input[type="number"] {
     width: 30px;
 }
+.glyphicon,
+.fa,
+fi-die-one,
+fi-die-two,
+fi-die-three,
+fi-die-four,
+fi-die-five,
+fi-die-six {
+    font-size: 1.3em;
+}

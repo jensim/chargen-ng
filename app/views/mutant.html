@@ -70,6 +70,8 @@
             <div class="panel-heading">
                 <h3 class="panel-title">Grundegenskaper
                     <i class="glyphicon glyphicon-cog pull-right" data-ng-click="mutantAttrPrimFormEdit = !mutantAttrPrimFormEdit"></i>
+                    <div class="pull-right">&nbsp;</div>
+                    <diceroller dice="1D100" class="pull-right" />
                 </h3>
             </div>
             <div class="panel-body" data-ng-init="mutantAttrPrimFormEdit=false">
@@ -77,7 +79,6 @@
                     <li class="list-group-item" data-ng-repeat="a in $storage.activeCharacter.attrPrim">
                         <div data-ng-hide="mutantAttrPrimFormEdit">
                             {{a.name}} ({{a.short}}): {{a.value}} / {{a.mod}}
-                            <diceroller dice="1D100" class="pull-right" />
                         </div>
                         <div data-ng-show="mutantAttrPrimFormEdit">
                             {{a.name}} ({{a.short}}):
@@ -97,6 +98,8 @@
                     <i class="glyphicon glyphicon-cog pull-right" data-ng-click="mutantAttrSecFormEdit = !mutantAttrSecFormEdit"></i>
                     <div class="pull-right">&nbsp;</div>
                     <i class="fa fa-calculator pull-right"></i>
+                    <div class="pull-right">&nbsp;</div>
+                    <diceroller dice="1D100" class="pull-right" />
                 </h3>
             </div>
             <div class="panel-body">
@@ -121,6 +124,8 @@
                 <h3 class="panel-title">Färdigheter
                     <i class="glyphicon glyphicon-cog pull-right" data-ng-click="mutantSkillFormEdit = !mutantSkillFormEdit"></i>
                     <div class="pull-right">&nbsp;</div>
+                    <diceroller dice="1D100" class="pull-right" />
+                    <div class="pull-right">&nbsp;</div>
                     <i class="glyphicon glyphicon-info-sign pull-right" data-ng-show="mutantSkillFormEdit"></i>
                 </h3>
             </div>
@@ -132,7 +137,6 @@
                     <li class="list-group-item" data-ng-repeat="a in $storage.activeCharacter.skills | orderBy:['-natural','name']">
                         <div data-ng-hide="mutantSkillFormEdit">
                             {{a.name}} ({{a.attrPrim.short}}): {{skillSum(a)}}
-                            <diceroller dice="1D100" class="pull-right" />
                         </div>
                         <div data-ng-show="mutantSkillFormEdit">
                             {{a.name}} ({{a.attrPrim.short}}):
@@ -183,11 +187,11 @@
                     <label>INIT: </label>
                     <input name="weaponInit" data-ng-model="create.weapon.init" type="number">
                 </div>
-                <div class="input-group">
+                <div class="input-group" style="display: inline-block;">
                     <label>SKADA: </label>
                     <input name="weaponDiceNum" data-ng-model="create.weapon.dice" type="text">
                 </div>
-                <diceroller dice="{{create.weapon.dice}}" />
+                <diceroller dice="{{create.weapon.dice}}" style="font-size: 1.5em;" />
                 <div class="input-group">
                     <label>PEN: </label>
                     <input name="weaponPen" data-ng-model="create.weapon.penetration" type="number">
@@ -298,10 +302,10 @@
                     <a class="list-group-item clearfix">
                         <span class="glyphicon glyphicon-file"></span> {{character.name}}
                         <span class="pull-right">
-                        <button class="btn btn-xs btn-info" data-ng-click="loadCharacter(character)">
+                        <button class="btn btn-sm btn-info" data-ng-click="loadCharacter(character)">
                         <span class="glyphicon glyphicon-cloud-download"></span> Ladda
                         </button>
-                        <button class="btn btn-xs btn-warning" data-ng-click="deleteCharacter(character)">
+                        <button class="btn btn-sm btn-warning" data-ng-click="deleteCharacter(character)">
                             <span class="glyphicon glyphicon-trash"></span>
                         </button>
                         </span>
@@ -315,4 +319,4 @@
     </div>
 
 </div>
-{{$storage.activeCharacter | json}}
+<!--{{$storage.activeCharacter | json}}-->

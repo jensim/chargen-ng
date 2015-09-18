@@ -19,7 +19,6 @@ angular.module('chargenNgApp')
                 var currentDiceClass = 2,
                     forceShow = false,
                     hoverShow = false,
-                    downShow = false,
                     result = -1,
                     timeout,
                     showTime = $element.attr('show') ? $element.attr('show') : 3500,
@@ -50,7 +49,7 @@ angular.module('chargenNgApp')
                         result = sum;
                     },
                     hideOrShow = function () {
-                        if ((forceShow || hoverShow || downShow) && result !== -1) {
+                        if ((forceShow || hoverShow) && result !== -1) {
                             $scope.result = result;
                         } else {
                             $scope.result = '';
@@ -61,7 +60,7 @@ angular.module('chargenNgApp')
                     rollDice();
                     forceShow = true;
                     hideOrShow();
-                    if ($element.attr('reroll') === undefined || $element.attr('reroll')) {
+                    if ($element.attr('reroll') === undefined || $element.attr('reroll') === 'true') {
                         var oldClass = $scope.diceClass;
                         while (oldClass === $scope.diceClass) {
                             $scope.diceClass = diceClasses[Math.floor(Math.random() * diceClasses.length)];
@@ -69,22 +68,14 @@ angular.module('chargenNgApp')
                     }
 
                     $timeout.cancel(timeout);
-                    timeout = $timeout(function () {
-                        forceShow = false;
-                        hideOrShow();
-                    }, showTime);
+                    if ($element.attr('persist') === undefined || $element.attr('persist') === 'false') {
+                        timeout = $timeout(function () {
+                            forceShow = false;
+                            hideOrShow();
+                        }, showTime);
+                    }
                 };
 
-                $scope.theDown = function () {
-                    downShow = true;
-                    hideOrShow();
-                    //console.log('down');
-                };
-                $scope.theUp = function () {
-                    downShow = false;
-                    hideOrShow();
-                    //console.log('up');
-                };
                 $scope.theEnter = function () {
                     hoverShow = true;
                     hideOrShow();
