@@ -15,7 +15,7 @@ angular.module('chargenNgApp')
     .factory('mutantMongoServiceFactory', ['$http', '$localStorage', function ($http, $localStorage) {
         // Service logic
         // ...
-        var klasses = {
+        $localStorage.klasses = {
             imm: {
                 name: 'Icke muterad människa',
                 ge: 91,
@@ -45,7 +45,7 @@ angular.module('chargenNgApp')
                 description: 'Tjänaren och underverket'
             }
         };
-        var attrPrim = {
+        $localStorage.attrPrim = {
             STY: {
                 name: 'Styrka',
                 short: 'STY',
@@ -96,12 +96,12 @@ angular.module('chargenNgApp')
                 mod: 0
             }
         };
-        var skills = {
+        $localStorage.skills = {
             acrobatics: {
                 name: 'AKROBATIK',
                 description: '',
                 natural: true,
-                attrPrim: attrPrim.SMI,
+                attrPrim: $localStorage.attrPrim.SMI,
                 valueErf: 0,
                 valueErfFree: 0,
                 valueSp: 0,
@@ -111,7 +111,7 @@ angular.module('chargenNgApp')
                 name: 'BÅGE',
                 description: '',
                 natural: true,
-                attrPrim: attrPrim.SMI,
+                attrPrim: $localStorage.attrPrim.SMI,
                 valueErf: 0,
                 valueErfFree: 0,
                 valueSp: 0,
@@ -121,7 +121,7 @@ angular.module('chargenNgApp')
                 name: 'FÖRSTAHJÄLPEN',
                 description: '',
                 natural: true,
-                attrPrim: attrPrim.INT,
+                attrPrim: $localStorage.attrPrim.INT,
                 valueErf: 0,
                 valueErfFree: 0,
                 valueSp: 0,
@@ -131,7 +131,7 @@ angular.module('chargenNgApp')
                 name: 'GEVÄR',
                 description: '',
                 natural: true,
-                attrPrim: attrPrim.SMI,
+                attrPrim: $localStorage.attrPrim.SMI,
                 valueErf: 0,
                 valueErfFree: 0,
                 valueSp: 0,
@@ -141,7 +141,7 @@ angular.module('chargenNgApp')
                 name: 'IAKTAGELSEFÖRMÅGA',
                 description: '',
                 natural: true,
-                attrPrim: attrPrim.INT,
+                attrPrim: $localStorage.attrPrim.INT,
                 valueErf: 0,
                 valueErfFree: 0,
                 valueSp: 0,
@@ -151,7 +151,7 @@ angular.module('chargenNgApp')
                 name: 'KASTA',
                 description: '',
                 natural: true,
-                attrPrim: attrPrim.SMI,
+                attrPrim: $localStorage.attrPrim.SMI,
                 valueErf: 0,
                 valueErfFree: 0,
                 valueSp: 0,
@@ -161,7 +161,7 @@ angular.module('chargenNgApp')
                 name: 'KÖPSLÅ',
                 description: '',
                 natural: true,
-                attrPrim: attrPrim.PER,
+                attrPrim: $localStorage.attrPrim.PER,
                 valueErf: 0,
                 valueErfFree: 0,
                 valueSp: 0,
@@ -171,7 +171,7 @@ angular.module('chargenNgApp')
                 name: 'NÄRSTRID',
                 description: '',
                 natural: true,
-                attrPrim: attrPrim.STY,
+                attrPrim: $localStorage.attrPrim.STY,
                 valueErf: 0,
                 valueErfFree: 0,
                 valueSp: 0,
@@ -181,7 +181,7 @@ angular.module('chargenNgApp')
                 name: 'PISTOL',
                 description: '',
                 natural: true,
-                attrPrim: attrPrim.SMI,
+                attrPrim: $localStorage.attrPrim.SMI,
                 valueErf: 0,
                 valueErfFree: 0,
                 valueSp: 0,
@@ -191,7 +191,7 @@ angular.module('chargenNgApp')
                 name: 'SMYGA / GÖMMA SIG',
                 description: '',
                 natural: true,
-                attrPrim: attrPrim.SMI,
+                attrPrim: $localStorage.attrPrim.SMI,
                 valueErf: 0,
                 valueErfFree: 0,
                 valueSp: 0,
@@ -201,7 +201,7 @@ angular.module('chargenNgApp')
                 name: 'Bildning',
                 description: '',
                 natural: false,
-                attrPrim: attrPrim.INT,
+                attrPrim: $localStorage.attrPrim.INT,
                 valueErf: 0,
                 valueErfFree: 0,
                 valueSp: 0,
@@ -211,7 +211,7 @@ angular.module('chargenNgApp')
                 name: 'Båt',
                 description: '',
                 natural: false,
-                attrPrim: attrPrim.SMI,
+                attrPrim: $localStorage.attrPrim.SMI,
                 valueErf: 0,
                 valueErfFree: 0,
                 valueSp: 0,
@@ -221,7 +221,7 @@ angular.module('chargenNgApp')
                 name: 'Energivapen',
                 description: '',
                 natural: false,
-                attrPrim: attrPrim.INT,
+                attrPrim: $localStorage.attrPrim.INT,
                 valueErf: 0,
                 valueErfFree: 0,
                 valueSp: 0,
@@ -231,7 +231,7 @@ angular.module('chargenNgApp')
                 name: 'Fingerfärdighet',
                 description: '',
                 natural: false,
-                attrPrim: attrPrim.SMI,
+                attrPrim: $localStorage.attrPrim.SMI,
                 valueErf: 0,
                 valueErfFree: 0,
                 valueSp: 0,
@@ -241,7 +241,7 @@ angular.module('chargenNgApp')
                 name: 'Fordon',
                 description: '',
                 natural: false,
-                attrPrim: attrPrim.SMI,
+                attrPrim: $localStorage.attrPrim.SMI,
                 valueErf: 0,
                 valueErfFree: 0,
                 valueSp: 0,
@@ -251,7 +251,7 @@ angular.module('chargenNgApp')
                 name: 'Fällor',
                 description: '',
                 natural: false,
-                attrPrim: attrPrim.INT,
+                attrPrim: $localStorage.attrPrim.INT,
                 valueErf: 0,
                 valueErfFree: 0,
                 valueSp: 0,
@@ -261,7 +261,7 @@ angular.module('chargenNgApp')
                 name: 'Låsdyrkning',
                 description: '',
                 natural: false,
-                attrPrim: attrPrim.SMI,
+                attrPrim: $localStorage.attrPrim.SMI,
                 valueErf: 0,
                 valueErfFree: 0,
                 valueSp: 0,
@@ -271,7 +271,7 @@ angular.module('chargenNgApp')
                 name: 'Naturvetenskap',
                 description: '',
                 natural: false,
-                attrPrim: attrPrim.INT,
+                attrPrim: $localStorage.attrPrim.INT,
                 valueErf: 0,
                 valueErfFree: 0,
                 valueSp: 0,
@@ -281,7 +281,7 @@ angular.module('chargenNgApp')
                 name: 'Medicin',
                 description: '',
                 natural: false,
-                attrPrim: attrPrim.INT,
+                attrPrim: $localStorage.attrPrim.INT,
                 valueErf: 0,
                 valueErfFree: 0,
                 valueSp: 0,
@@ -291,7 +291,7 @@ angular.module('chargenNgApp')
                 name: 'Reparera',
                 description: '',
                 natural: false,
-                attrPrim: attrPrim.INT,
+                attrPrim: $localStorage.attrPrim.INT,
                 valueErf: 0,
                 valueErfFree: 0,
                 valueSp: 0,
@@ -301,7 +301,7 @@ angular.module('chargenNgApp')
                 name: 'Rida',
                 description: '',
                 natural: false,
-                attrPrim: attrPrim.SMI,
+                attrPrim: $localStorage.attrPrim.SMI,
                 valueErf: 0,
                 valueErfFree: 0,
                 valueSp: 0,
@@ -311,7 +311,7 @@ angular.module('chargenNgApp')
                 name: 'Spel',
                 description: '',
                 natural: false,
-                attrPrim: attrPrim.INT,
+                attrPrim: $localStorage.attrPrim.INT,
                 valueErf: 0,
                 valueErfFree: 0,
                 valueSp: 0,
@@ -321,7 +321,7 @@ angular.module('chargenNgApp')
                 name: 'Sprängämnen',
                 description: '',
                 natural: false,
-                attrPrim: attrPrim.INT,
+                attrPrim: $localStorage.attrPrim.INT,
                 valueErf: 0,
                 valueErfFree: 0,
                 valueSp: 0,
@@ -331,7 +331,7 @@ angular.module('chargenNgApp')
                 name: 'Stridskonster',
                 description: '',
                 natural: false,
-                attrPrim: attrPrim.SMI,
+                attrPrim: $localStorage.attrPrim.SMI,
                 valueErf: 0,
                 valueErfFree: 0,
                 valueSp: 0,
@@ -341,7 +341,7 @@ angular.module('chargenNgApp')
                 name: 'Teknologi',
                 description: '',
                 natural: false,
-                attrPrim: attrPrim.INT,
+                attrPrim: $localStorage.attrPrim.INT,
                 valueErf: 0,
                 valueErfFree: 0,
                 valueSp: 0,
@@ -351,7 +351,7 @@ angular.module('chargenNgApp')
                 name: 'Tunga vapen',
                 description: '',
                 natural: false,
-                attrPrim: attrPrim.SMI,
+                attrPrim: $localStorage.attrPrim.SMI,
                 valueErf: 0,
                 valueErfFree: 0,
                 valueSp: 0,
@@ -361,7 +361,7 @@ angular.module('chargenNgApp')
                 name: 'Undre världen',
                 description: '',
                 natural: false,
-                attrPrim: attrPrim.PER,
+                attrPrim: $localStorage.attrPrim.PER,
                 valueErf: 0,
                 valueErfFree: 0,
                 valueSp: 0,
@@ -371,7 +371,7 @@ angular.module('chargenNgApp')
                 name: 'Undvika',
                 description: '',
                 natural: false,
-                attrPrim: attrPrim.SMI,
+                attrPrim: $localStorage.attrPrim.SMI,
                 valueErf: 0,
                 valueErfFree: 0,
                 valueSp: 0,
@@ -381,7 +381,7 @@ angular.module('chargenNgApp')
                 name: 'Vagn',
                 description: '',
                 natural: false,
-                attrPrim: attrPrim.SMI,
+                attrPrim: $localStorage.attrPrim.SMI,
                 valueErf: 0,
                 valueErfFree: 0,
                 valueSp: 0,
@@ -391,7 +391,7 @@ angular.module('chargenNgApp')
                 name: 'Vildmarksvana',
                 description: '',
                 natural: false,
-                attrPrim: attrPrim.INT,
+                attrPrim: $localStorage.attrPrim.INT,
                 valueErf: 0,
                 valueErfFree: 0,
                 valueSp: 0,
@@ -401,24 +401,24 @@ angular.module('chargenNgApp')
                 name: 'Zonkunskap',
                 description: '',
                 natural: false,
-                attrPrim: attrPrim.INT,
+                attrPrim: $localStorage.attrPrim.INT,
                 valueErf: 0,
                 valueErfFree: 0,
                 valueSp: 0,
                 valueSpFree: 0
             }
         };
-        var jobs = {
+        $localStorage.jobs = {
             administrator: {
                 name: 'Administratör',
                 description: '',
                 startcapital: 80,
                 trainedSkills: [
-                    angular.copy(skills.education),
-                    angular.copy(skills.ride),
-                    angular.copy(skills.technology),
-                    angular.copy(skills.evade),
-                    angular.copy(skills.vagon)
+                    angular.copy($localStorage.skills.education),
+                    angular.copy($localStorage.skills.ride),
+                    angular.copy($localStorage.skills.technology),
+                    angular.copy($localStorage.skills.evade),
+                    angular.copy($localStorage.skills.vagon)
                 ]
             },
             worker: {
@@ -426,10 +426,10 @@ angular.module('chargenNgApp')
                 description: '',
                 startcapital: 50,
                 trainedSkills: [
-                    angular.copy(skills.sleightofhand),
-                    angular.copy(skills.ride),
-                    angular.copy(skills.gambling),
-                    angular.copy(skills.evade)
+                    angular.copy($localStorage.skills.sleightofhand),
+                    angular.copy($localStorage.skills.ride),
+                    angular.copy($localStorage.skills.gambling),
+                    angular.copy($localStorage.skills.evade)
                 ]
             },
             bonde: {
@@ -437,11 +437,11 @@ angular.module('chargenNgApp')
                 description: '',
                 startcapital: 50,
                 trainedSkills: [
-                    angular.copy(skills.repair),
-                    angular.copy(skills.gambling),
-                    angular.copy(skills.evade),
-                    angular.copy(skills.vagon),
-                    angular.copy(skills.wildlifeHabit)
+                    angular.copy($localStorage.skills.repair),
+                    angular.copy($localStorage.skills.gambling),
+                    angular.copy($localStorage.skills.evade),
+                    angular.copy($localStorage.skills.vagon),
+                    angular.copy($localStorage.skills.wildlifeHabit)
                 ]
             },
             aristocrat: {
@@ -449,11 +449,11 @@ angular.module('chargenNgApp')
                 description: '',
                 startcapital: 500,
                 trainedSkills: [
-                    angular.copy(skills.education),
-                    angular.copy(skills.ride),
-                    angular.copy(skills.gambling),
-                    angular.copy(skills.technology),
-                    angular.copy(skills.evade)
+                    angular.copy($localStorage.skills.education),
+                    angular.copy($localStorage.skills.ride),
+                    angular.copy($localStorage.skills.gambling),
+                    angular.copy($localStorage.skills.technology),
+                    angular.copy($localStorage.skills.evade)
                 ]
             },
             trader: {
@@ -461,11 +461,11 @@ angular.module('chargenNgApp')
                 description: '',
                 startcapital: 100,
                 trainedSkills: [
-                    angular.copy(skills.education),
-                    angular.copy(skills.technology),
-                    angular.copy(skills.vagon),
-                    angular.copy(skills.underWorld),
-                    angular.copy(skills.evade)
+                    angular.copy($localStorage.skills.education),
+                    angular.copy($localStorage.skills.technology),
+                    angular.copy($localStorage.skills.vagon),
+                    angular.copy($localStorage.skills.underWorld),
+                    angular.copy($localStorage.skills.evade)
                 ]
             },
             craftsman: {
@@ -473,11 +473,11 @@ angular.module('chargenNgApp')
                 description: '',
                 startcapital: 80,
                 trainedSkills: [
-                    angular.copy(skills.education),
-                    angular.copy(skills.repair),
-                    angular.copy(skills.gambling),
-                    angular.copy(skills.technology),
-                    angular.copy(skills.evade)
+                    angular.copy($localStorage.skills.education),
+                    angular.copy($localStorage.skills.repair),
+                    angular.copy($localStorage.skills.gambling),
+                    angular.copy($localStorage.skills.technology),
+                    angular.copy($localStorage.skills.evade)
                 ]
             },
             hunter: {
@@ -485,11 +485,11 @@ angular.module('chargenNgApp')
                 description: '',
                 startcapital: 50,
                 trainedSkills: [
-                    angular.copy(skills.boat),
-                    angular.copy(skills.traps),
-                    angular.copy(skills.wildlifeHabit),
-                    angular.copy(skills.zoneKnowledge),
-                    angular.copy(skills.evade)
+                    angular.copy($localStorage.skills.boat),
+                    angular.copy($localStorage.skills.traps),
+                    angular.copy($localStorage.skills.wildlifeHabit),
+                    angular.copy($localStorage.skills.zoneKnowledge),
+                    angular.copy($localStorage.skills.evade)
                 ]
             },
             knower: {
@@ -497,13 +497,13 @@ angular.module('chargenNgApp')
                 description: '',
                 startcapital: 80,
                 trainedSkills: [
-                    angular.copy(skills.education),
-                    angular.copy(skills.technology),
-                    angular.copy(skills.science),
-                    angular.copy(skills.repair),
-                    angular.copy(skills.evade),
-                    angular.copy(skills.zoneKnowledge),
-                    angular.copy(skills.wildlifeHabit)
+                    angular.copy($localStorage.skills.education),
+                    angular.copy($localStorage.skills.technology),
+                    angular.copy($localStorage.skills.science),
+                    angular.copy($localStorage.skills.repair),
+                    angular.copy($localStorage.skills.evade),
+                    angular.copy($localStorage.skills.zoneKnowledge),
+                    angular.copy($localStorage.skills.wildlifeHabit)
 
                 ]
             },
@@ -512,11 +512,11 @@ angular.module('chargenNgApp')
                 description: '',
                 startcapital: 80,
                 trainedSkills: [
-                    angular.copy(skills.education),
-                    angular.copy(skills.medicin),
-                    angular.copy(skills.technology),
-                    angular.copy(skills.evade),
-                    angular.copy(skills.vagon)
+                    angular.copy($localStorage.skills.education),
+                    angular.copy($localStorage.skills.medicin),
+                    angular.copy($localStorage.skills.technology),
+                    angular.copy($localStorage.skills.evade),
+                    angular.copy($localStorage.skills.vagon)
 
                 ]
             },
@@ -525,11 +525,11 @@ angular.module('chargenNgApp')
                 description: '',
                 startcapital: 60,
                 trainedSkills: [
-                    angular.copy(skills.education),
-                    angular.copy(skills.ride),
-                    angular.copy(skills.gambling),
-                    angular.copy(skills.underWorld),
-                    angular.copy(skills.evade)
+                    angular.copy($localStorage.skills.education),
+                    angular.copy($localStorage.skills.ride),
+                    angular.copy($localStorage.skills.gambling),
+                    angular.copy($localStorage.skills.underWorld),
+                    angular.copy($localStorage.skills.evade)
 
                 ]
             },
@@ -538,11 +538,11 @@ angular.module('chargenNgApp')
                 description: '',
                 startcapital: 60,
                 trainedSkills: [
-                    angular.copy(skills.education),
-                    angular.copy(skills.ride),
-                    angular.copy(skills.technology),
-                    angular.copy(skills.evade),
-                    angular.copy(skills.wildlifeHabit)
+                    angular.copy($localStorage.skills.education),
+                    angular.copy($localStorage.skills.ride),
+                    angular.copy($localStorage.skills.technology),
+                    angular.copy($localStorage.skills.evade),
+                    angular.copy($localStorage.skills.wildlifeHabit)
 
                 ]
             },
@@ -551,11 +551,11 @@ angular.module('chargenNgApp')
                 description: '',
                 startcapital: 50,
                 trainedSkills: [
-                    angular.copy(skills.education),
-                    angular.copy(skills.boat),
-                    angular.copy(skills.repair),
-                    angular.copy(skills.gambling),
-                    angular.copy(skills.evade)
+                    angular.copy($localStorage.skills.education),
+                    angular.copy($localStorage.skills.boat),
+                    angular.copy($localStorage.skills.repair),
+                    angular.copy($localStorage.skills.gambling),
+                    angular.copy($localStorage.skills.evade)
 
                 ]
             },
@@ -564,12 +564,12 @@ angular.module('chargenNgApp')
                 description: '',
                 startcapital: 60,
                 trainedSkills: [
-                    angular.copy(skills.repair),
-                    angular.copy(skills.gambling),
-                    angular.copy(skills.explosives),
-                    angular.copy(skills.martialarts),
-                    angular.copy(skills.evade),
-                    angular.copy(skills.heavyGuns)
+                    angular.copy($localStorage.skills.repair),
+                    angular.copy($localStorage.skills.gambling),
+                    angular.copy($localStorage.skills.explosives),
+                    angular.copy($localStorage.skills.martialarts),
+                    angular.copy($localStorage.skills.evade),
+                    angular.copy($localStorage.skills.heavyGuns)
                 ]
             },
             thief: {
@@ -577,11 +577,11 @@ angular.module('chargenNgApp')
                 description: '',
                 startcapital: 50,
                 trainedSkills: [
-                    angular.copy(skills.sleightofhand),
-                    angular.copy(skills.traps),
-                    angular.copy(skills.lockpick),
-                    angular.copy(skills.underWorld),
-                    angular.copy(skills.evade)
+                    angular.copy($localStorage.skills.sleightofhand),
+                    angular.copy($localStorage.skills.traps),
+                    angular.copy($localStorage.skills.lockpick),
+                    angular.copy($localStorage.skills.underWorld),
+                    angular.copy($localStorage.skills.evade)
                 ]
             },
             explorer: {
@@ -589,69 +589,99 @@ angular.module('chargenNgApp')
                 description: '',
                 startcapital: 50,
                 trainedSkills: [
-                    angular.copy(skills.ride),
-                    angular.copy(skills.technology),
-                    angular.copy(skills.evade),
-                    angular.copy(skills.wildlifeHabit),
-                    angular.copy(skills.zoneKnowledge)
+                    angular.copy($localStorage.skills.ride),
+                    angular.copy($localStorage.skills.technology),
+                    angular.copy($localStorage.skills.evade),
+                    angular.copy($localStorage.skills.wildlifeHabit),
+                    angular.copy($localStorage.skills.zoneKnowledge)
                 ]
             }
         };
-        var attrSec = {
+        $localStorage.skadeBonus = {
+            0: '-2D4',
+            7: '-1D6',
+            11: '-1D4',
+            15: '-1D3',
+            17: '-1D2',
+            19: '-1',
+            21: '',
+            24: '+1',
+            26: '1D2',
+            28: '1D3',
+            30: '1D4',
+            34: '1D6',
+            38: '2D4',
+            46: '2D6',
+            58: '3D6',
+            70: '4D6',
+            82: '5D6'
+        };
+        $localStorage.attrSec = {
             sb: {
                 name: 'SKADEBONUS (SB)',
                 description: '',
-                value: 0
+                value: 0,
+                type: 'text'
             },
             ib: {
                 name: 'INITIATIVBONUS (IB)',
                 description: '',
-                value: 0
+                value: 0,
+                type: 'number'
             },
             bf: {
                 name: 'BÄRFÖRMÅGA (BF)',
                 description: '',
-                value: 0
+                value: 0,
+                type: 'number'
             },
             rea: {
                 name: 'REAKTIONSVÄRDE (REA)',
                 description: '',
-                value: 0
+                value: 0,
+                type: 'number'
             },
             ryk: {
                 name: 'RYKTE',
                 description: '',
-                value: 0
+                value: 0,
+                type: 'number'
             },
             sts: {
                 name: 'STATUS',
                 description: '',
-                value: 0
+                value: 0,
+                type: 'number'
             },
             ffstrid: {
                 name: 'FF – STRID',
                 description: '',
-                value: 0
+                value: 0,
+                type: 'number'
             },
             ffspring: {
                 name: 'FF – SPRINGA',
                 description: '',
-                value: 0
+                value: 0,
+                type: 'number'
             },
             ffsprint: {
                 name: 'FF – SPRINT',
                 description: '',
-                value: 0
+                value: 0,
+                type: 'number'
             },
             kp: {
                 name: 'KROPPSPOÄNG (KP)',
                 description: '',
-                value: 0
+                value: 0,
+                type: 'number'
             },
             tt: {
                 name: 'TRAUMATRÖSKEL (TT)',
                 description: '',
-                value: 0
+                value: 0,
+                type: 'number'
             }
         };
 
@@ -664,11 +694,11 @@ angular.module('chargenNgApp')
                     name: 'ny',
                     klass: angular.copy(iklass),
                     job: angular.copy(ijob),
-                    attrPrim: angular.copy(attrPrim),
-                    attrSec: angular.copy(attrSec),
+                    attrPrim: angular.copy($localStorage.attrPrim),
+                    attrSec: angular.copy($localStorage.attrSec),
                     skills: angular.copy(ijob.trainedSkills)
                 };
-                delete(newChar.klass.description);
+                delete newChar.klass.description;
                 var attr;
                 for (attr in newChar.attrPrim) {
                     delete newChar.attrPrim[attr].description;
@@ -677,7 +707,7 @@ angular.module('chargenNgApp')
                     delete newChar.attrSec[attr].description;
                 }
                 var skill;
-                for (skill in skills) {
+                for (skill in $localStorage.skills) {
                     if (skills[skill].natural) {
                         var newSkill = angular.copy(skills[skill]);
                         delete newSkill.description;
@@ -692,8 +722,9 @@ angular.module('chargenNgApp')
                         $localStorage.characters = [character];
                         return;
                     }
-                    var existsIndex = -1;
-                    for (var i = 0; i < $localStorage.characters.length; i += 1) {
+                    var existsIndex = -1,
+                        i;
+                    for (i = 0; i < $localStorage.characters.length; i += 1) {
                         if ($localStorage.characters[i].name === character.name) {
                             existsIndex = i;
                         }
@@ -706,7 +737,8 @@ angular.module('chargenNgApp')
                 }
             },
             deleteCharacter: function (character) {
-                for (var i = 0; i < $localStorage.characters.length; i += 1) {
+                var i;
+                for (i = 0; i < $localStorage.characters.length; i += 1) {
                     if ($localStorage.characters[i].name === character.name) {
                         $localStorage.characters.splice(i, 1);
                         return;
@@ -719,12 +751,6 @@ angular.module('chargenNgApp')
                 } else {
                     return {};
                 }
-            },
-            getClasses: function () {
-                return klasses;
-            },
-            getJobs: function () {
-                return jobs;
             }
         };
     }]);

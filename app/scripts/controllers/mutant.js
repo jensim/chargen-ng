@@ -12,13 +12,9 @@ var jsonLog = function (j) {
 };
 
 angular.module('chargenNgApp')
-    .controller('MutantCtrl', ['$scope', 'mutantMongoServiceFactory', '$localStorage', function ($scope, mutantMongoServiceFactory, $localStorage) {
+    .controller('MutantCtrl', ['$scope', 'mutantMongoServiceFactory', '$localStorage', 'mutantCalcFactory', function ($scope, mutantMongoServiceFactory, $localStorage, mutantCalcFactory) {
 
         $scope.$storage = $localStorage;
-        $scope.gameClasses = mutantMongoServiceFactory.getClasses();
-        $scope.gameJobs = mutantMongoServiceFactory.getJobs();
-        $scope.activeCharacter = $localStorage.activeCharacter;
-        //$localStorage.characters = [];
 
         $scope.createCharacter = function () {
             if ($scope.create.klass && $scope.create.job) {
@@ -49,20 +45,19 @@ angular.module('chargenNgApp')
             if (!$localStorage.activeCharacter.weapons && $scope.create.weapon) {
                 $localStorage.activeCharacter.weapons = [$scope.create.weapon];
                 //jsonLog($localStorage.activeCharacter.weapons);
-                console.log('Push 1');
+                //console.log('Push 1');
             } else if (!$scope.weaponEdit && $scope.create && $scope.create.weapon) {
                 $localStorage.activeCharacter.weapons.push($scope.create.weapon);
                 $scope.weaponEdit = $scope.create.weapon;
-                console.log('Push 2');
+                //console.log('Push 2');
             }
         };
         $scope.deleteWeapon = function () {
             if (!$scope.weaponEdit || !$localStorage.activeCharacter.weapons) {
                 return;
             }
-            //            delete $localStorage.activeCharacter.weapons[$scope.weaponEdit];
             var i;
-            for (i = 0; i < $localStorage.activeCharacter.weapons.length; ++i) {
+            for (i = 0; i < $localStorage.activeCharacter.weapons.length; i += 1) {
                 var weapon = $localStorage.activeCharacter.weapons[i];
                 if ($scope.weaponEdit === weapon) {
                     $localStorage.activeCharacter.weapons.splice(i, 1);
@@ -73,32 +68,18 @@ angular.module('chargenNgApp')
                 weapon: undefined
             };
         };
-        $scope.random = function (max, min) {
-            if (max !== undefined && min !== undefined) {
-                return Math.floor((Math.random() * max) + min);
+        $scope.calcSecAttr = function (attr) {
+            if (attr === undefined) {
+                for (attr in $localStorage.activeCharacter.attrSec) {
+                    mutantCalcFactory.calcSecondaryAttribute($localStorage.activeCharacter.attrSec[attr]);
+                }
             } else {
-                return -1;
+                mutantCalcFactory.calcSecondaryAttribute(attr);
             }
         };
-        $scope.randomDice = function (dice) {
-            if (dice === undefined) {
-                return '';
-            } else {
-                jsonLog(dice);
-                var sum = 0;
+        var calcSecAttr = function (attr) {
+            console.log('Calulating: ' + attr.name);
 
-                var i;
-                for (i = 0; i < dice.num; ++i) {
-                    var diceRoll = $scope.random(dice.die, 1);
-                    console.log('diceRoll:' + diceRoll);
-                    sum += diceRoll;
-                }
-                if (dice.static) {
-                    sum += dice.static;
-                }
-
-                return sum;
-            }
         };
         $scope.skillSum = function (skill) {
             var timesGE = skill.natural ? 1 : 0;
@@ -140,35 +121,6 @@ angular.module('chargenNgApp')
             return sum;
         };
         $scope.getSkillUsedErf = function (skill) {
-            var sum = 0;
-            if (skill.valueErf > 0) {
-                var timesGE = skill.natural ? 1 : 0;
-                timesGE += skill.valueSp + skill.valueSpFree;
-                var fromGE = timesGE * (skill.attrPrim.value + skill.attrPrim.mod);
-                var fromTrain = skill.valueErf;
-                var total = fromGE + fromTrain;
-                if (total < 85) {
-                    sum += skill.valueErf;
-                } else if (total > 100) {
-                    if (fromGE < 85) {
-                        sum += (85 - fromGE);
-                        sum += ((100 - 85) * 2);
-                        sum += ((total - 100) * 3);
-                    } else if (fromGE > 100) {
-                        sum += ((total - fromGE) * 3);
-                    } else { //GE between..
-                        sum += ((100 - fromGE) * 2);
-                        sum += ((total - 100) * 3);
-                    }
-                } else { //between
-                    if (fromGE < 85) {
-                        sum += (85 - fromGE);
-                        sum += ((total - 85) * 2);
-                    } else {
-                        sum += ((total - fromGE) * 2);
-                    }
-                }
-            }
-            return sum;
+            return mutantCalcFactory.getSkillUsedErf(skill);
         };
     }]);

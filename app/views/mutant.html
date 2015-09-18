@@ -97,9 +97,9 @@
                 <h3 class="panel-title">Sekundära egenskaper
                     <i class="glyphicon glyphicon-cog pull-right" data-ng-click="mutantAttrSecFormEdit = !mutantAttrSecFormEdit"></i>
                     <div class="pull-right">&nbsp;</div>
-                    <i class="fa fa-calculator pull-right"></i>
+                    <i class="fa fa-calculator pull-right" data-ng-click="calcSecAttr()" data-ng-show="mutantAttrSecFormEdit"></i>
                     <div class="pull-right">&nbsp;</div>
-                    <diceroller dice="1D100" class="pull-right" />
+                    <diceroller dice="1D100" class="pull-right" data-ng-hide="mutantAttrSecFormEdit"></diceroller>
                 </h3>
             </div>
             <div class="panel-body">
@@ -110,7 +110,8 @@
                         </div>
                         <div data-ng-show="mutantAttrSecFormEdit">
                             {{a.name}}
-                            <input ng-model="a.value" maxlength="2" size="2" min="0" type="number">
+                            <input ng-model="a.value" maxlength="4" size="4">
+                            <i class="fa fa-calculator pull-right" data-ng-click="calcSecAttr(a)"></i>
                         </div>
                     </li>
                 </ul>
@@ -324,4 +325,4 @@
     </div>
 
 </div>
-<!--{{$storage.activeCharacter | json}}-->
+{{$storage.activeCharacter | json}}
