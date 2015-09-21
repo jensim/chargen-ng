@@ -1541,6 +1541,23 @@ angular.module('chargenNgApp')
 					}
 				}
 			},
+			deletePower: function (power) {
+				var p;
+				for (p in $localStorage.activeCharacter.powers) {
+					if ($localStorage.activeCharacter.powers[p] === power) {
+						if ($localStorage.activeCharacter.powers[p].skill !== undefined) {
+							var s;
+							for (s in $localStorage.activeCharacter.skills) {
+								if ($localStorage.activeCharacter.skills[s].name === $localStorage.activeCharacter.powers[p].skill.name) {
+									$localStorage.activeCharacter.skills.splice(s, 1);
+								}
+							}
+						}
+						$localStorage.activeCharacter.powers.splice(p, 1);
+						break;
+					}
+				}
+			},
 			loadCharacters: function () {
 				if ($localStorage.characters) {
 					return $localStorage.characters;

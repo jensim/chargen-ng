@@ -219,17 +219,17 @@
 				</ul>
 				<div class="pull-right" style="display: inline-block;">
 					<p>
-						<button class="btn btn-primary" data-ng-click="saveWeapon()" data-ng-hide="weaponEdit" data-ng-show="create.weapon">
+						<button class="btn btn-primary btn-sm" data-ng-click="saveWeapon()" data-ng-hide="weaponEdit" data-ng-show="create.weapon">
 							Spara
 						</button>
 					</p>
 					<p>
-						<button class="btn btn-primary" data-ng-click="deleteWeapon()" data-ng-show="weaponEdit">
+						<button class="btn btn-primary btn-sm" data-ng-click="deleteWeapon()" data-ng-show="weaponEdit">
 							<span class="glyphicon glyphicon-minus"></span> Ta bort
 						</button>
 					</p>
 					<p>
-						<button class="btn btn-primary" data-ng-click="create.weapon = {}; weaponEdit=undefined;" data-ng-show="weaponEdit">
+						<button class="btn btn-primary btn-sm" data-ng-click="create.weapon = {}; weaponEdit=undefined;" data-ng-show="weaponEdit">
 							<span class="glyphicon glyphicon-save-file"></span> Nytt formulär
 						</button>
 					</p>
@@ -291,30 +291,33 @@
 				</h3>
 			</div>
 			<div class="panel-body">
-				<ul class="list-group" data-ng-repeat="p in $storage.activeCharacters.powers">
-					<li class="list-group-item">
+				<ul class="list-group">
+					<li class="list-group-item" data-ng-repeat="p in $storage.activeCharacter.powers | orderBy:['name']">
 						{{p.name}}
-						<!--<span class="glyphicon glyphicon-trash pull-right"></span>-->
+						<button class="btn btn-warning btn-xs pull-right" data-ng-click="deletePower(p)">
+							<span class="glyphicon glyphicon-trash"></span>
+						</button>
 					</li>
 				</ul>
-			</div>
-			<div data-ng-show="mutantPowerFormEdit" data-ng-init="mutantPowerFormEdit = ($storage.activeCharacter.powers.length === 0)">
-				<button class="btn btn-primary" data-ng-click="createPower()">Lägg till förmåga</button>
-				<div>
-					<label>Namn</label>
-					<div class="input-group">
-						<input name="create.power.name" type="text" class="form-control" aria-label="..." data-ng-model="create.power.name">
-						<div class="input-group-btn">
-							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Färdigheter <span class="caret"></span></button>
-							<ul class="dropdown-menu">
-								<li data-ng-repeat="p in availablePowers() | orderBy:['name']" data-ng-click="setCreationPower(p)">
-									<b>{{p.name}}</b>
-								</li>
-							</ul>
+
+				<div data-ng-show="mutantPowerFormEdit" data-ng-init="mutantPowerFormEdit = ($storage.activeCharacter.powers.length === 0)">
+					<button class="btn btn-primary" data-ng-click="createPower()">Lägg till förmåga</button>
+					<div>
+						<label>Namn</label>
+						<div class="input-group">
+							<input name="create.power.name" type="text" class="form-control" aria-label="..." data-ng-model="create.power.name">
+							<div class="input-group-btn">
+								<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Färdigheter <span class="caret"></span></button>
+								<ul class="dropdown-menu">
+									<li data-ng-repeat="p in availablePowers() | orderBy:['name']" data-ng-click="setCreationPower(p)">
+										<a>{{p.name}}</a>
+									</li>
+								</ul>
+							</div>
 						</div>
 					</div>
+					{{create.power.skill || json}}
 				</div>
-				{{create.power.skill || json}}
 			</div>
 		</div>
 	</div>
@@ -400,4 +403,4 @@
 	</div>
 
 </div>
-{{$storage.activeCharacter | json}}
+<!--{{$storage.activeCharacter | json}}-->

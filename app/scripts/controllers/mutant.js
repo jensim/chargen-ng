@@ -23,8 +23,6 @@ angular.module('chargenNgApp')
 		};
 		$scope.$storage = $localStorage;
 
-
-
 		$scope.createCharacter = function () {
 			if ($scope.create.klass && $scope.create.job) {
 				$localStorage.activeCharacter = mutantMongoServiceFactory.newCharacter($scope.create.klass, $scope.create.job);
@@ -167,17 +165,17 @@ angular.module('chargenNgApp')
 			}
 		};
 		$scope.createPower = function () {
+			if ($localStorage.activeCharacter.powers === undefined) {
+				$localStorage.activeCharacter.powers = [];
+			}
 			$localStorage.activeCharacter.powers.push(angular.copy($scope.create.power));
+			if ($scope.create.power.skill) {
+				$localStorage.activeCharacter.skills.push(angular.copy($scope.create.power.skill));
+			}
 			$scope.setCreationPower();
 		};
 		$scope.deletePower = function (power) {
-			var s;
-			for (s in $localStorage.activeCharacter.powers) {
-				if ($localStorage.activeCharacter.powers[s] === power) {
-					$localStorage.activeCharacter.powers.splice(s, 1);
-					break;
-				}
-			}
+			mutantMongoServiceFactory.deletePower(power);
 		};
 		$scope.availablePowers = function () {
 			if ($localStorage.activeCharacter) {
