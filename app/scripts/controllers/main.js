@@ -29,6 +29,7 @@ angular.module('chargenNgApp')
 					$scope.milestones[m].progress = getProgress($scope.milestones[m]);
 				}
 			}, function (res) { //FAIL
+				console.error('Failed loading milestones');
 				$scope.milestones = [];
 			});
     }]);

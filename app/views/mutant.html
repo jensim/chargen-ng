@@ -90,7 +90,7 @@
 					GE &nbsp;tränad mod
 				</p>
 				<ul class="list-group row">
-					<li class="list-group-item" data-ng-repeat="a in $storage.activeCharacter.attrPrim">
+					<li class="list-group-item animated-li" data-ng-repeat="a in $storage.activeCharacter.attrPrim">
 						<div data-ng-hide="mutantAttrPrimFormEdit">
 							{{a.name}} ({{a.short}}): {{a.value + a.trained}}
 							<div data-ng-show="a.mod > 0">&nbsp;+ {{a.mod}}</div>
@@ -123,7 +123,7 @@
 			</div>
 			<div class="panel-body">
 				<ul class="list-group row">
-					<li class="list-group-item" data-ng-repeat="a in $storage.activeCharacter.attrSec">
+					<li class="list-group-item animated-li" data-ng-repeat="a in $storage.activeCharacter.attrSec">
 						<div data-ng-hide="mutantAttrSecFormEdit">
 							{{a.name}} {{a.value}}
 						</div>
@@ -161,7 +161,7 @@
 
 				</div>
 				<ul class="list-group row">
-					<li class="list-group-item" data-ng-repeat="a in $storage.activeCharacter.skills | orderBy:['-postTrained','-natural','name']">
+					<li class="list-group-item animated-li" data-ng-repeat="a in $storage.activeCharacter.skills | orderBy:['-postTrained','-natural','name']">
 						<div data-ng-hide="mutantSkillFormEdit">
 							{{a.name}} ({{a.attrPrim}}): {{skillSum(a)}}
 						</div>
@@ -215,7 +215,7 @@
 			</div>
 			<div class="panel-body">
 				<ul class="list-group">
-					<li class="list-group-item" data-ng-repeat="w in $storage.activeCharacter.weapons | orderBy:[name]" data-ng-click="editWeapon(w)">{{w.name}}</li>
+					<li class="list-group-item animated-li" data-ng-repeat="w in $storage.activeCharacter.weapons | orderBy:[name]" data-ng-click="editWeapon(w)">{{w.name}}</li>
 				</ul>
 				<div class="pull-right" style="display: inline-block;">
 					<p>
@@ -292,7 +292,7 @@
 			</div>
 			<div class="panel-body">
 				<ul class="list-group">
-					<li class="list-group-item" data-ng-repeat="p in $storage.activeCharacter.powers | orderBy:['name']">
+					<li class="list-group-item animated-li" data-ng-repeat="p in $storage.activeCharacter.powers | orderBy:['name']">
 						{{p.name}}
 						<button class="btn btn-warning btn-xs pull-right" data-ng-click="deletePower(p)">
 							<span class="glyphicon glyphicon-trash"></span>
@@ -382,7 +382,7 @@
             </h3>
 			</div>
 			<div class="panel-body collapse in" id="loadCharacterBody">
-				<div class="list-group" data-ng-repeat="character in $storage.characters">
+				<div class="list-group animated-li" data-ng-repeat="character in $storage.characters">
 					<a class="list-group-item clearfix">
 						<span class="glyphicon glyphicon-file"></span> {{character.name}}
 						<span class="pull-right">

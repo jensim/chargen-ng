@@ -1,22 +1,27 @@
 <div class="jumbotron">
 	<h1>Karaktärsgeneratorn av Jensim</h1>
+	<p>Ett verktyg för att generera rollspelskaraktärer som sparas på din telefon eller dator, så att du kan använda den när du spelar, varje gång.</p>
+	<p>Jag skriver koden helt öppet, så du är välkommen att granska, bidra eller skapa din egen version av sidan.</p>
+	<p><a href="https://github.com/jensim/chargen-ng">Källkod på Github <i class="fa fa-github"></i></a></p>
 	<div class="input-group">
 		<diceroller class="input-group-addon" dice="{{leDice}}"></diceroller>
 		<input data-ng-model="leDice" type="text" size="10" class="form-control" placeholder="1D6 1D4 +2" data-ng-init="leDice='1D6 1D4 +2'">
 	</div>
 </div>
-<div class="panel panel-default">
-	<h2 data-ng-show="milestones">Milestones</h2>
+<div class="panel panel-default" data-ng-show="milestones">
+	<h2>
+		<a href="https://github.com/jensim/chargen-ng/milestones" style="font-color: black;">Milestones på Github <i class="fa fa-github"></i></a>
+	</h2>
 	<div data-ng-repeat="milestone in milestones | orderBy:['-progress','title']">
 		<!--filter: {'state': 'open'}-->
-		<h3><i class="fa fa-flag" ng-class="milestone.closed_issues === 0 ? 'text-danger' : milestone.open_issues === 0 ? 'text-success' : 'text-primary' "></i> {{milestone.title}}</h3> {{milestone.progress}}% klart
+		<h3><i class="fa fa-flag" ng-class="milestone.closed_issues === 0 ? 'text-danger' : milestone.open_issues === 0 ? 'text-success' : 'text-primary' "></i> {{milestone.title}}</h3>
+		<p>{{milestone.progress}}% "klart"</p>
+		<p>{{milestone.open_issues}} {{milestone.open_issues === 1 ? 'Öppet ärende' : 'Öppna ärenden'}}</p>
+		<p>{{milestone.closed_issues}} {{milestone.closed_issues === 1 ? 'Stängt ärende' : 'Stängda ärenden'}}</p>
 		<div class="progress">
 			<div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="{{milestone.progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{milestone.progress}}%;">
 				<span class="sr-only">{{milestone.progress}}% Complete</span>
 			</div>
-			<!--<div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="{{100 - milestone.progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{100- milestone.progress}}%;">
-	<span class="sr-only">{{100 - milestone.progress}}% Complete</span>
-</div>-->
 		</div>
 	</div>
 </div>
