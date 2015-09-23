@@ -1474,193 +1474,220 @@ angular.module('chargenNgApp')
 		}]
 		};
 		var weaponReach = {
-			melee:{
-				name:'Närstrid',
-				aproxDist:'5 m',
-				exWeapon:'Närstrid'
+			melee: {
+				name: 'Närstrid',
+				aproxDist: '5 m',
+				exWeapon: 'Närstrid'
 			},
-			close:{
-				name:'Nära',
-				aproxDist:'10 m',
-				exWeapon:'Pistol'
+			close: {
+				name: 'Nära',
+				aproxDist: '10 m',
+				exWeapon: 'Pistol'
 			},
-			short:{
-				name:'Kort',
-				aproxDist:'25 m',
-				exWeapon:'Hagelgevär'
+			short: {
+				name: 'Kort',
+				aproxDist: '25 m',
+				exWeapon: 'Hagelgevär'
 			},
-			medium:{
-				name:'Menium',
-				aproxDist:'50 m',
-				exWeapon:'K-pist'
+			medium: {
+				name: 'Menium',
+				aproxDist: '50 m',
+				exWeapon: 'K-pist'
 			},
-			far:{
-				name:'Långt',
-				aproxDist:'100 m',
-				exWeapon:'Automatgevär'
+			far: {
+				name: 'Långt',
+				aproxDist: '100 m',
+				exWeapon: 'Automatgevär'
 			},
-			veryFar:{
-				name:'Mycket långt',
-				aproxDist:'200 m',
-				exWeapon:'Jaktgevär'
+			veryFar: {
+				name: 'Mycket långt',
+				aproxDist: '200 m',
+				exWeapon: 'Jaktgevär'
 			},
-			extremlyFar:{
-				name:'Extremt långt',
-				aproxDist:'400 m',
-				exWeapon:'Prickskyttevapen'
+			extremlyFar: {
+				name: 'Extremt långt',
+				aproxDist: '400 m',
+				exWeapon: 'Prickskyttevapen'
 			}
 		};
-		var weapons = {
-			regMelee: {
-				name: 'Vanliga närstridsvapen',
-				weapons: [
-					{
-						name: '',
-						fattn: '',
-						init: '',
-						damage: '',
-						STR: 0,
-						vikt: 0,
-						reach: 'close',
-						cost: 0
-					},
-				]
-			},
-			hightechMelee: {
-				name: 'Högteknologiska närstridsvapen',
-				weapons: [{
-						name: 'Chockbatong',
-						fattn: '1H',
-						init: 3,
-						mag: 30,
-						pen: 0,
-						dependabillity: 100,
-						damage: '1D4',
-						STR: 5,
-						durabillity: 8,
-						vikt: 1,
-						reach: 'close',
-						cost: 225
-					}]
-			},
-			regThrown: {
-				name: 'Vanliga kast- och projektilvapen',
-				weapons: [{
-						name: 'Armborst',
-						eldh: 'e',
-						fattn: '2H',
-						init: 2,
-						mag: 1,
-						dependabillity: 100,
-						damage: '2D6 +2',
-						durabillity: 7,
-						STR: 0,
-						vikt: 4,
-						reach:'short',
-						cost: 8
-					}]
-			},
-			hightechThrown: {
-				name: 'Högteknologiska projektilvapen',
-				weapons: [{
-						name: 'Armborst, automatladdat',
-						eldh: 'e',
-						fattn: '2H',
-						init: 2,
-						mag: 5,
-						dependabillity: 100,
-						damage: '2D10',
-						durabillity: 6,
-						STR: 0,
-						vikt: 2.5,
-						reach:'menium',
-						cost: 350
-					}]
-			},
-			blackpowder: {
-				name: 'Svartkrutsvapen',
-				weapons: [{
-						name: 'Derringer .45S',
-						eldh: 'e',
-						fattn: '1H',
-						init: 6,
-						mag: 1,
-						dependabillity: 99,
-						reach:'close',
-						damage: '2D6',
-						durabillity: 9,
-						STR: 0,
-						vikt: 0.5,
-						cost: 18
-					}]
-			},
-			guns: {
-				name: 'Skjutvapen',
-				weapons: [{
-						name: 'Pistol .22',
-						eldh: 'e',
-						fattn: '1H',
-						init: 10,
-						mag: 10,
-						dependabillity: 100,
-						reach:'short',
-						damage: '1D8',
-						durabillity: 10,
-						STR: 0,
-						vikt: 1,
-						cost: 250
-					}]
-			},
-			homebrew: {
-				name: 'Typiska hemmabyggen',
-				weapons: [{
-						name: 'HB Pistol .22',
-						eldh: 'e',
-						fattn: '1H',
-						init: 9,
-						mag: 1,
-						dependabillity: 75,
-						reach:'close',
-						damage: '1D8 -2',
-						durabillity: 7,
-						STR: 0,
-						vikt: 1.5,
-						cost: 50
-					}]
-			},
-			gaus: {
-				name: 'Gyrojet- och Gausvapen',
-				weapons: []
-			},
-			energy: {
-				name: 'Energivapen',
-				weapons: []
-			},
-			regTraps: {
-				name: 'Vanliga fällor',
-				weapons: []
-			},
-			granades: {
-				name: 'Granater',
-				weapons: []
-			},
-			explosives: {
-				name: 'Sprängämnen och minor',
-				weapons: []
-			},
-			granadelaunchers: {
-				name: 'Granatvapen',
-				weapons: []
-			},
-			machineGuns: {
-				name: 'Kulsprutur',
-				weapons: []
-			},
-			armorPiercing: {
-				name: 'Pansarvapen',
-				weapons: []
-			},
+		var weaponCategories = {
+			regClose: 'Vanliga närstridsvapen',
+			techClose: 'Högteknologiska närstridsvapen',
+			techMissile: 'Högteknologiska projektilvapen',
+			regMissile: 'Vanliga kast- och projektilvapen',
+			gun: 'Skjutvapen',
+			homeBuilt: 'Typiska hemmabyggen',
+			blackPowder: 'Svartkrutsvapen',
+			gyro: 'Gyrojet- och Gausvapen',
+			energy: 'Energivapen',
+			regTrap: 'Vanliga fällor',
+			granade: 'Granater',
+			explosives: 'Sprängämnen och minor',
+			granadeLauncher: 'Granatvapen',
+			machineGun: 'Kulsprutur',
+			armorPierce: 'Pansarvapen',
 		};
+		var weapons = [
+			{
+				name: 'Obeväpnad',
+				cat: weaponCategories.regClose,
+				fattn: '-',
+				init: 0,
+				damage: '1D4',
+				STR: 0,
+				vikt: 0,
+				reach: 'close',
+				cost: 0
+					}, {
+				name: 'Naturligt vapen',
+				cat: weaponCategories.regClose,
+				fattn: '-',
+				init: 0,
+				damage: '1D6',
+				STR: 0,
+				vikt: 0,
+				reach: 'close',
+				cost: 0
+					}, {
+				name: 'Bajonett (på k-pist)',
+				cat: weaponCategories.regClose,
+				fattn: '2H',
+				init: 3,
+				damage: '2D6 +1',
+				STR: 7,
+				vikt: 0.25,
+				reach: 'close',
+				cost: 1.5
+					}, {
+				name: 'Bajonett (på karbin eller gevär)',
+				cat: weaponCategories.regClose,
+				fattn: '2H',
+				init: 4,
+				damage: '2D6 +1',
+				STR: 7,
+				vikt: 0.25,
+				reach: 'close',
+				cost: 1.5
+					}, {
+				name: 'Chockbatong',
+				cat: weaponCategories.regClose,
+				fattn: '1H',
+				init: 3,
+				mag: 30,
+				pen: 0,
+				dependabillity: 100,
+				damage: '1D4',
+				STR: 5,
+				durabillity: 8,
+				vikt: 1,
+				reach: 'close',
+				cost: 225
+					}, {
+				name: 'Armborst',
+				cat: weaponCategories.regMissile,
+				eldh: 'e',
+				fattn: '2H',
+				init: 2,
+				mag: 1,
+				dependabillity: 100,
+				damage: '2D6 +2',
+				durabillity: 7,
+				STR: 0,
+				vikt: 4,
+				reach: 'short',
+				cost: 8
+					}, {
+				name: 'Armborst, automatladdat',
+				cat: weaponCategories.techMissile,
+				eldh: 'e',
+				fattn: '2H',
+				init: 2,
+				mag: 5,
+				dependabillity: 100,
+				damage: '2D10',
+				durabillity: 6,
+				STR: 0,
+				vikt: 2.5,
+				reach: 'menium',
+				cost: 350
+					}, {
+				name: 'Derringer .45S',
+				cat: weaponCategories.blackPowder,
+				eldh: 'e',
+				fattn: '1H',
+				init: 6,
+				mag: 1,
+				dependabillity: 99,
+				reach: 'close',
+				damage: '2D6',
+				durabillity: 9,
+				STR: 0,
+				vikt: 0.5,
+				cost: 18
+					}, {
+				name: 'Pistol .22',
+				cat: weaponCategories.gun,
+				eldh: 'e',
+				fattn: '1H',
+				init: 10,
+				mag: 10,
+				dependabillity: 100,
+				reach: 'short',
+				damage: '1D8',
+				durabillity: 10,
+				STR: 0,
+				vikt: 1,
+				cost: 250
+					}, {
+				name: 'HB Pistol .22',
+				cat: weaponCategories.homeBuilt,
+				eldh: 'e',
+				fattn: '1H',
+				init: 9,
+				mag: 1,
+				dependabillity: 75,
+				reach: 'close',
+				damage: '1D8 -2',
+				durabillity: 7,
+				STR: 0,
+				vikt: 1.5,
+				cost: 50
+					}];
+		/* weapons continued
+					gaus: {
+						name: 'Gyrojet- och Gausvapen',
+						weapons: []
+					},
+					energy: {
+						name: 'Energivapen',
+						weapons: []
+					},
+					regTraps: {
+						name: 'Vanliga fällor',
+						weapons: []
+					},
+					granades: {
+						name: 'Granater',
+						weapons: []
+					},
+					explosives: {
+						name: 'Sprängämnen och minor',
+						weapons: []
+					},
+					granadelaunchers: {
+						name: 'Granatvapen',
+						weapons: []
+					},
+					machineGuns: {
+						name: 'Kulsprutur',
+						weapons: []
+					},
+					armorPiercing: {
+						name: 'Pansarvapen',
+						weapons: []
+					},
+				};
+					 */
 		var bodyParts = {
 			1: 'Höger ben',
 			2: 'Vänster ben',

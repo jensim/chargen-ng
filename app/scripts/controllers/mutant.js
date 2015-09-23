@@ -25,7 +25,7 @@ angular.module('chargenNgApp')
 
 		$scope.createCharacter = function () {
 			if ($scope.create.klass && $scope.create.job) {
-				storage.activeCharacter = mutantService.newCharacter($scope.create.klass, $scope.create.job);
+				mutantService.newCharacter($scope.create.klass, $scope.create.job);
 			}
 		};
 		$scope.saveCharacter = function () {
@@ -53,8 +53,8 @@ angular.module('chargenNgApp')
 				storage.activeCharacter.weapons = [$scope.create.weapon];
 			} else if (!$scope.weaponEdit && $scope.create && $scope.create.weapon) {
 				storage.activeCharacter.weapons.push($scope.create.weapon);
-				$scope.weaponEdit = $scope.create.weapon;
 			}
+			$scope.weaponEdit = $scope.create.weapon;
 		};
 		$scope.deleteWeapon = function () {
 			if (!$scope.weaponEdit || !storage.activeCharacter.weapons) {
@@ -184,15 +184,4 @@ angular.module('chargenNgApp')
 				return {};
 			}
 		};
-
-		$scope.loadStorageString = function () {
-			$scope.storageString = angular.fromJson(storage);
-		};
-		$scope.saveStorageString = function () {
-			var newJson = angular.toJson($scope.storageString);
-			if (newJson !== undefined) {
-				storage = newJson;
-			}
-		};
-		$scope.loadStorageString();
     }]);

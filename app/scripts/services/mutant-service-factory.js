@@ -11,11 +11,34 @@
 angular.module('chargenNgApp')
 	.factory('mutantServiceFactory', ['mutantStaticdataFactory', function (mutantStaticdataFactory) {
 
+		var saveCharacter = function (inChar) {
+			var storage = mutantStaticdataFactory.getLocalStorage(),
+				character = angular.copy(inChar);
 
+			if (character) {
+				if (storage.characters === undefined) {
+					storage.characters = [character];
+					return;
+				}
+				var existsIndex = -1,
+					i;
+				for (i = 0; i < storage.characters.length; i += 1) {
+					if (storage.characters[i].name === character.name) {
+						existsIndex = i;
+					}
+				}
+				if (existsIndex >= 0) {
+					storage.characters[existsIndex] = character;
+				} else {
+					storage.characters.push(character);
+				}
+			}
+		};
 
 		return {
 			newCharacter: function (iklass, ijob) {
 				var staticStorage = mutantStaticdataFactory.getStaticStorage(),
+					storage = mutantStaticdataFactory.getLocalStorage(),
 
 					newChar = {
 						name: 'ny',
@@ -23,7 +46,8 @@ angular.module('chargenNgApp')
 						job: angular.copy(ijob),
 						attrPrim: angular.copy(staticStorage.attrPrim),
 						attrSec: angular.copy(staticStorage.attrSec),
-						skills: angular.copy(ijob.trainedSkills)
+						skills: angular.copy(ijob.trainedSkills),
+						powers: []
 					},
 					skill;
 				for (skill in staticStorage.skills) {
@@ -31,29 +55,11 @@ angular.module('chargenNgApp')
 						newChar.skills.push(angular.copy(staticStorage.skills[skill]));
 					}
 				}
-				return newChar;
+				storage.activeCharacter = newChar;
+				saveCharacter(newChar);
 			},
 			saveCharacter: function (character) {
-				var storage = mutantStaticdataFactory.getLocalStorage();
-
-				if (character) {
-					if (storage.characters === undefined) {
-						storage.characters = [character];
-						return;
-					}
-					var existsIndex = -1,
-						i;
-					for (i = 0; i < storage.characters.length; i += 1) {
-						if (storage.characters[i].name === character.name) {
-							existsIndex = i;
-						}
-					}
-					if (existsIndex >= 0) {
-						storage.characters[existsIndex] = character;
-					} else {
-						storage.characters.push(character);
-					}
-				}
+				saveCharacter(character);
 			},
 			deleteCharacter: function (character) {
 				var storage = mutantStaticdataFactory.getLocalStorage();

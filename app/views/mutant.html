@@ -80,7 +80,9 @@
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h3 class="panel-title">Grundegenskaper
-                    <i class="glyphicon glyphicon-cog pull-right" data-ng-click="mutantAttrPrimFormEdit = !mutantAttrPrimFormEdit"></i>
+                    <i data-ng-class="mutantAttrPrimFormEdit ? 'text-danger' : ''">
+						<i class="glyphicon glyphicon-cog pull-right" data-ng-click="mutantAttrPrimFormEdit = !mutantAttrPrimFormEdit"></i>
+					</i>
                     <div class="pull-right">&nbsp;</div>
                     <diceroller dice="1D100" class="pull-right" />
                 </h3>
@@ -90,7 +92,7 @@
 					GE &nbsp;tränad mod
 				</p>
 				<ul class="list-group row">
-					<li class="list-group-item animated-li" data-ng-repeat="a in storage.activeCharacter.attrPrim">
+					<li class="list-group-item anim-fade" data-ng-repeat="a in storage.activeCharacter.attrPrim">
 						<div data-ng-hide="mutantAttrPrimFormEdit">
 							{{a.name}} ({{a.short}}): {{a.value + a.trained}}
 							<div data-ng-show="a.mod > 0">&nbsp;+ {{a.mod}}</div>
@@ -112,7 +114,9 @@
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h3 class="panel-title">Sekundära egenskaper
-                    <i class="glyphicon glyphicon-cog pull-right" data-ng-click="mutantAttrSecFormEdit = !mutantAttrSecFormEdit"></i>
+					<i data-ng-class="mutantAttrSecFormEdit ? 'text-danger' : ''">
+                    	<i class="glyphicon glyphicon-cog pull-right" data-ng-click="mutantAttrSecFormEdit = !mutantAttrSecFormEdit"></i>
+					</i>
                     <div class="pull-right">&nbsp;</div>
                     <i class="glyphicon glyphicon-info-sign pull-right" data-ng-click="mutantAttrSecFormInfo = !mutantAttrSecFormInfo" data-ng-hide="mutantAttrSecFormEdit"></i>
                     <div class="pull-right">&nbsp;</div>
@@ -123,7 +127,7 @@
 			</div>
 			<div class="panel-body">
 				<ul class="list-group row">
-					<li class="list-group-item animated-li" data-ng-repeat="a in storage.activeCharacter.attrSec">
+					<li class="list-group-item anim-fade" data-ng-repeat="a in storage.activeCharacter.attrSec">
 						<div data-ng-hide="mutantAttrSecFormEdit">
 							{{a.name}} {{a.value}}
 						</div>
@@ -147,7 +151,9 @@
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h3 class="panel-title">Färdigheter
-                    <i class="glyphicon glyphicon-cog pull-right" data-ng-click="mutantSkillFormEdit = !mutantSkillFormEdit"></i>
+					<i data-ng-class="mutantSkillFormEdit ? 'text-danger' : ''">
+                    	<i class="glyphicon glyphicon-cog pull-right" data-ng-click="mutantSkillFormEdit = !mutantSkillFormEdit"></i>
+					</i>
                     <div class="pull-right">&nbsp;</div>
                     <diceroller dice="1D100" class="pull-right" />
                     <div class="pull-right">&nbsp;</div>
@@ -161,7 +167,7 @@
 
 				</div>
 				<ul class="list-group row">
-					<li class="list-group-item animated-li" data-ng-repeat="a in storage.activeCharacter.skills | orderBy:['-postTrained','-natural','name']">
+					<li class="list-group-item anim-fade" data-ng-repeat="a in storage.activeCharacter.skills | orderBy:['-postTrained','-natural','name']">
 						<div data-ng-hide="mutantSkillFormEdit">
 							{{a.name}} ({{a.attrPrim}}): {{skillSum(a)}}
 						</div>
@@ -215,7 +221,7 @@
 			</div>
 			<div class="panel-body">
 				<ul class="list-group">
-					<li class="list-group-item animated-li" data-ng-repeat="w in storage.activeCharacter.weapons | orderBy:[name]" data-ng-click="editWeapon(w)">{{w.name}}</li>
+					<li class="list-group-item anim-fade" data-ng-repeat="w in storage.activeCharacter.weapons | orderBy:[name]" data-ng-click="editWeapon(w)">{{w.name}}</li>
 				</ul>
 				<div class="pull-right" style="display: inline-block;">
 					<p>
@@ -279,6 +285,10 @@
 					<label>/MAX</label>
 					<input name="weaponAmmoMax" data-ng-model="create.weapon.ammoMax" type="number">
 				</div>
+				<div class="input-group" data-ng-hide="weaponEdit">
+					<label>Ladda vapen</label>
+					<select data-ng-model="create.weapon" data-ng-options="w.name for w in flatData.weapons"></select>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -287,34 +297,49 @@
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h3 class="panel-title">Förmågor
-					 <i class="glyphicon glyphicon-cog pull-right" data-ng-click="mutantPowerFormEdit = !mutantPowerFormEdit"></i>
+					<i data-ng-class="mutantPowerFormEdit ? '' : 'text-danger' ">
+					 	<i class="glyphicon glyphicon-cog pull-right" data-ng-click="mutantPowerFormEdit = !mutantPowerFormEdit"></i>
+					</i>
 				</h3>
 			</div>
 			<div class="panel-body">
 				<ul class="list-group">
-					<li class="list-group-item animated-li" data-ng-repeat="p in storage.activeCharacter.powers | orderBy:['name']">
+					<li class="list-group-item anim-fade" data-ng-repeat="p in storage.activeCharacter.powers | orderBy:['name']">
 						{{p.name}}
-						<button class="btn btn-warning btn-xs pull-right" data-ng-click="deletePower(p)">
+						<button class="btn btn-warning btn-xs pull-right" data-ng-click="deletePower(p)" data-ng-hide="mutantPowerFormEdit">
 							<span class="glyphicon glyphicon-trash"></span>
 						</button>
 					</li>
 				</ul>
 
-				<div data-ng-show="mutantPowerFormEdit" data-ng-init="mutantPowerFormEdit = (storage.activeCharacter.powers.length === 0)">
+				<div data-ng-hide="mutantPowerFormEdit" class="anim-fade">
 					<button class="btn btn-primary" data-ng-click="createPower()">Lägg till förmåga</button>
-					<div>
-						<label>Namn</label>
+					<div class="form-group">
 						<div class="input-group">
-							<input name="create.power.name" type="text" class="form-control" aria-label="..." data-ng-model="create.power.name">
+							<label>Namn</label>
+							<input name="create.power.name" type="text" class="form-control" data-ng-model="create.power.name">
+						</div>
+						<div class="input-group">
+							<label for="create.power.cost">Kostnad</label>
+							<br/>
+							<input name="create.power.cost" type="number" class="form-controll" data-ng-model="create.power.cost">
+						</div>
+						<div class="input-group">
+							<label>Ladda från </label>
+							<select class="selectpicker form-control" data-ng-model="create.power" data-ng-options="p.name for p in availablePowers()"></select>
+						</div>
+
+						<!--
 							<div class="input-group-btn">
 								<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Färdigheter <span class="caret"></span></button>
-								<ul class="dropdown-menu">
+								<ul class="dropdown-menu scrollable-menu">
 									<li data-ng-repeat="p in availablePowers() | orderBy:['name']" data-ng-click="setCreationPower(p)">
 										<a>{{p.name}}</a>
 									</li>
 								</ul>
 							</div>
-						</div>
+							-->
+
 					</div>
 					{{create.power.skill || json}}
 				</div>
@@ -374,15 +399,15 @@
 		</div>
 	</div>
 
-	<div class="col-lg-4 col-md-6 col-sm-12" data-ng-show="storage.characters">
+	<div class="col-lg-4 col-md-6 col-sm-12">
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h3 class="panel-title">Ladda sparad karakt&auml;r
-                <span class="glyphicon glyphicon-minus pull-right" data-toggle="collapse" data-target="#loadCharacterBody"></span>
+                <span class="glyphicon glyphicon-minus pull-right" data-ng-click="loadCharacterBody = !loadCharacterBody"></span>
             </h3>
 			</div>
-			<div class="panel-body collapse in" id="loadCharacterBody">
-				<div class="list-group animated-li" data-ng-repeat="character in storage.characters">
+			<div class="panel-body anim-fade" data-ng-show="loadCharacterBody">
+				<div class="list-group anim-fade" data-ng-repeat="character in storage.characters">
 					<a class="list-group-item clearfix">
 						<span class="glyphicon glyphicon-file"></span> {{character.name}}
 						<span class="pull-right">
@@ -398,22 +423,6 @@
 				<button class="btn btn-sm btn-info pull-right" data-ng-click="loadCharacter()">
 					<span class="glyphicon glyphicon-plus"></span> Skapa ny
 				</button>
-			</div>
-		</div>
-	</div>
-
-	<div class="col-lg-4 col-md-6 col-sm-12">
-		<div class="panel panel-primary">
-			<div class="panel-heading">
-				<h3 class="panel-title">Importera/Exportera/Manipulera data.
-                <span class="glyphicon glyphicon-minus pull-right" data-toggle="collapse" data-target="#rawDataBody"></span>
-            </h3>
-			</div>
-			<div class="panel-body collapse in" id="rawDataBody">
-				<textarea data-ng-model="storageString"></textarea>
-				<br/>
-				<button class="btn btn-success" data-ng-click="loadStorageString()">Ladda</button>
-				<button class="btn btn-danger" data-ng-click="saveStorageString()">Spara</button>
 			</div>
 		</div>
 	</div>
