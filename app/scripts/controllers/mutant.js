@@ -184,4 +184,15 @@ angular.module('chargenNgApp')
 				return {};
 			}
 		};
+
+		$scope.loadStorageString = function () {
+			$scope.storageString = angular.fromJson(storage);
+		};
+		$scope.saveStorageString = function () {
+			var newJson = angular.toJson($scope.storageString);
+			if (newJson !== undefined) {
+				storage = newJson;
+			}
+		};
+		$scope.loadStorageString();
     }]);

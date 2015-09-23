@@ -1473,6 +1473,321 @@ angular.module('chargenNgApp')
 				cost: 3
 		}]
 		};
+		var weaponReach = {
+			melee:{
+				name:'Närstrid',
+				aproxDist:'5 m',
+				exWeapon:'Närstrid'
+			},
+			close:{
+				name:'Nära',
+				aproxDist:'10 m',
+				exWeapon:'Pistol'
+			},
+			short:{
+				name:'Kort',
+				aproxDist:'25 m',
+				exWeapon:'Hagelgevär'
+			},
+			medium:{
+				name:'Menium',
+				aproxDist:'50 m',
+				exWeapon:'K-pist'
+			},
+			far:{
+				name:'Långt',
+				aproxDist:'100 m',
+				exWeapon:'Automatgevär'
+			},
+			veryFar:{
+				name:'Mycket långt',
+				aproxDist:'200 m',
+				exWeapon:'Jaktgevär'
+			},
+			extremlyFar:{
+				name:'Extremt långt',
+				aproxDist:'400 m',
+				exWeapon:'Prickskyttevapen'
+			}
+		};
+		var weapons = {
+			regMelee: {
+				name: 'Vanliga närstridsvapen',
+				weapons: [
+					{
+						name: '',
+						fattn: '',
+						init: '',
+						damage: '',
+						STR: 0,
+						vikt: 0,
+						reach: 'close',
+						cost: 0
+					},
+				]
+			},
+			hightechMelee: {
+				name: 'Högteknologiska närstridsvapen',
+				weapons: [{
+						name: 'Chockbatong',
+						fattn: '1H',
+						init: 3,
+						mag: 30,
+						pen: 0,
+						dependabillity: 100,
+						damage: '1D4',
+						STR: 5,
+						durabillity: 8,
+						vikt: 1,
+						reach: 'close',
+						cost: 225
+					}]
+			},
+			regThrown: {
+				name: 'Vanliga kast- och projektilvapen',
+				weapons: [{
+						name: 'Armborst',
+						eldh: 'e',
+						fattn: '2H',
+						init: 2,
+						mag: 1,
+						dependabillity: 100,
+						damage: '2D6 +2',
+						durabillity: 7,
+						STR: 0,
+						vikt: 4,
+						reach:'short',
+						cost: 8
+					}]
+			},
+			hightechThrown: {
+				name: 'Högteknologiska projektilvapen',
+				weapons: [{
+						name: 'Armborst, automatladdat',
+						eldh: 'e',
+						fattn: '2H',
+						init: 2,
+						mag: 5,
+						dependabillity: 100,
+						damage: '2D10',
+						durabillity: 6,
+						STR: 0,
+						vikt: 2.5,
+						reach:'menium',
+						cost: 350
+					}]
+			},
+			blackpowder: {
+				name: 'Svartkrutsvapen',
+				weapons: [{
+						name: 'Derringer .45S',
+						eldh: 'e',
+						fattn: '1H',
+						init: 6,
+						mag: 1,
+						dependabillity: 99,
+						reach:'close',
+						damage: '2D6',
+						durabillity: 9,
+						STR: 0,
+						vikt: 0.5,
+						cost: 18
+					}]
+			},
+			guns: {
+				name: 'Skjutvapen',
+				weapons: [{
+						name: 'Pistol .22',
+						eldh: 'e',
+						fattn: '1H',
+						init: 10,
+						mag: 10,
+						dependabillity: 100,
+						reach:'short',
+						damage: '1D8',
+						durabillity: 10,
+						STR: 0,
+						vikt: 1,
+						cost: 250
+					}]
+			},
+			homebrew: {
+				name: 'Typiska hemmabyggen',
+				weapons: [{
+						name: 'HB Pistol .22',
+						eldh: 'e',
+						fattn: '1H',
+						init: 9,
+						mag: 1,
+						dependabillity: 75,
+						reach:'close',
+						damage: '1D8 -2',
+						durabillity: 7,
+						STR: 0,
+						vikt: 1.5,
+						cost: 50
+					}]
+			},
+			gaus: {
+				name: 'Gyrojet- och Gausvapen',
+				weapons: []
+			},
+			energy: {
+				name: 'Energivapen',
+				weapons: []
+			},
+			regTraps: {
+				name: 'Vanliga fällor',
+				weapons: []
+			},
+			granades: {
+				name: 'Granater',
+				weapons: []
+			},
+			explosives: {
+				name: 'Sprängämnen och minor',
+				weapons: []
+			},
+			granadelaunchers: {
+				name: 'Granatvapen',
+				weapons: []
+			},
+			machineGuns: {
+				name: 'Kulsprutur',
+				weapons: []
+			},
+			armorPiercing: {
+				name: 'Pansarvapen',
+				weapons: []
+			},
+		};
+		var bodyParts = {
+			1: 'Höger ben',
+			2: 'Vänster ben',
+			3: 'Bål',
+			4: 'Höger arm',
+			5: 'Vänster arm',
+			6: 'Huvudet'
+		};
+		var armors = {
+			primitive: {
+				name: 'Primitiva rustningar',
+				armors: [{
+						name: 'Läder',
+						ABS: 1,
+						BEG: 1,
+						vikt: 3,
+						fits: [1, 2, 3, 4, 5, 6],
+						cost: 1.25
+					}, {
+						name: 'Flytväst',
+						ABS: 1,
+						BEG: 5,
+						vikt: 1,
+						fits: [3],
+						cost: 4
+					}, {
+						name: 'Härdat läder',
+						ABS: 2,
+						BEG: 2,
+						vikt: 5,
+						fits: [1, 2, 3, 4, 5, 6],
+						cost: 2
+					}, {
+						name: 'Blandrustning lätt',
+						ABS: 3,
+						BEG: 3,
+						vikt: 7,
+						fits: [1, 2, 3, 4, 5, 6],
+						cost: 2.25
+					}, {
+						name: 'Blandrustning medel',
+						ABS: 4,
+						BEG: 4,
+						vikt: 9,
+						fits: [1, 2, 3, 4, 5, 6],
+						cost: 3
+					}, {
+						name: 'Blandrustning tung',
+						ABS: 5,
+						BEG: 5,
+						vikt: 11,
+						fits: [1, 2, 3, 4, 5, 6],
+						cost: 5
+					}, {
+						name: 'Härdad läderhuva',
+						ABS: 1,
+						BEG: 5,
+						vikt: 1,
+						fits: [6],
+						cost: 3
+					}, {
+						name: 'Cykelhjälm',
+						ABS: 2,
+						BEG: 10,
+						vikt: 2,
+						fits: [6],
+						cost: 5
+					}, {
+						name: 'Stålkask',
+						ABS: 3,
+						BEG: 15,
+						vikt: 1,
+						fits: [6],
+						cost: 3
+					}, {
+						name: 'Hockeyhjälm',
+						ABS: 4,
+						BEG: 20,
+						vikt: 1,
+						fits: [6],
+						cost: 15
+					}, {
+						name: 'MC-hjälm',
+						ABS: 5,
+						BEG: 40,
+						vikt: 2,
+						fits: [6],
+						cost: 20
+					}
+				]
+			},
+			kevlar: {
+				name: 'Kevlar- och Impactrustningar',
+				armors: [{
+					name: 'Knivväst',
+					ABS: 4,
+					BEG: 2,
+					vikt: 3,
+					fits: [3],
+					cost: 50
+					}]
+			},
+			energyArmor: {
+				name: 'Energirustningar och reflecskydd',
+				armors: [{
+					name: 'Reflecoverall',
+					ABS: '+10 mot e-vapen',
+					BEG: 5,
+					vikt: 3,
+					multiplePart: true,
+					fits: [1, 2, 3, 4, 5],
+					cost: 375
+					}]
+			}
+
+		};
+		var shields = [
+			{
+				name: 'Träsköld, liten',
+				ABS: 6,
+				BEG: 6,
+				vikt: 2,
+				cover: 15,
+				durabillity: 8,
+				cost: 1
+			},
+			];
 		var staticData = {
 			version: version,
 			klasses: klasses,
@@ -1481,16 +1796,18 @@ angular.module('chargenNgApp')
 			jobs: jobs,
 			skadeBonus: skadeBonus,
 			attrSec: attrSec,
-			powers: powers
+			powers: powers,
+			weaponReach: weaponReach,
+			weapons: weapons,
+			bodyParts: bodyParts,
+			armors: armors,
+			shields: shields
 		};
 
 
 
 		var storageM = function (forceReset) {
-				if ($localStorage.mutant === undefined 
-						|| $localStorage.mutant.version === undefined 
-						|| $localStorage.mutant.version !== version 
-						|| forceReset === true) {
+				if ($localStorage.mutant === undefined || $localStorage.mutant.version === undefined || $localStorage.mutant.version !== version || forceReset === true) {
 					$localStorage.mutant = {
 						version: version
 					};
@@ -1498,10 +1815,7 @@ angular.module('chargenNgApp')
 				return $localStorage.mutant;
 			},
 			storageMS = function (forceReset) {
-				if ($localStorage.mutantflat === undefined 
-						|| $localStorage.mutantflat.version === undefined 
-						|| $localStorage.mutantflat.version !== staticData.version 
-						|| forceReset === true) {
+				if ($localStorage.mutantflat === undefined || $localStorage.mutantflat.version === undefined || $localStorage.mutantflat.version !== staticData.version || forceReset === true) {
 					$localStorage.mutantflat = angular.copy(staticData);
 					console.log('Mutant static data has been SET.');
 				}

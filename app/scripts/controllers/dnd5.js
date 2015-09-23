@@ -8,6 +8,6 @@
  * Controller of the chargenNgApp
  */
 angular.module('chargenNgApp')
-    .controller('Dnd5Ctrl', ['$scope', function ($scope) {
+	.controller('Dnd5Ctrl', [function () {
 
     }]);

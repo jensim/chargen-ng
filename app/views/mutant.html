@@ -402,5 +402,21 @@
 		</div>
 	</div>
 
+	<div class="col-lg-4 col-md-6 col-sm-12">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title">Importera/Exportera/Manipulera data.
+                <span class="glyphicon glyphicon-minus pull-right" data-toggle="collapse" data-target="#rawDataBody"></span>
+            </h3>
+			</div>
+			<div class="panel-body collapse in" id="rawDataBody">
+				<textarea data-ng-model="storageString"></textarea>
+				<br/>
+				<button class="btn btn-success" data-ng-click="loadStorageString()">Ladda</button>
+				<button class="btn btn-danger" data-ng-click="saveStorageString()">Spara</button>
+			</div>
+		</div>
+	</div>
+
 </div>
 <!--{{storage.activeCharacter | json}}-->

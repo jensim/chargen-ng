@@ -7,9 +7,6 @@
  * # mutantMongoServiceFactory
  * Factory in the chargenNgApp.
  */
-var logJson = function (text) {
-	console.log(JSON.stringify(text, null, '\t'));
-};
 
 angular.module('chargenNgApp')
 	.factory('mutantServiceFactory', ['mutantStaticdataFactory', function (mutantStaticdataFactory) {
@@ -59,8 +56,7 @@ angular.module('chargenNgApp')
 				}
 			},
 			deleteCharacter: function (character) {
-				var storage = mutantStaticdataFactory.getLocalStorage(),
-					staticStorage = mutantStaticdataFactory.getStaticStorage();
+				var storage = mutantStaticdataFactory.getLocalStorage();
 				var i;
 				for (i = 0; i < storage.characters.length; i += 1) {
 					if (storage.characters[i].name === character.name) {

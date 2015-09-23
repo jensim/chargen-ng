@@ -7,9 +7,6 @@
  * # mutantMongoServiceFactory
  * Factory in the chargenNgApp.
  */
-var logJson = function (text) {
-	console.log(JSON.stringify(text, null, '\t'));
-};
 
 angular.module('chargenNgApp')
 	.factory('mutantCalcFactory', ['mutantStaticdataFactory', function (mutantStaticdataFactory) {
@@ -57,8 +54,6 @@ angular.module('chargenNgApp')
 				}
 			},
 			getSkillUsedErf: function (skill) {
-				var storage = mutantStaticdataFactory.getLocalStorage();
-
 				var sum = 0;
 				if (skill.valueErf > 0) {
 					var timesGE = skill.natural ? 1 : 0;

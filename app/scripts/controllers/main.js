@@ -33,7 +33,7 @@ angular.module('chargenNgApp')
 				for (m in $scope.milestones) {
 					$scope.milestones[m].progress = getProgress($scope.milestones[m]);
 				}
-			}, function (res) { //FAIL
+			}, function () { //FAIL
 				console.error('Failed loading milestones');
 				$scope.milestones = [];
 			});
