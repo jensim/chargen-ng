@@ -677,48 +677,50 @@ angular.module('chargenNgApp')
 			}
 		};
 		var powers = {
-			imm: [{
-				name: 'Arvegods',
-				description: '',
-				cost: 1
+			imm: [
+				{
+					name: 'Arvegods',
+					description: '',
+					cost: 1
 		}, {
-				name: 'Egendom',
-				description: '',
-				cost: 2
+					name: 'Egendom',
+					description: '',
+					cost: 2
 		}, {
-				name: 'Egendom',
-				description: '',
-				cost: 2
+					name: 'Egendom',
+					description: '',
+					cost: 2
 		}, {
-				name: 'Gammal vän',
-				description: '',
-				cost: 2
+					name: 'Gammal vän',
+					description: '',
+					cost: 2
 		}, {
-				name: 'Mentor',
-				description: '',
-				cost: 2
+					name: 'Mentor',
+					description: '',
+					cost: 2
 		}, {
-				name: 'Inkomst',
-				description: '',
-				cost: 2
+					name: 'Inkomst',
+					description: '',
+					cost: 2
 		}, {
-				name: 'Kontakter',
-				description: '',
-				cost: 2
+					name: 'Kontakter',
+					description: '',
+					cost: 2
 		}, {
-				name: 'Rykte',
-				description: '',
-				cost: 2
+					name: 'Rykte',
+					description: '',
+					cost: 2
 		}, {
-				name: 'Hemligt Sällskap',
-				description: '',
-				cost: 2
+					name: 'Hemligt Sällskap',
+					description: '',
+					cost: 2
 		}, {
-				name: 'Status',
-				description: '',
-				cost: 2
+					name: 'Status',
+					description: '',
+					cost: 2
 		}],
-			mm: [{
+			mm: [
+				{
 				name: 'Blixtsnabba Reflexer',
 				description: '',
 				cost: 3
@@ -985,7 +987,8 @@ angular.module('chargenNgApp')
 					valueSpFree: 1
 				}
 		}],
-			psi: [{
+			psi: [
+				{
 				name: 'Astral projektion',
 				description: '',
 				cost: 3,
@@ -1363,7 +1366,8 @@ angular.module('chargenNgApp')
 					valueSpFree: 1
 				}
 		}],
-			rbt: [{
+			rbt: [
+				{
 				name: 'Analysenhet',
 				description: '',
 				cost: 1

@@ -235,7 +235,7 @@
 						</button>
 					</p>
 					<p>
-						<button class="btn btn-primary btn-sm" data-ng-click="create.weapon = {}; weaponEdit=undefined;" data-ng-show="weaponEdit">
+						<button class="btn btn-primary btn-sm" data-ng-click="create.weapon = {}; weaponEdit=undefined;">
 							<span class="glyphicon glyphicon-save-file"></span> Nytt formulär
 						</button>
 					</p>
@@ -256,7 +256,7 @@
 					<label>SKADA: </label>
 					<input name="weaponDice" data-ng-model="create.weapon.damage" type="text">
 				</div>
-				<diceroller dice="{{create.weapon.dice}}"></diceroller>
+				<diceroller dice="{{create.weapon.damage}}"></diceroller>
 				<div class="input-group">
 					<label>PEN: </label>
 					<input name="weaponPen" data-ng-model="create.weapon.penetration" type="number">
@@ -285,9 +285,10 @@
 					<label>/MAX</label>
 					<input name="weaponAmmoMax" data-ng-model="create.weapon.ammoMax" type="number">
 				</div>
+				<hr/>
 				<div class="input-group" data-ng-hide="weaponEdit">
 					<label>Ladda vapen</label>
-					<select data-ng-model="create.weapon" data-ng-options="w.name for w in flatData.weapons"></select>
+					<select class="form-control" data-ng-model="create.weapon" data-ng-options="w.name for w in flatData.weapons"></select>
 				</div>
 			</div>
 		</div>
@@ -313,7 +314,14 @@
 				</ul>
 
 				<div data-ng-hide="mutantPowerFormEdit" class="anim-fade">
-					<button class="btn btn-primary" data-ng-click="createPower()">Lägg till förmåga</button>
+					<div class="pull-right" style="display: inline-block;">
+						<p>
+							<button class="btn btn-primary" data-ng-click="createPower()">Lägg till förmåga</button>
+						</p>
+						<p>
+							<button class="btn btn-primary" data-ng-click="create.power = {}">Återställ</button>
+						</p>
+					</div>
 					<div class="form-group">
 						<div class="input-group">
 							<label>Namn</label>
@@ -322,26 +330,18 @@
 						<div class="input-group">
 							<label for="create.power.cost">Kostnad</label>
 							<br/>
-							<input name="create.power.cost" type="number" class="form-controll" data-ng-model="create.power.cost">
+							<input name="create.power.cost" type="number" data-ng-model="create.power.cost">
 						</div>
+						<div class="input-group">
+							<label>Beskrivning</label>
+							<textarea name="create.power.description" type="text" class="form-control" data-ng-model="create.power.description"></textarea>
+						</div>
+						{{create.power.skill ? 'Ny färdighet' : ''}}
 						<div class="input-group">
 							<label>Ladda från </label>
 							<select class="selectpicker form-control" data-ng-model="create.power" data-ng-options="p.name for p in availablePowers()"></select>
 						</div>
-
-						<!--
-							<div class="input-group-btn">
-								<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Färdigheter <span class="caret"></span></button>
-								<ul class="dropdown-menu scrollable-menu">
-									<li data-ng-repeat="p in availablePowers() | orderBy:['name']" data-ng-click="setCreationPower(p)">
-										<a>{{p.name}}</a>
-									</li>
-								</ul>
-							</div>
-							-->
-
 					</div>
-					{{create.power.skill || json}}
 				</div>
 			</div>
 		</div>
