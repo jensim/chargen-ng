@@ -50,7 +50,7 @@ angular.module('chargenNgApp')
 
 								for (rolledDice = 0; rolledDice < numberOfDice; rolledDice += 1) {
 									var partSum = Math.floor((Math.random() * diceSize) + 1) * multiplier;
-									sum += partSum
+									sum += partSum;
 								}
 							} else if (dicePart.indexOf('+') === 0) {
 								sum += Number(dicePart.substr(1, dicePart.length - 1));
