@@ -28,20 +28,29 @@ angular.module('chargenNgApp')
 					hoverShow = false,
 					result = -1,
 					timeout,
-					showTime = $element.attr('show') ? $element.attr('show') : 3500,
+					showTime = $element.attr('show') || 3500,
 					//init parse attrs
 					rollDice = function () {
 						var i, sum = 0,
 							diceParts = $element.attr('dice') ? $element.attr('dice').split(' ') : ['0D6'];
 						for (i = 0; i < diceParts.length; i += 1) {
 							var dicePart = diceParts[i],
-								oneDiceType = dicePart.split('D');
+								oneDiceType = dicePart.split(/[tdTD]/g);
 							if (oneDiceType.length === 2) {
-								var numberOfDice = Number(oneDiceType[0]),
-									diceSize = Number(oneDiceType[1]),
+								var multiplier = 1,
+									numberOfDice;
+								if (oneDiceType[0].charAt(0) === '-') {
+									multiplier = -1;
+									numberOfDice = Number(oneDiceType[0].substring(1));
+								} else {
+									numberOfDice = Number(oneDiceType[0]);
+								}
+								var diceSize = Number(oneDiceType[1]),
 									rolledDice;
+
 								for (rolledDice = 0; rolledDice < numberOfDice; rolledDice += 1) {
-									sum += Math.floor((Math.random() * diceSize) + 1);
+									var partSum = Math.floor((Math.random() * diceSize) + 1) * multiplier;
+									sum += partSum
 								}
 							} else if (dicePart.indexOf('+') === 0) {
 								sum += Number(dicePart.substr(1, dicePart.length - 1));
