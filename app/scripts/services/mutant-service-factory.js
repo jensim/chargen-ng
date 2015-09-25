@@ -47,7 +47,9 @@ angular.module('chargenNgApp')
 						attrPrim: angular.copy(staticStorage.attrPrim),
 						attrSec: angular.copy(staticStorage.attrSec),
 						skills: angular.copy(ijob.trainedSkills),
-						powers: []
+						powers: [],
+						notes: [],
+						weapons: []
 					},
 					skill;
 				for (skill in staticStorage.skills) {

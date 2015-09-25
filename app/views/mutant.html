@@ -192,23 +192,28 @@
 				</ul>
 
 				<div data-ng-show="mutantSkillFormEdit">
-					<p>
-						<button class="btn btn-primary" data-ng-click="createSkill()">Lägg till färdighet</button>
-					</p>
-
-					<label>Namn</label>
-					<div class="input-group">
-						<input name="create.skill.name" type="text" class="form-control" aria-label="..." data-ng-model="create.skill.name">
-						<div class="input-group-btn">
-							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Färdigheter <span class="caret"></span></button>
-							<ul class="dropdown-menu">
-								<li data-ng-repeat="skill in flatData.skills | orderBy:['-natural','name']" data-ng-click="setCreationSkill(skill)">
-									<b>{{skill.name}}</b>
-								</li>
-							</ul>
-						</div>
+					<div class="pull-right" style="display: inline-block;">
+						<p>
+							<button class="btn btn-primary" data-ng-click="createSkill()">Lägg till färdighet</button>
+						</p>
+						<p>
+							<button class="btn btn-primary" data-ng-click="create.skill = {}">Återställ formulär</button>
+						</p>
 					</div>
-					<select data-ng-options="attr.name for attr in flatData.attrPrim" data-ng-model="create.skill.attrPrim"></select>
+
+					<div class="input-group">
+						<label>Namn</label>
+						<input name="create.skill.name" type="text" class="form-control" aria-label="..." data-ng-model="create.skill.name">
+					</div>
+					<div class="input-group">
+						<label class="control-label">GE:</label>
+						<select class="form-control" data-ng-options="a.name as a.name for a in flatData.attrPrimShort" data-ng-model="create.skill.attrPrim"></select>
+					</div>
+					<div class="input-group">
+						<label>Ladda färdighet</label>
+						<select class="form-control" data-ng-model="create.skill" data-ng-options="s.name for s in flatData.skills"></select>
+					</div>
+
 				</div>
 			</div>
 		</div>
@@ -246,7 +251,7 @@
 				</div>
 				<div class="input-group">
 					<label>FATTN: </label>
-					<input name="weaponFattn" data-ng-model="create.weapon.grip" type="text">
+					<input name="weaponFattn" data-ng-model="create.weapon.fattn" type="text">
 				</div>
 				<div class="input-group">
 					<label>INIT: </label>
@@ -283,7 +288,7 @@
 					<label>AMMO</label>
 					<input name="weaponAmmo" data-ng-model="create.weapon.ammo" type="number">
 					<label>/MAX</label>
-					<input name="weaponAmmoMax" data-ng-model="create.weapon.ammoMax" type="number">
+					<input name="weaponAmmoMax" data-ng-model="create.weapon.mag" type="number">
 				</div>
 				<hr/>
 				<div class="input-group" data-ng-hide="weaponEdit">
@@ -351,7 +356,9 @@
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h3 class="panel-title">Rustning
-					 <i class="glyphicon glyphicon-cog pull-right"></i>
+					 <i data-ng-class="mutantArmorFormEdit ? 'text-danger' : '' ">
+					 	<i class="glyphicon glyphicon-cog pull-right" data-ng-click="mutantArmorFormEdit = !mutantArmorFormEdit"></i>
+					</i>
 				 </h3>
 			</div>
 			<div class="panel-body">
@@ -364,7 +371,9 @@
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h3 class="panel-title">Utrustning
-                    <i class="glyphicon glyphicon-cog pull-right"></i>
+                    <i data-ng-class="mutantGearFormEdit ? 'text-danger' : '' ">
+					 	<i class="glyphicon glyphicon-cog pull-right" data-ng-click="mutantGearFormEdit = !mutantGearFormEdit"></i>
+					</i>
                 </h3>
 			</div>
 			<div class="panel-body">
@@ -377,7 +386,9 @@
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h3 class="panel-title">Strid - snabbverktyg
-                    <i class="glyphicon glyphicon-cog pull-right"></i>
+                    <i data-ng-class="mutantCombatFormEdit ? 'text-danger' : '' ">
+					 	<i class="glyphicon glyphicon-cog pull-right" data-ng-click="mutantCombatFormEdit = !mutantCombatFormEdit"></i>
+					</i>
                 </h3>
 			</div>
 			<div class="panel-body">
@@ -390,11 +401,32 @@
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h3 class="panel-title">Övrigt
-                    <i class="glyphicon glyphicon-cog pull-right"></i>
+                    <i data-ng-class="mutantMiscFormEdit ? 'text-danger' : '' ">
+					 	<i class="glyphicon glyphicon-cog pull-right" data-ng-click="mutantMiscFormEdit = !mutantMiscFormEdit"></i>
+					</i>
                 </h3>
 			</div>
-			<div class="panel-body">
-				something
+			<div class="panel-body" data-ng-show="storage.activeCharacter.notes">
+				<ul class="list-group">
+					<li class="list-group-item" data-ng-repeat="n in storage.activeCharacter.notes">
+						<span data-ng-click="">
+							{{n.header}}
+						</span>
+						<button class="btn btn-warning pull-right" data-ng-click="storage.activeCharacter.notes.splice($index, 1)">
+							<i class="glyphicon glyphicon-trash"></i>
+						</button>
+					</li>
+				</ul>
+
+				<div class="input-group">
+					<label>Rubrik</label>
+					<input type="text">
+				</div>
+				<div class="input-group">
+					<label>Innehåll</label>
+					<textarea class="form-control" data-ng-model="storage.activeCharacter.notes"></textarea>
+				</div>
+				<button class="btn btn-primary pull-right">Spara</button>
 			</div>
 		</div>
 	</div>
@@ -403,8 +435,9 @@
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h3 class="panel-title">Ladda sparad karakt&auml;r
-                <span class="glyphicon glyphicon-minus pull-right" data-ng-click="loadCharacterBody = !loadCharacterBody"></span>
-            </h3>
+					<i class="pull-right glyphicon" data-ng-class="loadCharacterBody ? 'glyphicon-minus' : 'glyphicon-plus' " data-ng-click="loadCharacterBody = !loadCharacterBody"></i>
+					<!--<span class="glyphicon glyphicon-minus pull-right" data-ng-click="loadCharacterBody = !loadCharacterBody"></span>-->
+            	</h3>
 			</div>
 			<div class="panel-body anim-fade" data-ng-show="loadCharacterBody">
 				<div class="list-group anim-fade" data-ng-repeat="character in storage.characters">

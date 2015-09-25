@@ -45,6 +45,15 @@ angular.module('chargenNgApp')
 				description: 'Tjänaren och underverket'
 			}
 		};
+		var attrPrimShort = [
+			{name: 'STY'},
+			{name: 'FYS'},
+			{name: 'STO'},
+			{name: 'SMI'},
+			{name: 'INT'},
+			{name: 'VIL'},
+			{name: 'PER'}
+		];
 		var attrPrim = {
 			STY: {
 				name: 'Styrka',
@@ -1539,7 +1548,7 @@ angular.module('chargenNgApp')
 				init: 0,
 				damage: '1D4',
 				STR: 0,
-				vikt: 0,
+				weight: 0,
 				reach: 'close',
 				cost: 0
 					}, {
@@ -1549,7 +1558,7 @@ angular.module('chargenNgApp')
 				init: 0,
 				damage: '1D6',
 				STR: 0,
-				vikt: 0,
+				weight: 0,
 				reach: 'close',
 				cost: 0
 					}, {
@@ -1559,7 +1568,7 @@ angular.module('chargenNgApp')
 				init: 3,
 				damage: '2D6 +1',
 				STR: 7,
-				vikt: 0.25,
+				weight: 0.25,
 				reach: 'close',
 				cost: 1.5
 					}, {
@@ -1569,7 +1578,7 @@ angular.module('chargenNgApp')
 				init: 4,
 				damage: '2D6 +1',
 				STR: 7,
-				vikt: 0.25,
+				weight: 0.25,
 				reach: 'close',
 				cost: 1.5
 					}, {
@@ -1583,7 +1592,7 @@ angular.module('chargenNgApp')
 				damage: '1D4',
 				STR: 5,
 				durabillity: 8,
-				vikt: 1,
+				weight: 1,
 				reach: 'close',
 				cost: 225
 					}, {
@@ -1597,7 +1606,7 @@ angular.module('chargenNgApp')
 				damage: '2D6 +2',
 				durabillity: 7,
 				STR: 0,
-				vikt: 4,
+				weight: 4,
 				reach: 'short',
 				cost: 8
 					}, {
@@ -1611,7 +1620,7 @@ angular.module('chargenNgApp')
 				damage: '2D10',
 				durabillity: 6,
 				STR: 0,
-				vikt: 2.5,
+				weight: 2.5,
 				reach: 'menium',
 				cost: 350
 					}, {
@@ -1626,7 +1635,7 @@ angular.module('chargenNgApp')
 				damage: '2D6',
 				durabillity: 9,
 				STR: 0,
-				vikt: 0.5,
+				weight: 0.5,
 				cost: 18
 					}, {
 				name: 'Pistol .22',
@@ -1640,7 +1649,7 @@ angular.module('chargenNgApp')
 				damage: '1D8',
 				durabillity: 10,
 				STR: 0,
-				vikt: 1,
+				weight: 1,
 				cost: 250
 					}, {
 				name: 'HB Pistol .22',
@@ -1654,7 +1663,7 @@ angular.module('chargenNgApp')
 				damage: '1D8 -2',
 				durabillity: 7,
 				STR: 0,
-				vikt: 1.5,
+				weight: 1.5,
 				cost: 50
 					}];
 		/* weapons continued
@@ -1707,77 +1716,77 @@ angular.module('chargenNgApp')
 						name: 'Läder',
 						ABS: 1,
 						BEG: 1,
-						vikt: 3,
+						weight: 3,
 						fits: [1, 2, 3, 4, 5, 6],
 						cost: 1.25
 					}, {
 						name: 'Flytväst',
 						ABS: 1,
 						BEG: 5,
-						vikt: 1,
+						weight: 1,
 						fits: [3],
 						cost: 4
 					}, {
 						name: 'Härdat läder',
 						ABS: 2,
 						BEG: 2,
-						vikt: 5,
+						weight: 5,
 						fits: [1, 2, 3, 4, 5, 6],
 						cost: 2
 					}, {
 						name: 'Blandrustning lätt',
 						ABS: 3,
 						BEG: 3,
-						vikt: 7,
+						weight: 7,
 						fits: [1, 2, 3, 4, 5, 6],
 						cost: 2.25
 					}, {
 						name: 'Blandrustning medel',
 						ABS: 4,
 						BEG: 4,
-						vikt: 9,
+						weight: 9,
 						fits: [1, 2, 3, 4, 5, 6],
 						cost: 3
 					}, {
 						name: 'Blandrustning tung',
 						ABS: 5,
 						BEG: 5,
-						vikt: 11,
+						weight: 11,
 						fits: [1, 2, 3, 4, 5, 6],
 						cost: 5
 					}, {
 						name: 'Härdad läderhuva',
 						ABS: 1,
 						BEG: 5,
-						vikt: 1,
+						weight: 1,
 						fits: [6],
 						cost: 3
 					}, {
 						name: 'Cykelhjälm',
 						ABS: 2,
 						BEG: 10,
-						vikt: 2,
+						weight: 2,
 						fits: [6],
 						cost: 5
 					}, {
 						name: 'Stålkask',
 						ABS: 3,
 						BEG: 15,
-						vikt: 1,
+						weight: 1,
 						fits: [6],
 						cost: 3
 					}, {
 						name: 'Hockeyhjälm',
 						ABS: 4,
 						BEG: 20,
-						vikt: 1,
+						weight: 1,
 						fits: [6],
 						cost: 15
 					}, {
 						name: 'MC-hjälm',
 						ABS: 5,
 						BEG: 40,
-						vikt: 2,
+						weight: 2,
 						fits: [6],
 						cost: 20
 					}
@@ -1789,7 +1798,7 @@ angular.module('chargenNgApp')
 					name: 'Knivväst',
 					ABS: 4,
 					BEG: 2,
-					vikt: 3,
+					weight: 3,
 					fits: [3],
 					cost: 50
 					}]
@@ -1800,7 +1809,7 @@ angular.module('chargenNgApp')
 					name: 'Reflecoverall',
 					ABS: '+10 mot e-vapen',
 					BEG: 5,
-					vikt: 3,
+					weight: 3,
 					multiplePart: true,
 					fits: [1, 2, 3, 4, 5],
 					cost: 375
@@ -1813,7 +1822,7 @@ angular.module('chargenNgApp')
 				name: 'Träsköld, liten',
 				ABS: 6,
 				BEG: 6,
-				vikt: 2,
+				weight: 2,
 				cover: 15,
 				durabillity: 8,
 				cost: 1
@@ -1822,6 +1831,7 @@ angular.module('chargenNgApp')
 		var staticData = {
 			version: version,
 			klasses: klasses,
+			attrPrimShort: attrPrimShort,
 			attrPrim: attrPrim,
 			skills: skills,
 			jobs: jobs,
