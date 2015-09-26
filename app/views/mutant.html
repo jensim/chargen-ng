@@ -310,21 +310,27 @@
 			</div>
 			<div class="panel-body">
 				<ul class="list-group">
-					<li class="list-group-item anim-fade" data-ng-repeat="p in storage.activeCharacter.powers | orderBy:['name']">
+					<li class="list-group-item anim-fade" data-ng-repeat="p in storage.activeCharacter.powers | orderBy:['name']" data-ng-click="editPower(p)">
 						{{p.name}}
-						<button class="btn btn-warning btn-xs pull-right" data-ng-click="deletePower(p)" data-ng-hide="mutantPowerFormEdit">
-							<span class="glyphicon glyphicon-trash"></span>
-						</button>
 					</li>
 				</ul>
 
 				<div data-ng-hide="mutantPowerFormEdit" class="anim-fade">
 					<div class="pull-right" style="display: inline-block;">
 						<p>
-							<button class="btn btn-primary" data-ng-click="createPower()">Lägg till förmåga</button>
+							<button class="btn btn-primary" data-ng-click="deletePower(powerEdit)" data-ng-show="powerEdit">
+								Ta bort förmåga
+							</button>
 						</p>
 						<p>
-							<button class="btn btn-primary" data-ng-click="create.power = {}">Återställ</button>
+							<button class="btn btn-primary" data-ng-click="createPower()" data-ng-hide="powerEdit">
+								Lägg till förmåga
+							</button>
+						</p>
+						<p>
+							<button class="btn btn-primary" data-ng-click="create.power={}; powerEdit=undefined;">
+								Återställ
+							</button>
 						</p>
 					</div>
 					<div class="form-group">
@@ -341,9 +347,11 @@
 							<label>Beskrivning</label>
 							<textarea name="create.power.description" type="text" class="form-control" data-ng-model="create.power.description"></textarea>
 						</div>
-						{{create.power.skill ? 'Ny färdighet' : ''}}
-						<div class="input-group">
-							<label>Ladda från </label>
+						<div class="text-danger" data-ng-show="create.power.skill">
+							Ny färdighet
+						</div>
+						<div class="input-group" data-ng-hide="powerEdit">
+							<label>Ladda förmåga </label>
 							<select class="selectpicker form-control" data-ng-model="create.power" data-ng-options="p.name for p in availablePowers()"></select>
 						</div>
 					</div>

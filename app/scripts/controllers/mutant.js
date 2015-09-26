@@ -110,7 +110,10 @@ angular.module('chargenNgApp')
 				for (skill in storage.activeCharacter.skills) {
 					sum += storage.activeCharacter.skills[skill].valueSp;
 				}
-				//TODO:calculate from powers
+				var power;
+				for (power in storage.activeCharacter.powers) {
+					sum += storage.activeCharacter.powers[power].cost;
+				}
 			}
 			return sum;
 		};
@@ -166,18 +169,26 @@ angular.module('chargenNgApp')
 				};
 			}
 		};
+		$scope.editPower = function (power) {
+			$scope.setCreationPower(power);
+			$scope.powerEdit = power;
+		};
 		$scope.createPower = function () {
 			if (storage.activeCharacter.powers === undefined) {
 				storage.activeCharacter.powers = [];
 			}
-			storage.activeCharacter.powers.push(angular.copy($scope.create.power));
-			if ($scope.create.power.skill) {
-				storage.activeCharacter.skills.push(angular.copy($scope.create.power.skill));
+			var newPower = angular.copy($scope.create.power);
+			storage.activeCharacter.powers.push(newPower);
+			if (newPower.skill) {
+				storage.activeCharacter.skills.push(angular.copy(newPower.skill));
 			}
-			$scope.setCreationPower();
+			$scope.setCreationPower(newPower);
+			$scope.powerEdit = newPower;
 		};
 		$scope.deletePower = function (power) {
 			mutantService.deletePower(power);
+			$scope.setCreationPower();
+			$scope.powerEdit = undefined;
 		};
 		$scope.availablePowers = function () {
 			if (storage.activeCharacter) {
