@@ -49,12 +49,14 @@ angular.module('chargenNgApp')
 			$scope.weaponEdit = weapon;
 		};
 		$scope.saveWeapon = function () {
+			var newWep = angular.copy($scope.create.weapon);
 			if (!storage.activeCharacter.weapons && $scope.create.weapon) {
-				storage.activeCharacter.weapons = [$scope.create.weapon];
+				storage.activeCharacter.weapons = [newWep];
 			} else if (!$scope.weaponEdit && $scope.create && $scope.create.weapon) {
-				storage.activeCharacter.weapons.push($scope.create.weapon);
+				storage.activeCharacter.weapons.push(newWep);
 			}
-			$scope.weaponEdit = $scope.create.weapon;
+			$scope.weaponEdit = newWep;
+			$scope.create.weapon = newWep;
 		};
 		$scope.deleteWeapon = function () {
 			if (!$scope.weaponEdit || !storage.activeCharacter.weapons) {
