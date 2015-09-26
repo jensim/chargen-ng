@@ -87,6 +87,26 @@ angular.module('chargenNgApp')
 					}
 				}
 				return sum;
+			},
+			calcArmorBodypart: function (part) {
+				var sum = 0;
+				var storage = mutantStaticdataFactory.getLocalStorage();
+				storage.activeCharacter.armors.forEach(function (a) {
+					if (a.bodyPart === part && a.wearing) {
+						sum += a.ABS;
+					}
+				});
+				return sum;
+			},
+			calcArmorBeg: function (part) {
+				var sum = 0;
+				var storage = mutantStaticdataFactory.getLocalStorage();
+				storage.activeCharacter.armors.forEach(function (a) {
+					if (a.bodyPart === part && a.wearing) {
+						sum += a.BEG;
+					}
+				});
+				return sum;
 			}
 		};
     }]);

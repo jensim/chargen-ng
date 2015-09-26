@@ -371,6 +371,17 @@
 			</div>
 			<div class="panel-body">
 				Rustning, ABS, BEG, Vikt
+				<div data-ng-repeat="(i, b) in flatData.bodyParts">
+					{{b}}: {{calcArmor(i)}}
+				</div>
+				<div data-ng-repeat="r in storage.activeCharacter.armor | orderBy:['wearing','bodyPart','name']">
+
+				</div>
+				<div data-ng-hide="armorEdit" class="input-group">
+					<label>Ladda rustning</label>
+					<select class="selectpicker form-control" data-ng-model="create.armortype" data-ng-options="at.name for at in flatData.armors"></select>
+					<select class="selectpicker form-control" data-ng-model="create.armor" data-ng-options="a.name for a in create.armortype.armors" data-ng-show="create.armortype"></select>
+				</div>
 			</div>
 		</div>
 	</div>

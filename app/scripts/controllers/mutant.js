@@ -194,4 +194,13 @@ angular.module('chargenNgApp')
 				return {};
 			}
 		};
+		$scope.calcArmor = function (part) {
+			if (storage.activeCharacter === undefined) {
+				return 0;
+			}
+			if (part === undefined) {
+				throw 'calcArmor:: no part defined';
+			}
+			return mutantCalcFactory.calcArmorBodypart(part);
+		};
     }]);
