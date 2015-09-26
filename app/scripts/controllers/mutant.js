@@ -120,10 +120,9 @@ angular.module('chargenNgApp')
 		$scope.getUsedErf = function () {
 			var sum = 0;
 			if (storage.activeCharacter) {
-				var skill;
-				for (skill in storage.activeCharacter.skills) {
-					sum += $scope.getSkillUsedErf(storage.activeCharacter.skills[skill]);
-				}
+				storage.activeCharacter.skills.forEach(function (skill, index, skills) {
+					sum += $scope.getSkillUsedErf(skills[index]);
+				});
 			}
 			return sum;
 		};
@@ -151,13 +150,11 @@ angular.module('chargenNgApp')
 			$scope.setCreationSkill();
 		};
 		$scope.deleteSkill = function (skill) {
-			var s;
-			for (s in storage.activeCharacter.skills) {
-				if (storage.activeCharacter.skills[s] === skill) {
-					storage.activeCharacter.skills.splice(s, 1);
-					break;
+			storage.activeCharacter.skills.forEach(function (s, index) {
+				if (storage.activeCharacter.skills[index] === skill) {
+					storage.activeCharacter.skills.splice(index, 1);
 				}
-			}
+			});
 		};
 		$scope.setCreationPower = function (power) {
 			jsonLog(power);

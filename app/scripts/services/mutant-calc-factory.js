@@ -56,9 +56,12 @@ angular.module('chargenNgApp')
 			getSkillUsedErf: function (skill) {
 				var sum = 0;
 				if (skill.valueErf > 0) {
+					var storage = mutantStaticdataFactory.getLocalStorage();
+
 					var timesGE = skill.natural ? 1 : 0;
 					timesGE += skill.valueSp + skill.valueSpFree;
-					var fromGE = timesGE * (skill.attrPrim.value + skill.attrPrim.mod);
+					var attrPrim = storage.activeCharacter.attrPrim[skill.attrPrim];
+					var fromGE = timesGE * (attrPrim.value + attrPrim.mod);
 					var fromTrain = skill.valueErf;
 					var total = fromGE + fromTrain;
 					if (total < 85) {
