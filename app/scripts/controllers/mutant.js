@@ -219,4 +219,20 @@ angular.module('chargenNgApp')
 		$scope.editArmor = function (armor) {
 			$scope.armorEdit = armor;
 		};
+		$scope.createNote = function () {
+			var newNote = {
+				head: 'Ny',
+				content: ''
+			};
+			$scope.noteEdit = newNote;
+			storage.activeCharacter.notes.push(newNote);
+		};
+		$scope.editNote = function (note) {
+			$scope.noteEdit = note;
+		};
+		$scope.deleteNote = function (noteIndex) {
+			if (storage.activeCharacter.notes.splice(noteIndex, 1)[0] === $scope.noteEdit) {
+				$scope.noteEdit = undefined;
+			}
+		};
     }]);

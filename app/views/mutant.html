@@ -460,27 +460,31 @@
 					</i>
                 </h3>
 			</div>
-			<div class="panel-body" data-ng-show="storage.activeCharacter.notes">
+			<div class="panel-body">
 				<ul class="list-group">
 					<li class="list-group-item" data-ng-repeat="n in storage.activeCharacter.notes">
-						<span data-ng-click="">
-							{{n.header}}
+						<span data-ng-click="editNote(n)">
+							{{n.head}}
 						</span>
-						<button class="btn btn-warning pull-right" data-ng-click="storage.activeCharacter.notes.splice($index, 1)">
+						<div class="btn btn-warning pull-right" data-ng-click="deleteNote($index)">
 							<i class="glyphicon glyphicon-trash"></i>
-						</button>
+						</div>
 					</li>
 				</ul>
 
-				<div class="input-group">
-					<label>Rubrik</label>
-					<input type="text">
+				<div data-ng-show="noteEdit">
+					<div class="input-group">
+						<label>Rubrik</label>
+						<input type="text" data-ng-model="noteEdit.head" class="form-control">
+					</div>
+					<div class="input-group">
+						<label>Innehåll</label>
+						<textarea class="form-control" data-ng-model="noteEdit.content"></textarea>
+					</div>
 				</div>
-				<div class="input-group">
-					<label>Innehåll</label>
-					<textarea class="form-control" data-ng-model="storage.activeCharacter.notes"></textarea>
+				<div class="btn btn-primary pull-right" data-ng-click="createNote()">
+					<i class="glyphicon glyphicon-plus"></i> Lägg till
 				</div>
-				<button class="btn btn-primary pull-right">Spara</button>
 			</div>
 		</div>
 	</div>
