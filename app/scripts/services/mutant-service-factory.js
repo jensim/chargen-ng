@@ -12,25 +12,17 @@ angular.module('chargenNgApp')
 	.factory('mutantServiceFactory', ['mutantStaticdataFactory', function (mutantStaticdataFactory) {
 
 		var saveCharacter = function (inChar) {
-			var storage = mutantStaticdataFactory.getLocalStorage(),
-				character = angular.copy(inChar);
+			var storage = mutantStaticdataFactory.getLocalStorage();
+			//character = angular.copy(inChar);
 
-			if (character) {
+			if (inChar) {
 				if (storage.characters === undefined) {
-					storage.characters = [character];
+					storage.characters = [inChar];
 					return;
-				}
-				var existsIndex = -1,
-					i;
-				for (i = 0; i < storage.characters.length; i += 1) {
-					if (storage.characters[i].name === character.name) {
-						existsIndex = i;
-					}
-				}
-				if (existsIndex >= 0) {
-					storage.characters[existsIndex] = character;
+				} else if (storage.characters.indexOf(inChar) === -1) {
+					storage.characters.push(inChar);
 				} else {
-					storage.characters.push(character);
+					console.error('Didn\'t save.');
 				}
 			}
 		};
@@ -41,7 +33,7 @@ angular.module('chargenNgApp')
 					storage = mutantStaticdataFactory.getLocalStorage(),
 
 					newChar = {
-						name: 'ny',
+						name: 'Ny',
 						klass: angular.copy(iklass),
 						job: angular.copy(ijob),
 						attrPrim: angular.copy(staticStorage.attrPrim),
@@ -66,41 +58,37 @@ angular.module('chargenNgApp')
 			},
 			deleteCharacter: function (character) {
 				var storage = mutantStaticdataFactory.getLocalStorage();
-				var i;
-				for (i = 0; i < storage.characters.length; i += 1) {
-					if (storage.characters[i].name === character.name) {
-						storage.characters.splice(i, 1);
-						return;
+				storage.characters.forEach(function (c, i, characters) {
+					if (character === c) {
+						characters.splice(i, 1);
 					}
+				});
+				if (storage.activeCharacter === character) {
+					storage.activeCharacter = undefined;
 				}
 			},
 			deletePower: function (power) {
 				var storage = mutantStaticdataFactory.getLocalStorage();
-
-				var p;
-				for (p in storage.activeCharacter.powers) {
-					if (storage.activeCharacter.powers[p] === power) {
-						if (storage.activeCharacter.powers[p].skill !== undefined) {
-							var s;
-							for (s in storage.activeCharacter.skills) {
-								if (storage.activeCharacter.skills[s].name === storage.activeCharacter.powers[p].skill.name) {
-									storage.activeCharacter.skills.splice(s, 1);
+				storage.activeCharacter.powers.forEach(function (p, i, powers) {
+					if (p === power) {
+						if (p.skill !== undefined) {
+							storage.activeCharacter.skills.forEach(function (s, j, skills) {
+								if (p.skill.name === s.name) {
+									skills.splice(j, 1);
 								}
-							}
+							});
 						}
-						storage.activeCharacter.powers.splice(p, 1);
-						break;
+						powers.splice(i, 1);
 					}
-				}
+				});
 			},
-			loadCharacters: function () {
+			deleteArmor: function (armor) {
 				var storage = mutantStaticdataFactory.getLocalStorage();
-
-				if (storage.characters) {
-					return storage.characters;
-				} else {
-					return {};
-				}
+				storage.activeCharacter.armors.forEach(function (a, i, arr) {
+					if (a === armor) {
+						arr.splice(i, 1);
+					}
+				});
 			}
 		};
     }]);

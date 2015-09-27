@@ -24,12 +24,9 @@ angular.module('chargenNgApp')
 			flatData = mutantStaticdataFactory.getStaticStorage();
 
 		$scope.createCharacter = function () {
-			if ($scope.create.klass && $scope.create.job) {
-				mutantService.newCharacter($scope.create.klass, $scope.create.job);
+			if ($scope.create.char.klass && $scope.create.char.job) {
+				mutantService.newCharacter($scope.create.char.klass, $scope.create.char.job);
 			}
-		};
-		$scope.saveCharacter = function () {
-			mutantService.saveCharacter(storage.activeCharacter);
 		};
 		$scope.loadCharacter = function (character) {
 			storage.activeCharacter = character;
@@ -171,9 +168,6 @@ angular.module('chargenNgApp')
 			$scope.powerEdit = power;
 		};
 		$scope.createPower = function () {
-			if (storage.activeCharacter.powers === undefined) {
-				storage.activeCharacter.powers = [];
-			}
 			var newPower = angular.copy($scope.create.power);
 			storage.activeCharacter.powers.push(newPower);
 			if (newPower.skill) {
@@ -202,5 +196,22 @@ angular.module('chargenNgApp')
 				throw 'calcArmor:: no part defined';
 			}
 			return mutantCalcFactory.calcArmorBodypart(part);
+		};
+		$scope.calcBeg = function () {
+			if (storage.activeCharacter === undefined) {
+				return 0;
+			}
+			return mutantCalcFactory.calcArmorBeg();
+		};
+		$scope.createArmor = function () {
+			var newArmor = angular.copy($scope.create.armor);
+			storage.activeCharacter.armors.push(newArmor);
+			$scope.armorEdit = newArmor;
+			$scope.create.armor = undefined;
+		};
+		$scope.deleteArmor = function (armor) {
+			mutantService.deleteArmor(armor);
+			$scope.armorEdit = undefined;
+			$scope.create.armor = undefined;
 		};
     }]);

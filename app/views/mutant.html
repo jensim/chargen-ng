@@ -5,36 +5,36 @@
 				<h3 class="panel-title">Skapa ny karakt&auml;r</h3>
 			</div>
 			<div class="panel-body">
-				<form name="mutantCreateCharForm" data-ng-submit="mutantCreateCharForm.$valid && createCharacter()">
+				<form name="mutantCreateCharForm">
 					<div class="form-group">
 						<label for="createInputClass">Klass:</label>
-						<select class="form-control" data-ng-model="create.klass" name="Klass" required="true" data-ng-required="true" id="createInputClass" data-ng-options="klass.name for klass in flatData.klasses">
-						</select>
-						<div class="list-group" data-ng-show="create.klass.description">
+						<select class="form-control" data-ng-model="create.char.klass" name="Klass" required="true" data-ng-required="true" id="createInputClass" data-ng-options="klass.name for klass in flatData.klasses"></select>
+						<div class="list-group" data-ng-show="create.char.klass.description">
 							<a class="list-group-item">
-								<b>Beskrivning:</b> {{create.klass.description}}
+								<b>Beskrivning:</b> {{create.char.klass.description}}
 							</a>
 						</div>
 						<span data-ng-show="mutantCreateCharForm.Klass.$error.required" class="label label-danger">
-                        Obligatoriskt fält...
-                    </span>
+                        	Obligatoriskt fält...
+                    	</span>
 					</div>
 					<div class="form-group">
 						<label for="createInputJob">Yrke:</label>
-						<select class="form-control" data-ng-model="create.job" name="Yrke" required="true" data-ng-required="true" id="createInputJob" data-ng-options="job.name for job in flatData.jobs">
-						</select>
-						<div class="list-group" data-ng-show="create.job.description">
+						<select class="form-control" data-ng-model="create.char.job" name="Yrke" required="true" data-ng-required="true" id="createInputJob" data-ng-options="job.name for job in flatData.jobs"></select>
+						<div class="list-group" data-ng-show="create.char.job.description">
 							<a class="list-group-item">
-								<b>Beskrivning:</b> {{create.job.description}}
+								<b>Beskrivning:</b> {{create.char.job.description}}
 							</a>
 						</div>
 						<span data-ng-show="mutantCreateCharForm.Yrke.$error.required" class="label label-danger">
-                        Obligatoriskt fält...
-                    </span>
+                        	Obligatoriskt fält...
+                    	</span>
 					</div>
 					<div class="btn-group pull-right" role="group">
-						<button class="btn btn-default btn-md" data-ng-click="create=undefined">Återställ formulär</button>
-						<button class="btn btn-primary btn-md" data-ng-disabled="mutantCreateCharForm.$invalid">Skapa</button>
+						<button class="btn btn-default btn-md" data-ng-click="create.char=undefined">Återställ formulär</button>
+						<button class="btn btn-primary btn-md" data-ng-disabled="mutantCreateCharForm.$invalid" data-ng-click="createCharacter()">
+							Skapa
+						</button>
 					</div>
 				</form>
 			</div>
@@ -49,9 +49,6 @@
 			<div class="panel-body">
 				Namn:
 				<input ng-model="storage.activeCharacter.name" type="text">
-				<button class="btn btn-primary btn-md pull-right" data-ng-click="saveCharacter()">
-					Spara.. <span class="glyphicon glyphicon-cloud-upload"></span>
-				</button>
 			</div>
 			<div class="panel-heading">
 				<h3 class="panel-title">Stats</h3>
@@ -371,18 +368,29 @@
 				 </h3>
 			</div>
 			<div class="panel-body">
-				Rustning, ABS, BEG, Vikt
+				Rustning, ABS, BEG: {{calcBeg(i)}}, Vikt
 				<div data-ng-repeat="(i, b) in flatData.bodyParts">
-					{{b}}: {{calcArmor(i)}}
+					{{b}} ABS: {{calcArmor(i)}}
 				</div>
-				<div data-ng-repeat="r in storage.activeCharacter.armor | orderBy:['wearing','bodyPart','name']">
+				<div data-ng-show="mutantArmorFormEdit">
+					<div data-ng-repeat="r in storage.activeCharacter.armor | orderBy:['wearing','bodyPart','name']">
 
-				</div>
-				<div data-ng-hide="armorEdit" class="input-group">
-					<label>Ladda rustning</label>
-					<select class="selectpicker form-control" data-ng-model="create.armortype" data-ng-options="at.name for at in flatData.armors"></select>
-					<select class="selectpicker form-control" data-ng-model="create.armor" data-ng-options="a.name for a in create.armortype.armors" data-ng-show="create.armortype"></select>
-					<select class="selectpicker form-control" data-ng-model="create.armor.bodyPart" data-ng-options="i as flatData.bodyParts[i] for i in create.armor.fits" data-ng-show="create.armor"></select>
+					</div>
+					<div data-ng-show="armorEdit" class="input-group">
+
+						<button class="btn btn-primary btn-sm" data-ng-click="deleteArmor()">
+							Ta bort
+						</button>
+					</div>
+					<div data-ng-hide="armorEdit" class="input-group">
+						<label>Ladda rustning</label>
+						<select class="selectpicker form-control" data-ng-model="create.armortype" data-ng-options="at.name for at in flatData.armors"></select>
+						<select class="selectpicker form-control" data-ng-model="create.armor" data-ng-options="a.name for a in create.armortype.armors" data-ng-show="create.armortype"></select>
+						<select class="selectpicker form-control" data-ng-model="create.armor.bodyPart" data-ng-options="i as flatData.bodyParts[i] for i in create.armor.fits" data-ng-show="create.armor"></select>
+						<button data-ng-show="create.armor.bodyPart" data-ng-click="createArmor()" class="btn btn-primary btn-sm">
+							Lägg till
+						</button>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -452,12 +460,11 @@
 		</div>
 	</div>
 
-	<div class="col-lg-4 col-md-6 col-sm-12">
+	<div class="col-lg-4 col-md-6 col-sm-12" data-ng-show="storage.characters && storage.characters.length > 0">
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h3 class="panel-title">Ladda sparad karakt&auml;r
 					<i class="pull-right glyphicon" data-ng-class="loadCharacterBody ? 'glyphicon-minus' : 'glyphicon-plus' " data-ng-click="loadCharacterBody = !loadCharacterBody"></i>
-					<!--<span class="glyphicon glyphicon-minus pull-right" data-ng-click="loadCharacterBody = !loadCharacterBody"></span>-->
             	</h3>
 			</div>
 			<div class="panel-body anim-fade" data-ng-show="loadCharacterBody">
