@@ -206,8 +206,6 @@ angular.module('chargenNgApp')
 		$scope.createArmor = function () {
 			var newArmor = angular.copy($scope.create.armor);
 			storage.activeCharacter.armors.push(newArmor);
-			$scope.armorEdit = newArmor;
-			$scope.create.armor = undefined;
 		};
 		$scope.deleteArmor = function (armor) {
 			mutantService.deleteArmor(armor);
