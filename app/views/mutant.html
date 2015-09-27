@@ -373,12 +373,12 @@
 					{{b}} ABS: {{calcArmor(i)}}
 				</div>
 				<div data-ng-show="mutantArmorFormEdit">
-					RustningsDelar:
+					<hr/> RustningsDelar:
 					<ul class="list-group">
-						<li data-ng-repeat="r in storage.activeCharacter.armors | orderBy:['wearing','bodyPart','name']" data-ng-click="editArmor(r)" class="list-group-item">
+						<li data-ng-repeat="r in storage.activeCharacter.armors | orderBy:['wearing','bodyPart','name']" data-ng-click="editArmor(r)" class="list-group-item" data-ng-class="r.wearing ? 'active' : ''">
 							{{flatData.bodyParts[r.bodyPart]}}: {{r.name}}, ABS: {{r.ABS}}, BEG: {{r.BEG}}, {{r.wearing ? 'På' : 'Av'}}
-							<div class="btn btn-xs btn-primary pull-right" data-ng-click="r.wearing=!r.wearing">
-								<i class="glyphicon" data-ng-class="r.wearing ? 'glyphicon-plus' : 'glyphicon-minus'"></i>
+							<div class="btn btn-xs pull-right" data-ng-class="r.wearing ? 'btn-danger' : 'btn-primary'" data-ng-click="r.wearing=!r.wearing">
+								<i class="glyphicon" data-ng-class="r.wearing ? 'glyphicon-minus' : 'glyphicon-plus'"></i>
 							</div>
 						</li>
 					</ul>
