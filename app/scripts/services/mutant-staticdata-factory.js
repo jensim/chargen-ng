@@ -1523,27 +1523,12 @@ angular.module('chargenNgApp')
 				exWeapon: 'Prickskyttevapen'
 			}
 		};
-		var weaponCategories = {
-			regClose: 'Vanliga närstridsvapen',
-			techClose: 'Högteknologiska närstridsvapen',
-			techMissile: 'Högteknologiska projektilvapen',
-			regMissile: 'Vanliga kast- och projektilvapen',
-			gun: 'Skjutvapen',
-			homeBuilt: 'Typiska hemmabyggen',
-			blackPowder: 'Svartkrutsvapen',
-			gyro: 'Gyrojet- och Gausvapen',
-			energy: 'Energivapen',
-			regTrap: 'Vanliga fällor',
-			granade: 'Granater',
-			explosives: 'Sprängämnen och minor',
-			granadeLauncher: 'Granatvapen',
-			machineGun: 'Kulsprutur',
-			armorPierce: 'Pansarvapen',
-		};
-		var weapons = [
-			{
+		var weapons = {
+			regClose:{
+				name: 'Vanliga närstridsvapen',
+				weapons:[
+				{
 				name: 'Obeväpnad',
-				cat: weaponCategories.regClose,
 				fattn: '-',
 				init: 0,
 				damage: '1D4',
@@ -1551,9 +1536,9 @@ angular.module('chargenNgApp')
 				weight: 0,
 				reach: 'close',
 				cost: 0
-					}, {
+				}, 
+				{
 				name: 'Naturligt vapen',
-				cat: weaponCategories.regClose,
 				fattn: '-',
 				init: 0,
 				damage: '1D6',
@@ -1561,9 +1546,8 @@ angular.module('chargenNgApp')
 				weight: 0,
 				reach: 'close',
 				cost: 0
-					}, {
+				}, {
 				name: 'Bajonett (på k-pist)',
-				cat: weaponCategories.regClose,
 				fattn: '2H',
 				init: 3,
 				damage: '2D6 +1',
@@ -1571,9 +1555,8 @@ angular.module('chargenNgApp')
 				weight: 0.25,
 				reach: 'close',
 				cost: 1.5
-					}, {
+				}, {
 				name: 'Bajonett (på karbin eller gevär)',
-				cat: weaponCategories.regClose,
 				fattn: '2H',
 				init: 4,
 				damage: '2D6 +1',
@@ -1581,9 +1564,12 @@ angular.module('chargenNgApp')
 				weight: 0.25,
 				reach: 'close',
 				cost: 1.5
-					}, {
+				}]},
+			techClose:{
+				name:'Högteknologiska närstridsvapen',
+				weapons:[
+				{
 				name: 'Chockbatong',
-				cat: weaponCategories.regClose,
 				fattn: '1H',
 				init: 3,
 				mag: 30,
@@ -1595,9 +1581,13 @@ angular.module('chargenNgApp')
 				weight: 1,
 				reach: 'close',
 				cost: 225
-					}, {
+				}
+				]},
+			regMissile:{
+				name:'Vanliga kast- och projektilvapen',
+				weapons:[
+				{
 				name: 'Armborst',
-				cat: weaponCategories.regMissile,
 				eldh: 'e',
 				fattn: '2H',
 				init: 2,
@@ -1609,9 +1599,11 @@ angular.module('chargenNgApp')
 				weight: 4,
 				reach: 'short',
 				cost: 8
-					}, {
+					}]}, 
+			techMissile:{
+				name:'Högteknologiska projektilvapen', 
+				weapons:[{
 				name: 'Armborst, automatladdat',
-				cat: weaponCategories.techMissile,
 				eldh: 'e',
 				fattn: '2H',
 				init: 2,
@@ -1623,9 +1615,10 @@ angular.module('chargenNgApp')
 				weight: 2.5,
 				reach: 'menium',
 				cost: 350
-					}, {
+					}]
+		}, 
+			blackPowder:{name:'Svartkrutsvapen', weapons:[ {
 				name: 'Derringer .45S',
-				cat: weaponCategories.blackPowder,
 				eldh: 'e',
 				fattn: '1H',
 				init: 6,
@@ -1637,9 +1630,9 @@ angular.module('chargenNgApp')
 				STR: 0,
 				weight: 0.5,
 				cost: 18
-					}, {
+					}]}, 
+			gun:{name:'Skjutvapen', weapons:[ {
 				name: 'Pistol .22',
-				cat: weaponCategories.gun,
 				eldh: 'e',
 				fattn: '1H',
 				init: 10,
@@ -1651,9 +1644,9 @@ angular.module('chargenNgApp')
 				STR: 0,
 				weight: 1,
 				cost: 250
-					}, {
+					}]}, 
+			homeBuilt:{name:'Typiska hemmabyggen', weapons:[ {
 				name: 'HB Pistol .22',
-				cat: weaponCategories.homeBuilt,
 				eldh: 'e',
 				fattn: '1H',
 				init: 9,
@@ -1665,42 +1658,16 @@ angular.module('chargenNgApp')
 				STR: 0,
 				weight: 1.5,
 				cost: 50
-					}];
-		/* weapons continued
-					gaus: {
-						name: 'Gyrojet- och Gausvapen',
-						weapons: []
-					},
-					energy: {
-						name: 'Energivapen',
-						weapons: []
-					},
-					regTraps: {
-						name: 'Vanliga fällor',
-						weapons: []
-					},
-					granades: {
-						name: 'Granater',
-						weapons: []
-					},
-					explosives: {
-						name: 'Sprängämnen och minor',
-						weapons: []
-					},
-					granadelaunchers: {
-						name: 'Granatvapen',
-						weapons: []
-					},
-					machineGuns: {
-						name: 'Kulsprutur',
-						weapons: []
-					},
-					armorPiercing: {
-						name: 'Pansarvapen',
-						weapons: []
-					},
-				};
-					 */
+					}]},
+			gyro:{name: 'Gyrojet- och Gausvapen', weapons:[]},
+			energy:{name: 'Energivapen', weapons:[]},
+			regTrap:{name: 'Vanliga fällor', weapons:[]},
+			granade:{name: 'Granater', weapons:[]},
+			explosives:{name: 'Sprängämnen och minor', weapons:[]},
+			granadeLauncher:{name: 'Granatvapen', weapons:[]},
+			machineGun:{name: 'Kulsprutur', weapons:[]},
+			armorPierce:{name: 'Pansarvapen', weapons:[]}
+		};
 		var bodyParts = {
 			1: 'Höger ben',
 			2: 'Vänster ben',

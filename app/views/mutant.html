@@ -293,7 +293,8 @@
 				<hr/>
 				<div class="input-group" data-ng-hide="weaponEdit">
 					<label>Ladda vapen</label>
-					<select class="form-control" data-ng-model="create.weapon" data-ng-options="w.name for w in flatData.weapons"></select>
+					<select class="form-control" data-ng-model="create.weaponType" data-ng-options="w.name for w in flatData.weapons"></select>
+					<select class="form-control" data-ng-model="create.weapon" data-ng-options="w.name for w in create.weaponType.weapons" data-ng-show="create.weaponType"></select>
 				</div>
 			</div>
 		</div>
