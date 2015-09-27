@@ -373,13 +373,38 @@
 					{{b}} ABS: {{calcArmor(i)}}
 				</div>
 				<div data-ng-show="mutantArmorFormEdit">
-					<div data-ng-repeat="r in storage.activeCharacter.armor | orderBy:['wearing','bodyPart','name']">
+					RustningsDelar:
+					<ul class="list-group">
+						<li data-ng-repeat="r in storage.activeCharacter.armors | orderBy:['wearing','bodyPart','name']" data-ng-click="editArmor(r)" class="list-group-item">
+							{{flatData.bodyParts[r.bodyPart]}}: {{r.name}}, ABS: {{r.ABS}}, BEG: {{r.BEG}}, {{r.wearing ? 'På' : 'Av'}}
+							<div class="btn btn-xs btn-primary pull-right" data-ng-click="r.wearing=!r.wearing">
+								<i class="glyphicon" data-ng-class="r.wearing ? 'glyphicon-plus' : 'glyphicon-minus'"></i>
+							</div>
+						</li>
+					</ul>
+					<div data-ng-show="armorEdit" class="form-group">
+						<div class="input-group">
+							<label>Name:</label>
+							<input type="text" class="form-control" data-ng-model="armorEdit.name">
+						</div>
+						<div class="input-group">
+							<label>ABS:</label>
+							<input type="number" class="form-control" data-ng-model="armorEdit.ABS">
+						</div>
+						<div class="input-group">
+							<label>BEG:</label>
+							<input type="number" class="form-control" data-ng-model="armorEdit.BEG">
+						</div>
+						<div class="input-group">
+							<label>Kroppsdel:</label>
+							<select class="selectpicker form-control" data-ng-model="armorEdit.bodyPart" data-ng-options="i as flatData.bodyParts[i] for i in armorEdit.fits"></select>
+						</div>
 
-					</div>
-					<div data-ng-show="armorEdit" class="input-group">
-
-						<button class="btn btn-primary btn-sm" data-ng-click="deleteArmor()">
+						<button class="btn btn-primary btn-sm" data-ng-click="deleteArmor(armorEdit)">
 							Ta bort
+						</button>
+						<button class="btn btn-primary btn-sm" data-ng-click="armorEdit=undefined;">
+							Återställ formulär
 						</button>
 					</div>
 					<div data-ng-hide="armorEdit" class="input-group">

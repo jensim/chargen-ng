@@ -212,6 +212,11 @@ angular.module('chargenNgApp')
 		$scope.deleteArmor = function (armor) {
 			mutantService.deleteArmor(armor);
 			$scope.armorEdit = undefined;
-			$scope.create.armor = undefined;
+			if ($scope.create.armor) {
+				delete $scope.create.armor;
+			}
+		};
+		$scope.editArmor = function (armor) {
+			$scope.armorEdit = armor;
 		};
     }]);

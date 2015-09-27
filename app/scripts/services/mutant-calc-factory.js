@@ -92,17 +92,17 @@ angular.module('chargenNgApp')
 				var sum = 0;
 				var storage = mutantStaticdataFactory.getLocalStorage();
 				storage.activeCharacter.armors.forEach(function (a) {
-					if (a.bodyPart === part && a.wearing) {
+					if (Number(a.bodyPart) === Number(part) && a.wearing) {
 						sum += a.ABS;
 					}
 				});
 				return sum;
 			},
-			calcArmorBeg: function (part) {
+			calcArmorBeg: function () {
 				var sum = 0;
 				var storage = mutantStaticdataFactory.getLocalStorage();
 				storage.activeCharacter.armors.forEach(function (a) {
-					if (a.bodyPart === part && a.wearing) {
+					if (a.wearing) {
 						sum += a.BEG;
 					}
 				});
