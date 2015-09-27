@@ -382,6 +382,7 @@
 					<label>Ladda rustning</label>
 					<select class="selectpicker form-control" data-ng-model="create.armortype" data-ng-options="at.name for at in flatData.armors"></select>
 					<select class="selectpicker form-control" data-ng-model="create.armor" data-ng-options="a.name for a in create.armortype.armors" data-ng-show="create.armortype"></select>
+					<select class="selectpicker form-control" data-ng-model="create.armor.bodyPart" data-ng-options="i as flatData.bodyParts[i] for i in create.armor.fits" data-ng-show="create.armor"></select>
 				</div>
 			</div>
 		</div>
