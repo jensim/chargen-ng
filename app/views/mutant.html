@@ -26,6 +26,11 @@
 								<b>Beskrivning:</b> {{create.char.job.description}}
 							</a>
 						</div>
+						<div class="list-group" data-ng-show="create.char.job.startcapital">
+							<a class="list-group-item">
+								<b>Startkapital:</b> {{create.char.job.startcapital}} krediter
+							</a>
+						</div>
 						<span data-ng-show="mutantCreateCharForm.Yrke.$error.required" class="label label-danger">
                         	Obligatoriskt fält...
                     	</span>
@@ -207,7 +212,7 @@
 						<select class="form-control" data-ng-options="a.name as a.name for a in flatData.attrPrimShort" data-ng-model="create.skill.attrPrim"></select>
 					</div>
 					<div class="input-group">
-						<label>Ladda färdighet</label>
+						<label>Läs in färdighet</label>
 						<select class="form-control" data-ng-model="create.skill" data-ng-options="s.name for s in flatData.skills"></select>
 					</div>
 
@@ -289,7 +294,7 @@
 				</div>
 				<hr/>
 				<div class="input-group" data-ng-hide="weaponEdit">
-					<label>Ladda vapen</label>
+					<label>Läs in vapen</label>
 					<select class="form-control" data-ng-model="create.weaponType" data-ng-options="w.name for w in flatData.weapons"></select>
 					<select class="form-control" data-ng-model="create.weapon" data-ng-options="w.name for w in create.weaponType.weapons" data-ng-show="create.weaponType"></select>
 				</div>
@@ -349,7 +354,7 @@
 							Ny färdighet ({{create.power.skill.attrPrim}})
 						</div>
 						<div class="input-group" data-ng-hide="powerEdit">
-							<label>Ladda förmåga </label>
+							<label>Läs in förmåga </label>
 							<select class="selectpicker form-control" data-ng-model="create.power" data-ng-options="p.name for p in availablePowers()"></select>
 						</div>
 					</div>
@@ -408,13 +413,13 @@
 						</button>
 					</div>
 					<div data-ng-hide="armorEdit" class="input-group">
-						<label>Ladda rustning</label>
+						<label>Läs in rustning</label>
 						<select class="selectpicker form-control" data-ng-model="create.armortype" data-ng-options="at.name for at in flatData.armors"></select>
 						<select class="selectpicker form-control" data-ng-model="create.armor" data-ng-options="a.name for a in create.armortype.armors" data-ng-show="create.armortype"></select>
 						<select class="selectpicker form-control" data-ng-model="create.armor.bodyPart" data-ng-options="i as flatData.bodyParts[i] for i in create.armor.fits" data-ng-show="create.armor"></select>
-						<button data-ng-show="create.armor.bodyPart" data-ng-click="createArmor()" class="btn btn-primary btn-sm">
+						<div data-ng-show="create.armor.bodyPart" data-ng-click="createArmor()" class="btn btn-primary btn-sm">
 							Lägg till
-						</button>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -431,7 +436,52 @@
                 </h3>
 			</div>
 			<div class="panel-body">
-				Utrustning, vikt
+				<ul class="list-group">
+					<li class="list-group-item" data-ng-repeat="i in storage.activeCharacter.items" data-ng-click="">
+						{{i.name}} : {{i.quantity}}
+						<div class="btn btn-xs btn-danger pull-right" data-ng-click="deleteItem($index)">
+							<i class="glyphicon glyphicon-trash"></i>
+						</div>
+					</li>
+				</ul>
+				<div data-ng-show="itemEdit" class="input-group">
+					<div class="input-group">
+						<label>Name:</label>
+						<input type="text" data-ng-model="itemEdit.name">
+					</div>
+					<div class="input-group">
+						<label>Antal:</label>
+						<input type="text" data-ng-model="itemEdit.quantity">
+					</div>
+					<div class="input-group">
+						<label>Beskrivning:</label>
+						<input type="text" data-ng-model="itemEdit.description">
+					</div>
+					<div class="input-group">
+						<label>Värde:</label>
+						<input type="text" data-ng-model="itemEdit.cost">
+					</div>
+				</div>
+				<div data-ng-hide="gearEdit" class="input-group">
+					<hr/>
+					<label>Läs in utrustning:</label>
+					<select class="selectpicker form-control" data-ng-options="g.name for g in flatData.gear" data-ng-model="create.itemType"></select>
+					<select class="selectpicker form-control" data-ng-options="g.name for g in create.itemType.items" data-ng-model="create.item" data-ng-show="create.itemType"></select>
+					<div class="list-group-item" data-ng-show="create.item.description">
+						Beskrivning: {{create.item.description}}
+					</div>
+					<div class="list-group-item" data-ng-show="create.item.cost">
+						Kostnad: {{create.item.cost}} krediter
+					</div>
+					<div class="form-group" data-ng-show="create.item">
+						<div class="btn btn-primary" data-ng-click="createItem(create.item)">
+							<i class="glyphicon glyphicon-plus"></i> Lägg till
+						</div>
+						<div class="btn btn-primary" data-ng-click="">
+							<i class="fa fa-money"></i> Köp
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -489,10 +539,44 @@
 		</div>
 	</div>
 
+	<div class="col-lg-4 col-md-6 col-sm-12" data-ng-show="storage.activeCharacter">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title">Pengar
+                    <i data-ng-class="mutantMoneyFormEdit ? 'text-danger' : '' ">
+					 	<i class="glyphicon glyphicon-cog pull-right" data-ng-click="mutantMoneyFormEdit = !mutantMoneyFormEdit"></i>
+					</i>
+                </h3>
+			</div>
+			<div class="panel-body">
+				<p>
+					<div class="list-group-item">
+						<div data-ng-show="storage.activeCharacter.money">{{storage.activeCharacter.money}} krediter</div>
+						<div data-ng-hide="storage.activeCharacter.money">&nbsp;</div>
+					</div>
+				</p>
+				<div class="input-group" data-ng-show="mutantMoneyFormEdit">
+					<div class="btn btn-primary btn-sm" data-ng-click="moneyManage(create.money * -1); create.money = 0;">
+						<span class="glyphicon glyphicon-minus"></span> Ta bort
+					</div>
+					&nbsp;
+					<div style="display: inline-block;">
+						<input type="number" data-ng-model="create.money" min=0 class="form-control" style="width: 5em;">
+					</div>
+					&nbsp;
+					<div class="btn btn-primary btn-sm" data-ng-click="moneyManage(create.money); create.money = 0;">
+						<span class="glyphicon glyphicon-plus"></span> Lägg till
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
 	<div class="col-lg-4 col-md-6 col-sm-12" data-ng-show="storage.characters && storage.characters.length > 0">
 		<div class="panel panel-primary">
 			<div class="panel-heading">
-				<h3 class="panel-title">Ladda sparad karakt&auml;r
+				<h3 class="panel-title">Läs in sparad karakt&auml;r
 					<i class="pull-right glyphicon" data-ng-class="loadCharacterBody ? 'glyphicon-minus' : 'glyphicon-plus' " data-ng-click="loadCharacterBody = !loadCharacterBody"></i>
             	</h3>
 			</div>

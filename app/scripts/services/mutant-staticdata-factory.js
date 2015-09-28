@@ -46,13 +46,27 @@ angular.module('chargenNgApp')
 			}
 		};
 		var attrPrimShort = [
-			{name: 'STY'},
-			{name: 'FYS'},
-			{name: 'STO'},
-			{name: 'SMI'},
-			{name: 'INT'},
-			{name: 'VIL'},
-			{name: 'PER'}
+			{
+				name: 'STY'
+			},
+			{
+				name: 'FYS'
+			},
+			{
+				name: 'STO'
+			},
+			{
+				name: 'SMI'
+			},
+			{
+				name: 'INT'
+			},
+			{
+				name: 'VIL'
+			},
+			{
+				name: 'PER'
+			}
 		];
 		var attrPrim = {
 			STY: {
@@ -730,760 +744,760 @@ angular.module('chargenNgApp')
 		}],
 			mm: [
 				{
-				name: 'Blixtsnabba Reflexer',
-				description: '',
-				cost: 3
+					name: 'Blixtsnabba Reflexer',
+					description: '',
+					cost: 3
 		}, {
-				name: 'Bärsärk',
-				description: '',
-				cost: 3,
-				skill: {
 					name: 'Bärsärk',
 					description: '',
-					attrPrim: 'VIL',
-					valueErf: 0,
-					valueErfFree: 0,
-					valueSp: 0,
-					valueSpFree: 1
-				}
+					cost: 3,
+					skill: {
+						name: 'Bärsärk',
+						description: '',
+						attrPrim: 'VIL',
+						valueErf: 0,
+						valueErfFree: 0,
+						valueSp: 0,
+						valueSpFree: 1
+					}
 		}, {
-				name: 'Dubbelhjärna',
-				description: '',
-				cost: 5
+					name: 'Dubbelhjärna',
+					description: '',
+					cost: 5
 		}, {
-				name: 'Eldkastare',
-				description: '',
-				cost: 2,
-				skill: {
 					name: 'Eldkastare',
 					description: '',
-					attrPrim: 'SMI',
-					valueErf: 0,
-					valueErfFree: 0,
-					valueSp: 0,
-					valueSpFree: 1
-				}
+					cost: 2,
+					skill: {
+						name: 'Eldkastare',
+						description: '',
+						attrPrim: 'SMI',
+						valueErf: 0,
+						valueErfFree: 0,
+						valueSp: 0,
+						valueSpFree: 1
+					}
 		}, {
-				name: 'Energikropp',
-				description: '',
-				cost: 3
+					name: 'Energikropp',
+					description: '',
+					cost: 3
 		}, {
-				name: 'Flerdubbla kroppsdelar',
-				description: '',
-				cost: 2
+					name: 'Flerdubbla kroppsdelar',
+					description: '',
+					cost: 2
 		}, {
-				name: 'Fotosyntes',
-				description: '',
-				cost: 1
+					name: 'Fotosyntes',
+					description: '',
+					cost: 1
 		}, {
-				name: 'Giftig',
-				description: '',
-				cost: 1
+					name: 'Giftig',
+					description: '',
+					cost: 1
 		}, {
-				name: 'Gälar och simhud',
-				description: '',
-				cost: 1
+					name: 'Gälar och simhud',
+					description: '',
+					cost: 1
 		}, {
-				name: 'Gräsmage',
-				description: '',
-				cost: 1
+					name: 'Gräsmage',
+					description: '',
+					cost: 1
 		}, {
-				name: 'Hoppförmåga',
-				description: '',
-				cost: 1
+					name: 'Hoppförmåga',
+					description: '',
+					cost: 1
 		}, {
-				name: 'Jaktinstinkt',
-				description: '',
-				cost: 3,
-				skill: {
 					name: 'Jaktinstinkt',
 					description: '',
-					attrPrim: 'VIL',
-					valueErf: 0,
-					valueErfFree: 0,
-					valueSp: 0,
-					valueSpFree: 1
-				}
+					cost: 3,
+					skill: {
+						name: 'Jaktinstinkt',
+						description: '',
+						attrPrim: 'VIL',
+						valueErf: 0,
+						valueErfFree: 0,
+						valueSp: 0,
+						valueSpFree: 1
+					}
 		}, {
-				name: 'Kameleont',
-				description: '',
-				cost: 3,
-				skill: {
 					name: 'Kameleont',
 					description: '',
-					attrPrim: 'VIL',
-					valueErf: 0,
-					valueErfFree: 0,
-					valueSp: 0,
-					valueSpFree: 1
-				}
+					cost: 3,
+					skill: {
+						name: 'Kameleont',
+						description: '',
+						attrPrim: 'VIL',
+						valueErf: 0,
+						valueErfFree: 0,
+						valueSp: 0,
+						valueSpFree: 1
+					}
 		}, {
-				name: 'Kroppskontroll',
-				description: '',
-				cost: 2,
-				skill: {
 					name: 'Kroppskontroll',
 					description: '',
-					attrPrim: 'SMI',
-					valueErf: 0,
-					valueErfFree: 0,
-					valueSp: 0,
-					valueSpFree: 1
-				}
+					cost: 2,
+					skill: {
+						name: 'Kroppskontroll',
+						description: '',
+						attrPrim: 'SMI',
+						valueErf: 0,
+						valueErfFree: 0,
+						valueSp: 0,
+						valueSpFree: 1
+					}
 		}, {
-				name: 'Krypare',
-				description: '',
-				cost: 2
+					name: 'Krypare',
+					description: '',
+					cost: 2
 		}, {
-				name: 'Liten',
-				description: '',
-				cost: 2
+					name: 'Liten',
+					description: '',
+					cost: 2
 		}, {
-				name: 'Magnetism',
-				description: '',
-				cost: 3,
-				skill: {
 					name: 'Magnetism',
 					description: '',
-					attrPrim: 'VIL',
-					valueErf: 0,
-					valueErfFree: 0,
-					valueSp: 0,
-					valueSpFree: 1
-				}
+					cost: 3,
+					skill: {
+						name: 'Magnetism',
+						description: '',
+						attrPrim: 'VIL',
+						valueErf: 0,
+						valueErfFree: 0,
+						valueSp: 0,
+						valueSpFree: 1
+					}
 		}, {
-				name: 'Naturligt vapen 1',
-				description: '',
-				cost: 1
+					name: 'Naturligt vapen 1',
+					description: '',
+					cost: 1
 		}, {
-				name: 'Naturligt vapen 2',
-				description: '',
-				cost: 2
+					name: 'Naturligt vapen 2',
+					description: '',
+					cost: 2
 		}, {
-				name: 'Nattsyn',
-				description: '',
-				cost: 1
+					name: 'Nattsyn',
+					description: '',
+					cost: 1
 		}, {
-				name: 'Pansar 1',
-				description: '',
-				cost: 1
+					name: 'Pansar 1',
+					description: '',
+					cost: 1
 		}, {
-				name: 'Pansar 2',
-				description: '',
-				cost: 2
+					name: 'Pansar 2',
+					description: '',
+					cost: 2
 		}, {
-				name: 'Pansar 3',
-				description: '',
-				cost: 3
+					name: 'Pansar 3',
+					description: '',
+					cost: 3
 		}, {
-				name: 'Pansar 4',
-				description: '',
-				cost: 4
+					name: 'Pansar 4',
+					description: '',
+					cost: 4
 		}, {
-				name: 'Pansar 5',
-				description: '',
-				cost: 5
+					name: 'Pansar 5',
+					description: '',
+					cost: 5
 		}, {
-				name: 'Regenerera 1',
-				description: '',
-				cost: 1
+					name: 'Regenerera 1',
+					description: '',
+					cost: 1
 		}, {
-				name: 'Regenerera 2',
-				description: '',
-				cost: 2
+					name: 'Regenerera 2',
+					description: '',
+					cost: 2
 		}, {
-				name: 'Regenerera 3',
-				description: '',
-				cost: 3
+					name: 'Regenerera 3',
+					description: '',
+					cost: 3
 		}, {
-				name: 'Resistens',
-				description: '',
-				cost: 1
+					name: 'Resistens',
+					description: '',
+					cost: 1
 		}, {
-				name: 'Riktningsknöl',
-				description: '',
-				cost: 1
+					name: 'Riktningsknöl',
+					description: '',
+					cost: 1
 		}, {
-				name: 'Robust',
-				description: '',
-				cost: 4
+					name: 'Robust',
+					description: '',
+					cost: 4
 			}, {
-				name: 'Silverskinn',
-				description: '',
-				cost: 1
+					name: 'Silverskinn',
+					description: '',
+					cost: 1
 		}, {
-				name: 'Sonar',
-				description: '',
-				cost: 2,
-				skill: {
 					name: 'Sonar',
 					description: '',
-					attrPrim: 'INT',
-					valueErf: 0,
-					valueErfFree: 0,
-					valueSp: 0,
-					valueSpFree: 1
-				}
+					cost: 2,
+					skill: {
+						name: 'Sonar',
+						description: '',
+						attrPrim: 'INT',
+						valueErf: 0,
+						valueErfFree: 0,
+						valueSp: 0,
+						valueSpFree: 1
+					}
 		}, {
-				name: 'Sprinter',
-				description: '',
-				cost: 1
+					name: 'Sprinter',
+					description: '',
+					cost: 1
 		}, {
-				name: 'Stor',
-				description: '',
-				cost: 3
+					name: 'Stor',
+					description: '',
+					cost: 3
 		}, {
-				name: 'Stryktålig',
-				description: '',
-				cost: 3
+					name: 'Stryktålig',
+					description: '',
+					cost: 3
 		}, {
-				name: 'Sugkoppar',
-				description: '',
-				cost: 2
+					name: 'Sugkoppar',
+					description: '',
+					cost: 2
 		}, {
-				name: 'Superbt sinne',
-				description: '',
-				cost: 1
+					name: 'Superbt sinne',
+					description: '',
+					cost: 1
 		}, {
-				name: 'Syraspott',
-				description: '',
-				cost: 2,
-				skill: {
 					name: 'Syraspott',
 					description: '',
-					attrPrim: 'SMI',
-					valueErf: 0,
-					valueErfFree: 0,
-					valueSp: 0,
-					valueSpFree: 1
-				}
+					cost: 2,
+					skill: {
+						name: 'Syraspott',
+						description: '',
+						attrPrim: 'SMI',
+						valueErf: 0,
+						valueErfFree: 0,
+						valueSp: 0,
+						valueSpFree: 1
+					}
 		}, {
-				name: 'Teleskopögon',
-				description: '',
-				cost: 1
-		}, {
-				name: 'Vidgat synfält 1',
-				description: '',
-				cost: 1
-		}, {
-				name: 'Vidgat synfält 2',
-				description: '',
-				cost: 2
-		}, {
-				name: 'Vingar (Glid)',
-				description: '',
-				cost: 1,
-				skill: {
-					name: 'Glidflyga',
+					name: 'Teleskopögon',
 					description: '',
-					attrPrim: 'SMI',
-					valueErf: 0,
-					valueErfFree: 0,
-					valueSp: 0,
-					valueSpFree: 1
-				}
+					cost: 1
 		}, {
-				name: 'Vingar (Flyg)',
-				description: '',
-				cost: 2,
-				skill: {
-					name: 'Flyga',
+					name: 'Vidgat synfält 1',
 					description: '',
-					attrPrim: 'SMI',
-					valueErf: 0,
-					valueErfFree: 0,
-					valueSp: 0,
-					valueSpFree: 1
-				}
+					cost: 1
+		}, {
+					name: 'Vidgat synfält 2',
+					description: '',
+					cost: 2
+		}, {
+					name: 'Vingar (Glid)',
+					description: '',
+					cost: 1,
+					skill: {
+						name: 'Glidflyga',
+						description: '',
+						attrPrim: 'SMI',
+						valueErf: 0,
+						valueErfFree: 0,
+						valueSp: 0,
+						valueSpFree: 1
+					}
+		}, {
+					name: 'Vingar (Flyg)',
+					description: '',
+					cost: 2,
+					skill: {
+						name: 'Flyga',
+						description: '',
+						attrPrim: 'SMI',
+						valueErf: 0,
+						valueErfFree: 0,
+						valueSp: 0,
+						valueSpFree: 1
+					}
 		}],
 			psi: [
 				{
-				name: 'Astral projektion',
-				description: '',
-				cost: 3,
-				skill: {
 					name: 'Astral projektion',
 					description: '',
-					attrPrim: 'VIL',
-					valueErf: 0,
-					valueErfFree: 0,
-					valueSp: 0,
-					valueSpFree: 1
-				}
+					cost: 3,
+					skill: {
+						name: 'Astral projektion',
+						description: '',
+						attrPrim: 'VIL',
+						valueErf: 0,
+						valueErfFree: 0,
+						valueSp: 0,
+						valueSpFree: 1
+					}
 		}, {
-				name: 'Djurmästare',
-				description: '',
-				cost: 2,
-				skill: {
 					name: 'Djurmästare',
 					description: '',
-					attrPrim: 'VIL',
-					valueErf: 0,
-					valueErfFree: 0,
-					valueSp: 0,
-					valueSpFree: 1
-				}
+					cost: 2,
+					skill: {
+						name: 'Djurmästare',
+						description: '',
+						attrPrim: 'VIL',
+						valueErf: 0,
+						valueErfFree: 0,
+						valueSp: 0,
+						valueSpFree: 1
+					}
 		}, {
-				name: 'Dominera',
-				description: '',
-				cost: 4,
-				skill: {
 					name: 'Dominera',
 					description: '',
-					attrPrim: 'VIL',
-					valueErf: 0,
-					valueErfFree: 0,
-					valueSp: 0,
-					valueSpFree: 1
-				}
+					cost: 4,
+					skill: {
+						name: 'Dominera',
+						description: '',
+						attrPrim: 'VIL',
+						valueErf: 0,
+						valueErfFree: 0,
+						valueSp: 0,
+						valueSpFree: 1
+					}
 		}, {
-				name: 'Dödsknäpp',
-				description: '',
-				cost: 3,
-				skill: {
 					name: 'Dödsknäpp',
 					description: '',
-					attrPrim: 'VIL',
-					valueErf: 0,
-					valueErfFree: 0,
-					valueSp: 0,
-					valueSpFree: 1
-				}
+					cost: 3,
+					skill: {
+						name: 'Dödsknäpp',
+						description: '',
+						attrPrim: 'VIL',
+						valueErf: 0,
+						valueErfFree: 0,
+						valueSp: 0,
+						valueSpFree: 1
+					}
 		}, {
-				name: 'Empati',
-				description: '',
-				cost: 1,
-				skill: {
 					name: 'Empati',
 					description: '',
-					attrPrim: 'INT',
-					valueErf: 0,
-					valueErfFree: 0,
-					valueSp: 0,
-					valueSpFree: 1
-				}
+					cost: 1,
+					skill: {
+						name: 'Empati',
+						description: '',
+						attrPrim: 'INT',
+						valueErf: 0,
+						valueErfFree: 0,
+						valueSp: 0,
+						valueSpFree: 1
+					}
 		}, {
-				name: 'Fokus',
-				description: '',
-				cost: 2,
-				skill: {
 					name: 'Fokus',
 					description: '',
-					attrPrim: 'VIL',
-					valueErf: 0,
-					valueErfFree: 0,
-					valueSp: 0,
-					valueSpFree: 1
-				}
+					cost: 2,
+					skill: {
+						name: 'Fokus',
+						description: '',
+						attrPrim: 'VIL',
+						valueErf: 0,
+						valueErfFree: 0,
+						valueSp: 0,
+						valueSpFree: 1
+					}
 		}, {
-				name: 'Förbränning',
-				description: '',
-				cost: 3,
-				skill: {
 					name: 'Förbränning',
 					description: '',
-					attrPrim: 'VIL',
-					valueErf: 0,
-					valueErfFree: 0,
-					valueSp: 0,
-					valueSpFree: 1
-				}
+					cost: 3,
+					skill: {
+						name: 'Förbränning',
+						description: '',
+						attrPrim: 'VIL',
+						valueErf: 0,
+						valueErfFree: 0,
+						valueSp: 0,
+						valueSpFree: 1
+					}
 		}, {
-				name: 'Förvirring',
-				description: '',
-				cost: 2,
-				skill: {
 					name: 'Förvirring',
 					description: '',
-					attrPrim: 'VIL',
-					valueErf: 0,
-					valueErfFree: 0,
-					valueSp: 0,
-					valueSpFree: 1
-				}
+					cost: 2,
+					skill: {
+						name: 'Förvirring',
+						description: '',
+						attrPrim: 'VIL',
+						valueErf: 0,
+						valueErfFree: 0,
+						valueSp: 0,
+						valueSpFree: 1
+					}
 		}, {
-				name: 'Illusion',
-				description: '',
-				cost: 4,
-				skill: {
 					name: 'Illusion',
 					description: '',
-					attrPrim: 'VIL',
-					valueErf: 0,
-					valueErfFree: 0,
-					valueSp: 0,
-					valueSpFree: 1
-				}
+					cost: 4,
+					skill: {
+						name: 'Illusion',
+						description: '',
+						attrPrim: 'VIL',
+						valueErf: 0,
+						valueErfFree: 0,
+						valueSp: 0,
+						valueSpFree: 1
+					}
 		}, {
-				name: 'Intuition',
-				description: '',
-				cost: 1,
-				skill: {
 					name: 'Intuition',
 					description: '',
-					attrPrim: 'INT',
-					valueErf: 0,
-					valueErfFree: 0,
-					valueSp: 0,
-					valueSpFree: 1
-				}
+					cost: 1,
+					skill: {
+						name: 'Intuition',
+						description: '',
+						attrPrim: 'INT',
+						valueErf: 0,
+						valueErfFree: 0,
+						valueSp: 0,
+						valueSpFree: 1
+					}
 		}, {
-				name: 'Kraftfält',
-				description: '',
-				cost: 2,
-				skill: {
 					name: 'Kraftfält',
 					description: '',
-					attrPrim: 'VIL',
-					valueErf: 0,
-					valueErfFree: 0,
-					valueSp: 0,
-					valueSpFree: 1
-				}
+					cost: 2,
+					skill: {
+						name: 'Kraftfält',
+						description: '',
+						attrPrim: 'VIL',
+						valueErf: 0,
+						valueErfFree: 0,
+						valueSp: 0,
+						valueSpFree: 1
+					}
 		}, {
-				name: 'Kraftprov',
-				description: '',
-				cost: 1,
-				skill: {
 					name: 'Kraftprov',
 					description: '',
-					attrPrim: 'VIL',
-					valueErf: 0,
-					valueErfFree: 0,
-					valueSp: 0,
-					valueSpFree: 1
-				}
+					cost: 1,
+					skill: {
+						name: 'Kraftprov',
+						description: '',
+						attrPrim: 'VIL',
+						valueErf: 0,
+						valueErfFree: 0,
+						valueSp: 0,
+						valueSpFree: 1
+					}
 		}, {
-				name: 'Levitera',
-				description: '',
-				cost: 1,
-				skill: {
 					name: 'Levitera',
 					description: '',
-					attrPrim: 'VIL',
-					valueErf: 0,
-					valueErfFree: 0,
-					valueSp: 0,
-					valueSpFree: 1
-				}
+					cost: 1,
+					skill: {
+						name: 'Levitera',
+						description: '',
+						attrPrim: 'VIL',
+						valueErf: 0,
+						valueErfFree: 0,
+						valueSp: 0,
+						valueSpFree: 1
+					}
 		}, {
-				name: 'Livslänk',
-				description: '',
-				cost: 2,
-				skill: {
 					name: 'Livslänk',
 					description: '',
-					attrPrim: 'VIL',
-					valueErf: 0,
-					valueErfFree: 0,
-					valueSp: 0,
-					valueSpFree: 1
-				}
+					cost: 2,
+					skill: {
+						name: 'Livslänk',
+						description: '',
+						attrPrim: 'VIL',
+						valueErf: 0,
+						valueErfFree: 0,
+						valueSp: 0,
+						valueSpFree: 1
+					}
 		}, {
-				name: 'Lokalisera',
-				description: '',
-				cost: 1,
-				skill: {
 					name: 'Lokalisera',
 					description: '',
-					attrPrim: 'INT',
-					valueErf: 0,
-					valueErfFree: 0,
-					valueSp: 0,
-					valueSpFree: 1
-				}
+					cost: 1,
+					skill: {
+						name: 'Lokalisera',
+						description: '',
+						attrPrim: 'INT',
+						valueErf: 0,
+						valueErfFree: 0,
+						valueSp: 0,
+						valueSpFree: 1
+					}
 		}, {
-				name: 'Läkande händer',
-				description: '',
-				cost: 4,
-				skill: {
 					name: 'Läkande händer',
 					description: '',
-					attrPrim: 'VIL',
-					valueErf: 0,
-					valueErfFree: 0,
-					valueSp: 0,
-					valueSpFree: 1
-				}
+					cost: 4,
+					skill: {
+						name: 'Läkande händer',
+						description: '',
+						attrPrim: 'VIL',
+						valueErf: 0,
+						valueErfFree: 0,
+						valueSp: 0,
+						valueSpFree: 1
+					}
 		}, {
-				name: 'Mental sköld',
-				description: '',
-				cost: 2,
-				skill: {
 					name: 'Mental sköld',
 					description: '',
-					attrPrim: 'VIL',
-					valueErf: 0,
-					valueErfFree: 0,
-					valueSp: 0,
-					valueSpFree: 1
-				}
+					cost: 2,
+					skill: {
+						name: 'Mental sköld',
+						description: '',
+						attrPrim: 'VIL',
+						valueErf: 0,
+						valueErfFree: 0,
+						valueSp: 0,
+						valueSpFree: 1
+					}
 		}, {
-				name: 'Osynlighet',
-				description: '',
-				cost: 3,
-				skill: {
 					name: 'Osynlighet',
 					description: '',
-					attrPrim: 'VIL',
-					valueErf: 0,
-					valueErfFree: 0,
-					valueSp: 0,
-					valueSpFree: 1
-				}
+					cost: 3,
+					skill: {
+						name: 'Osynlighet',
+						description: '',
+						attrPrim: 'VIL',
+						valueErf: 0,
+						valueErfFree: 0,
+						valueSp: 0,
+						valueSpFree: 1
+					}
 		}, {
-				name: 'Paralysera',
-				description: '',
-				cost: 3,
-				skill: {
 					name: 'Paralysera',
 					description: '',
-					attrPrim: 'VIL',
-					valueErf: 0,
-					valueErfFree: 0,
-					valueSp: 0,
-					valueSpFree: 1
-				}
+					cost: 3,
+					skill: {
+						name: 'Paralysera',
+						description: '',
+						attrPrim: 'VIL',
+						valueErf: 0,
+						valueErfFree: 0,
+						valueSp: 0,
+						valueSpFree: 1
+					}
 		}, {
-				name: 'Parasit',
-				description: '',
-				cost: 2,
-				skill: {
 					name: 'Parasit',
 					description: '',
-					attrPrim: 'VIL',
-					valueErf: 0,
-					valueErfFree: 0,
-					valueSp: 0,
-					valueSpFree: 1
-				}
+					cost: 2,
+					skill: {
+						name: 'Parasit',
+						description: '',
+						attrPrim: 'VIL',
+						valueErf: 0,
+						valueErfFree: 0,
+						valueSp: 0,
+						valueSpFree: 1
+					}
 		}, {
-				name: 'Psistöt',
-				description: '',
-				cost: 1,
-				skill: {
 					name: 'Psistöt',
 					description: '',
-					attrPrim: 'VIL',
-					valueErf: 0,
-					valueErfFree: 0,
-					valueSp: 0,
-					valueSpFree: 1
-				}
+					cost: 1,
+					skill: {
+						name: 'Psistöt',
+						description: '',
+						attrPrim: 'VIL',
+						valueErf: 0,
+						valueErfFree: 0,
+						valueSp: 0,
+						valueSpFree: 1
+					}
 		}, {
-				name: 'Psykometri',
-				description: '',
-				cost: 1,
-				skill: {
 					name: 'Psykometri',
 					description: '',
-					attrPrim: 'INT',
-					valueErf: 0,
-					valueErfFree: 0,
-					valueSp: 0,
-					valueSpFree: 1
-				}
+					cost: 1,
+					skill: {
+						name: 'Psykometri',
+						description: '',
+						attrPrim: 'INT',
+						valueErf: 0,
+						valueErfFree: 0,
+						valueSp: 0,
+						valueSpFree: 1
+					}
 		}, {
-				name: 'Sannolikhetsförändring',
-				description: '',
-				cost: 2,
-				skill: {
 					name: 'Sannolikhetsförändring',
 					description: '',
-					attrPrim: 'VIL',
-					valueErf: 0,
-					valueErfFree: 0,
-					valueSp: 0,
-					valueSpFree: 1
-				}
+					cost: 2,
+					skill: {
+						name: 'Sannolikhetsförändring',
+						description: '',
+						attrPrim: 'VIL',
+						valueErf: 0,
+						valueErfFree: 0,
+						valueSp: 0,
+						valueSpFree: 1
+					}
 		}, {
-				name: 'Simultankapacitet',
-				description: '',
-				cost: 3,
-				skill: {
 					name: 'Simultankapacitet',
 					description: '',
-					attrPrim: 'INT',
-					valueErf: 0,
-					valueErfFree: 0,
-					valueSp: 0,
-					valueSpFree: 1
-				}
+					cost: 3,
+					skill: {
+						name: 'Simultankapacitet',
+						description: '',
+						attrPrim: 'INT',
+						valueErf: 0,
+						valueErfFree: 0,
+						valueSp: 0,
+						valueSpFree: 1
+					}
 		}, {
-				name: 'Sjätte sinne',
-				description: '',
-				cost: 1,
-				skill: {
 					name: 'Sjätte sinne',
 					description: '',
-					attrPrim: 'INT',
-					valueErf: 0,
-					valueErfFree: 0,
-					valueSp: 0,
-					valueSpFree: 1
-				}
+					cost: 1,
+					skill: {
+						name: 'Sjätte sinne',
+						description: '',
+						attrPrim: 'INT',
+						valueErf: 0,
+						valueErfFree: 0,
+						valueSp: 0,
+						valueSpFree: 1
+					}
 		}, {
-				name: 'Skräck',
-				description: '',
-				cost: 2,
-				skill: {
 					name: 'Skräck',
 					description: '',
-					attrPrim: 'VIL',
-					valueErf: 0,
-					valueErfFree: 0,
-					valueSp: 0,
-					valueSpFree: 1
-				}
+					cost: 2,
+					skill: {
+						name: 'Skräck',
+						description: '',
+						attrPrim: 'VIL',
+						valueErf: 0,
+						valueErfFree: 0,
+						valueSp: 0,
+						valueSpFree: 1
+					}
 		}, {
-				name: 'Telekenesi',
-				description: '',
-				cost: 2,
-				skill: {
 					name: 'Telekenesi',
 					description: '',
-					attrPrim: 'VIL',
-					valueErf: 0,
-					valueErfFree: 0,
-					valueSp: 0,
-					valueSpFree: 1
-				}
+					cost: 2,
+					skill: {
+						name: 'Telekenesi',
+						description: '',
+						attrPrim: 'VIL',
+						valueErf: 0,
+						valueErfFree: 0,
+						valueSp: 0,
+						valueSpFree: 1
+					}
 		}, {
-				name: 'Telepati',
-				description: '',
-				cost: 2,
-				skill: {
 					name: 'Telepati',
 					description: '',
-					attrPrim: 'VIL',
-					valueErf: 0,
-					valueErfFree: 0,
-					valueSp: 0,
-					valueSpFree: 1
-				}
+					cost: 2,
+					skill: {
+						name: 'Telepati',
+						description: '',
+						attrPrim: 'VIL',
+						valueErf: 0,
+						valueErfFree: 0,
+						valueSp: 0,
+						valueSpFree: 1
+					}
 		}, {
-				name: 'Väderkontroll',
-				description: '',
-				cost: 3,
-				skill: {
 					name: 'Väderkontroll',
 					description: '',
-					attrPrim: 'VIL',
-					valueErf: 0,
-					valueErfFree: 0,
-					valueSp: 0,
-					valueSpFree: 1
-				}
+					cost: 3,
+					skill: {
+						name: 'Väderkontroll',
+						description: '',
+						attrPrim: 'VIL',
+						valueErf: 0,
+						valueErfFree: 0,
+						valueSp: 0,
+						valueSpFree: 1
+					}
 		}],
 			rbt: [
 				{
-				name: 'Analysenhet',
-				description: '',
-				cost: 1
+					name: 'Analysenhet',
+					description: '',
+					cost: 1
 		}, {
-				name: 'Batteriladdare',
-				description: '',
-				cost: 3
+					name: 'Batteriladdare',
+					description: '',
+					cost: 3
 		}, {
-				name: 'Betapersonlighet',
-				description: '',
-				cost: 2
+					name: 'Betapersonlighet',
+					description: '',
+					cost: 2
 		}, {
-				name: 'Cyberdeck',
-				description: '',
-				cost: 3
+					name: 'Cyberdeck',
+					description: '',
+					cost: 3
 		}, {
-				name: 'Databank 1-5 poäng',
-				description: 'Roboten är försedd med en databank vilket ger den specialkunskaper innom ett naturvetenskapligt område; Medecin, Naturvetenskap eller Reparation. Varje SP ger roboten tillgång till ett specialområde innom vilket roboten anses ha 1,5 x Medecin / Naturvetenskap / Reparera.',
-				cost: 1
+					name: 'Databank 1-5 poäng',
+					description: 'Roboten är försedd med en databank vilket ger den specialkunskaper innom ett naturvetenskapligt område; Medecin, Naturvetenskap eller Reparation. Varje SP ger roboten tillgång till ett specialområde innom vilket roboten anses ha 1,5 x Medecin / Naturvetenskap / Reparera.',
+					cost: 1
 		}, {
-				name: 'EMP-skydd',
-				description: '',
-				cost: 1
+					name: 'EMP-skydd',
+					description: '',
+					cost: 1
 		}, {
-				name: 'Extra reservdelar (1-5 poäng)',
-				description: '2 delar per poäng.',
-				cost: 1
+					name: 'Extra reservdelar (1-5 poäng)',
+					description: '2 delar per poäng.',
+					cost: 1
 		}, {
-				name: 'Gastronom',
-				description: '',
-				cost: 1
+					name: 'Gastronom',
+					description: '',
+					cost: 1
 		}, {
-				name: 'Intercom',
-				description: '',
-				cost: 1
+					name: 'Intercom',
+					description: '',
+					cost: 1
 		}, {
-				name: 'Integralenhet',
-				description: '',
-				cost: 3
+					name: 'Integralenhet',
+					description: '',
+					cost: 3
 		}, {
-				name: 'Interface',
-				description: '',
-				cost: 1
+					name: 'Interface',
+					description: '',
+					cost: 1
 		}, {
-				name: 'Internbehållare',
-				description: '',
-				cost: 1
+					name: 'Internbehållare',
+					description: '',
+					cost: 1
 		}, {
-				name: 'Kemotermisk barriär',
-				description: '',
-				cost: 2
+					name: 'Kemotermisk barriär',
+					description: '',
+					cost: 2
 		}, {
-				name: 'Medikit',
-				description: '',
-				cost: 3
+					name: 'Medikit',
+					description: '',
+					cost: 3
 		}, {
-				name: 'Mikroskopöga',
-				description: '',
-				cost: 1
+					name: 'Mikroskopöga',
+					description: '',
+					cost: 1
 		}, {
-				name: 'Modifierad beteendespärr',
-				description: '',
-				cost: 3
+					name: 'Modifierad beteendespärr',
+					description: '',
+					cost: 3
 		}, {
-				name: 'Pansar (1-3 poäng)',
-				description: '2 pansar per poäng utöver robotens befintliga 4 ABS.',
-				cost: 1
+					name: 'Pansar (1-3 poäng)',
+					description: '2 pansar per poäng utöver robotens befintliga 4 ABS.',
+					cost: 1
 		}, {
-				name: 'Sekundärsystem',
-				description: '',
-				cost: 4
+					name: 'Sekundärsystem',
+					description: '',
+					cost: 4
 		}, {
-				name: 'Sensorer (IR)',
-				description: '',
-				cost: 1
+					name: 'Sensorer (IR)',
+					description: '',
+					cost: 1
 		}, {
-				name: 'Sensorer (Sonar)',
-				description: '',
-				cost: 1
+					name: 'Sensorer (Sonar)',
+					description: '',
+					cost: 1
 		}, {
-				name: 'Sensorer (Radar)',
-				description: '',
-				cost: 1
+					name: 'Sensorer (Radar)',
+					description: '',
+					cost: 1
 		}, {
-				name: 'Tolkenhet',
-				description: '',
-				cost: 5
+					name: 'Tolkenhet',
+					description: '',
+					cost: 5
 		}, {
-				name: 'Vapen',
-				description: '',
-				cost: 2
+					name: 'Vapen',
+					description: '',
+					cost: 2
 		}, {
-				name: 'Vapen ',
-				description: '',
-				cost: 4
+					name: 'Vapen ',
+					description: '',
+					cost: 4
 		}, {
-				name: 'Verktygsset',
-				description: '',
-				cost: 1
+					name: 'Verktygsset',
+					description: '',
+					cost: 1
 		}, {
-				name: 'Verktygsset & verkstad',
-				description: '',
-				cost: 3
+					name: 'Verktygsset & verkstad',
+					description: '',
+					cost: 3
 		}, {
-				name: 'ögonlaser',
-				description: '',
-				cost: 3
+					name: 'ögonlaser',
+					description: '',
+					cost: 3
 		}]
 		};
 		var weaponReach = {
@@ -1524,149 +1538,185 @@ angular.module('chargenNgApp')
 			}
 		};
 		var weapons = {
-			regClose:{
+			regClose: {
 				name: 'Vanliga närstridsvapen',
-				weapons:[
-				{
-				name: 'Obeväpnad',
-				fattn: '-',
-				init: 0,
-				damage: '1D4',
-				STR: 0,
-				weight: 0,
-				reach: 'close',
-				cost: 0
-				}, 
-				{
-				name: 'Naturligt vapen',
-				fattn: '-',
-				init: 0,
-				damage: '1D6',
-				STR: 0,
-				weight: 0,
-				reach: 'close',
-				cost: 0
+				weapons: [
+					{
+						name: 'Obeväpnad',
+						fattn: '-',
+						init: 0,
+						damage: '1D4',
+						STR: 0,
+						weight: 0,
+						reach: 'close',
+						cost: 0
+				},
+					{
+						name: 'Naturligt vapen',
+						fattn: '-',
+						init: 0,
+						damage: '1D6',
+						STR: 0,
+						weight: 0,
+						reach: 'close',
+						cost: 0
 				}, {
-				name: 'Bajonett (på k-pist)',
-				fattn: '2H',
-				init: 3,
-				damage: '2D6 +1',
-				STR: 7,
-				weight: 0.25,
-				reach: 'close',
-				cost: 1.5
+						name: 'Bajonett (på k-pist)',
+						fattn: '2H',
+						init: 3,
+						damage: '2D6 +1',
+						STR: 7,
+						weight: 0.25,
+						reach: 'close',
+						cost: 1.5
 				}, {
-				name: 'Bajonett (på karbin eller gevär)',
-				fattn: '2H',
-				init: 4,
-				damage: '2D6 +1',
-				STR: 7,
-				weight: 0.25,
-				reach: 'close',
-				cost: 1.5
-				}]},
-			techClose:{
-				name:'Högteknologiska närstridsvapen',
-				weapons:[
-				{
-				name: 'Chockbatong',
-				fattn: '1H',
-				init: 3,
-				mag: 30,
-				pen: 0,
-				depmax: 100,
-				damage: '1D4',
-				STR: 5,
-				durabillity: 8,
-				weight: 1,
-				reach: 'close',
-				cost: 225
+						name: 'Bajonett (på karbin eller gevär)',
+						fattn: '2H',
+						init: 4,
+						damage: '2D6 +1',
+						STR: 7,
+						weight: 0.25,
+						reach: 'close',
+						cost: 1.5
+				}]
+			},
+			techClose: {
+				name: 'Högteknologiska närstridsvapen',
+				weapons: [
+					{
+						name: 'Chockbatong',
+						fattn: '1H',
+						init: 3,
+						mag: 30,
+						pen: 0,
+						depmax: 100,
+						damage: '1D4',
+						STR: 5,
+						durabillity: 8,
+						weight: 1,
+						reach: 'close',
+						cost: 225
 				}
-				]},
-			regMissile:{
-				name:'Vanliga kast- och projektilvapen',
-				weapons:[
-				{
-				name: 'Armborst',
-				eldh: 'e',
-				fattn: '2H',
-				init: 2,
-				mag: 1,
-				depmax: 100,
-				damage: '2D6 +2',
-				durabillity: 7,
-				STR: 0,
-				weight: 4,
-				reach: 'short',
-				cost: 8
-					}]}, 
-			techMissile:{
-				name:'Högteknologiska projektilvapen', 
-				weapons:[{
-				name: 'Armborst, automatladdat',
-				eldh: 'e',
-				fattn: '2H',
-				init: 2,
-				mag: 5,
-				depmax: 100,
-				damage: '2D10',
-				durabillity: 6,
-				STR: 0,
-				weight: 2.5,
-				reach: 'menium',
-				cost: 350
+				]
+			},
+			regMissile: {
+				name: 'Vanliga kast- och projektilvapen',
+				weapons: [
+					{
+						name: 'Armborst',
+						eldh: 'e',
+						fattn: '2H',
+						init: 2,
+						mag: 1,
+						depmax: 100,
+						damage: '2D6 +2',
+						durabillity: 7,
+						STR: 0,
+						weight: 4,
+						reach: 'short',
+						cost: 8
 					}]
-		}, 
-			blackPowder:{name:'Svartkrutsvapen', weapons:[ {
-				name: 'Derringer .45S',
-				eldh: 'e',
-				fattn: '1H',
-				init: 6,
-				mag: 1,
-				depmax: 99,
-				reach: 'close',
-				damage: '2D6',
-				durabillity: 9,
-				STR: 0,
-				weight: 0.5,
-				cost: 18
-					}]}, 
-			gun:{name:'Skjutvapen', weapons:[ {
-				name: 'Pistol .22',
-				eldh: 'e',
-				fattn: '1H',
-				init: 10,
-				mag: 10,
-				depmax: 100,
-				reach: 'short',
-				damage: '1D8',
-				durabillity: 10,
-				STR: 0,
-				weight: 1,
-				cost: 250
-					}]}, 
-			homeBuilt:{name:'Typiska hemmabyggen', weapons:[ {
-				name: 'HB Pistol .22',
-				eldh: 'e',
-				fattn: '1H',
-				init: 9,
-				mag: 1,
-				depmax: 75,
-				reach: 'close',
-				damage: '1D8 -2',
-				durabillity: 7,
-				STR: 0,
-				weight: 1.5,
-				cost: 50
-					}]},
-			gyro:{name: 'Gyrojet- och Gausvapen', weapons:[]},
-			energy:{name: 'Energivapen', weapons:[]},
-			regTrap:{name: 'Vanliga fällor', weapons:[]},
-			granade:{name: 'Granater', weapons:[]},
-			explosives:{name: 'Sprängämnen och minor', weapons:[]},
-			granadeLauncher:{name: 'Granatvapen', weapons:[]},
-			machineGun:{name: 'Kulsprutur', weapons:[]},
-			armorPierce:{name: 'Pansarvapen', weapons:[]}
+			},
+			techMissile: {
+				name: 'Högteknologiska projektilvapen',
+				weapons: [{
+					name: 'Armborst, automatladdat',
+					eldh: 'e',
+					fattn: '2H',
+					init: 2,
+					mag: 5,
+					depmax: 100,
+					damage: '2D10',
+					durabillity: 6,
+					STR: 0,
+					weight: 2.5,
+					reach: 'menium',
+					cost: 350
+					}]
+			},
+			blackPowder: {
+				name: 'Svartkrutsvapen',
+				weapons: [{
+					name: 'Derringer .45S',
+					eldh: 'e',
+					fattn: '1H',
+					init: 6,
+					mag: 1,
+					depmax: 99,
+					reach: 'close',
+					damage: '2D6',
+					durabillity: 9,
+					STR: 0,
+					weight: 0.5,
+					cost: 18
+					}]
+			},
+			gun: {
+				name: 'Skjutvapen',
+				weapons: [{
+					name: 'Pistol .22',
+					eldh: 'e',
+					fattn: '1H',
+					init: 10,
+					mag: 10,
+					depmax: 100,
+					reach: 'short',
+					damage: '1D8',
+					durabillity: 10,
+					STR: 0,
+					weight: 1,
+					cost: 250
+					}]
+			},
+			homeBuilt: {
+				name: 'Typiska hemmabyggen',
+				weapons: [{
+					name: 'HB Pistol .22',
+					eldh: 'e',
+					fattn: '1H',
+					init: 9,
+					mag: 1,
+					depmax: 75,
+					reach: 'close',
+					damage: '1D8 -2',
+					durabillity: 7,
+					STR: 0,
+					weight: 1.5,
+					cost: 50
+					}]
+			},
+			gyro: {
+				name: 'Gyrojet- och Gausvapen',
+				weapons: []
+			},
+			energy: {
+				name: 'Energivapen',
+				weapons: []
+			},
+			regTrap: {
+				name: 'Vanliga fällor',
+				weapons: []
+			},
+			granade: {
+				name: 'Granater',
+				weapons: []
+			},
+			explosives: {
+				name: 'Sprängämnen och minor',
+				weapons: []
+			},
+			granadeLauncher: {
+				name: 'Granatvapen',
+				weapons: []
+			},
+			machineGun: {
+				name: 'Kulsprutur',
+				weapons: []
+			},
+			armorPierce: {
+				name: 'Pansarvapen',
+				weapons: []
+			}
 		};
 		var bodyParts = {
 			1: 'Höger ben',
@@ -1795,6 +1845,19 @@ angular.module('chargenNgApp')
 				cost: 1
 			},
 			];
+		var gear = {
+			spareParts: {
+				name: 'Reservdelar',
+				items: [
+					{
+						name: 'Elektronisk',
+						description: 'Datorer, energirustningar och energi - och gaus - vapen, robotar',
+						quantity: 1,
+						cost: 150
+					}
+				]
+			}
+		};
 		var staticData = {
 			version: version,
 			klasses: klasses,
@@ -1809,7 +1872,8 @@ angular.module('chargenNgApp')
 			weapons: weapons,
 			bodyParts: bodyParts,
 			armors: armors,
-			shields: shields
+			shields: shields,
+			gear: gear
 		};
 
 

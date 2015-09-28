@@ -15,11 +15,12 @@
 	<!-- build:css(.tmp) styles/main.css -->
 	<link rel="stylesheet" href="styles/font-awesome.css">
 	<link rel="stylesheet" href="styles/foundation-icons.css">
+	<link rel="stylesheet" href="styles/bootstrap-theme.css">
 	<link rel="stylesheet" href="styles/main.css">
 	<!-- endbuild -->
 </head>
 
-<body ng-app="chargenNgApp">
+<body data-ng-app="chargenNgApp">
 	<!--[if lte IE 8]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -41,7 +42,6 @@
 				</div>
 
 				<div class="collapse navbar-collapse" id="js-navbar-collapse">
-
 					<ul class="nav navbar-nav" data-ng-repeat="menu in menus">
 						<li data-ng-class="getActiveClass('menu.route')"><a data-ng-href="#{{menu.route}}" data-toggle="collapse" data-target="#js-navbar-collapse">{{menu.name}}</a></li>
 					</ul>

@@ -42,7 +42,9 @@ angular.module('chargenNgApp')
 						armors: [],
 						powers: [],
 						notes: [],
-						weapons: []
+						weapons: [],
+						items: [],
+						money: angular.copy(ijob.startcapital)
 					},
 					skill;
 				for (skill in staticStorage.skills) {

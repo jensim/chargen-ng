@@ -233,4 +233,18 @@ angular.module('chargenNgApp')
 				$scope.noteEdit = undefined;
 			}
 		};
+		$scope.createItem = function () {
+			var newItem = angular.copy($scope.create.item);
+			storage.activeCharacter.items.push(newItem);
+			$scope.armorEdit = newItem;
+		};
+		$scope.deleteItem = function (itemIndex) {
+			//throw 'not yet implmented';
+			if (storage.activeCharacter.items.splice(itemIndex, 1)[0] === $scope.itemEdit) {
+				$scope.itemEdit = undefined;
+			}
+		};
+		$scope.moneyManage = function (mod) {
+			storage.activeCharacter.money += mod;
+		};
     }]);
