@@ -234,9 +234,27 @@ angular.module('chargenNgApp')
 			}
 		};
 		$scope.createItem = function () {
-			var newItem = angular.copy($scope.create.item);
-			storage.activeCharacter.items.push(newItem);
-			$scope.armorEdit = newItem;
+			if ($scope.create && $scope.create.item) {
+				var newItem = angular.copy($scope.create.item);
+				storage.activeCharacter.items.push(newItem);
+				$scope.itemEdit = newItem;
+			} else {
+				var newItem = {
+					name: 'Nytt föremål',
+					description: '',
+					quantity: 1,
+					cost: 0
+				};
+				storage.activeCharacter.items.push(newItem);
+				$scope.itemEdit = newItem;
+			}
+		};
+		$scope.editItem = function (item) {
+			if ($scope.itemEdit === item) {
+				$scope.itemEdit = undefined;
+			} else {
+				$scope.itemEdit = item;
+			}
 		};
 		$scope.deleteItem = function (itemIndex) {
 			//throw 'not yet implmented';

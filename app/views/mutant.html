@@ -437,7 +437,7 @@
 			</div>
 			<div class="panel-body">
 				<ul class="list-group">
-					<li class="list-group-item" data-ng-repeat="i in storage.activeCharacter.items" data-ng-click="">
+					<li class="list-group-item" data-ng-repeat="i in storage.activeCharacter.items" data-ng-click="editItem(i)" data-ng-class="itemEdit===i?'active':''">
 						{{i.name}} : {{i.quantity}}
 						<div class="btn btn-xs btn-danger pull-right" data-ng-click="deleteItem($index)">
 							<i class="glyphicon glyphicon-trash"></i>
@@ -447,37 +447,38 @@
 				<div data-ng-show="itemEdit" class="input-group">
 					<div class="input-group">
 						<label>Name:</label>
-						<input type="text" data-ng-model="itemEdit.name">
+						<input type="text" class="form-control" data-ng-model="itemEdit.name">
 					</div>
 					<div class="input-group">
 						<label>Antal:</label>
-						<input type="text" data-ng-model="itemEdit.quantity">
+						<input type="text" class="form-control" data-ng-model="itemEdit.quantity">
 					</div>
 					<div class="input-group">
 						<label>Beskrivning:</label>
-						<input type="text" data-ng-model="itemEdit.description">
+						<input type="text" class="form-control" data-ng-model="itemEdit.description">
 					</div>
 					<div class="input-group">
 						<label>Värde:</label>
-						<input type="text" data-ng-model="itemEdit.cost">
+						<input type="text" class="form-control" data-ng-model="itemEdit.cost">
 					</div>
 				</div>
-				<div data-ng-hide="gearEdit" class="input-group">
+				<div data-ng-show="mutantGearFormEdit" class="input-group">
 					<hr/>
 					<label>Läs in utrustning:</label>
 					<select class="selectpicker form-control" data-ng-options="g.name for g in flatData.gear" data-ng-model="create.itemType"></select>
 					<select class="selectpicker form-control" data-ng-options="g.name for g in create.itemType.items" data-ng-model="create.item" data-ng-show="create.itemType"></select>
-					<div class="list-group-item" data-ng-show="create.item.description">
+					<a class="list-group-item" data-ng-show="create.item.description">
 						Beskrivning: {{create.item.description}}
-					</div>
-					<div class="list-group-item" data-ng-show="create.item.cost">
+					</a>
+					<a class="list-group-item" data-ng-show="create.item.cost">
 						Kostnad: {{create.item.cost}} krediter
-					</div>
-					<div class="form-group" data-ng-show="create.item">
-						<div class="btn btn-primary" data-ng-click="createItem(create.item)">
+					</a>
+					<div class="form-group">
+						<div class="btn btn-primary" data-ng-click="createItem()">
 							<i class="glyphicon glyphicon-plus"></i> Lägg till
+							<div data-ng-hide="create.item">(eget)</div>
 						</div>
-						<div class="btn btn-primary" data-ng-click="">
+						<div class="btn btn-primary" data-ng-click="" data-ng-show="create.item">
 							<i class="fa fa-money"></i> Köp
 						</div>
 					</div>
