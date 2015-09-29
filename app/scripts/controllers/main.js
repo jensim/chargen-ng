@@ -17,7 +17,7 @@ angular.module('chargenNgApp')
 				} else if (milestone.open_issues === 0) {
 					return 100;
 				} else {
-					return milestone.open_issues / (milestone.open_issues + milestone.closed_issues) * 100;
+					return milestone.closed_issues / (milestone.open_issues + milestone.closed_issues) * 100;
 				}
 
 			},
