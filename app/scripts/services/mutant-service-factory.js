@@ -1,13 +1,5 @@
 'use strict';
 
-/**
- * @ngdoc service
- * @name chargenNgApp.mutantMongoServiceFactory
- * @description
- * # mutantMongoServiceFactory
- * Factory in the chargenNgApp.
- */
-
 angular.module('chargenNgApp')
 	.factory('mutantServiceFactory', ['mutantStaticdataFactory', function (mutantStaticdataFactory) {
 
@@ -54,43 +46,6 @@ angular.module('chargenNgApp')
 				}
 				storage.activeCharacter = newChar;
 				saveCharacter(newChar);
-			},
-			saveCharacter: function (character) {
-				saveCharacter(character);
-			},
-			deleteCharacter: function (character) {
-				var storage = mutantStaticdataFactory.getLocalStorage();
-				storage.characters.forEach(function (c, i, characters) {
-					if (character === c) {
-						characters.splice(i, 1);
-					}
-				});
-				if (storage.activeCharacter === character) {
-					storage.activeCharacter = undefined;
-				}
-			},
-			deletePower: function (power) {
-				var storage = mutantStaticdataFactory.getLocalStorage();
-				storage.activeCharacter.powers.forEach(function (p, i, powers) {
-					if (p === power) {
-						if (p.skill !== undefined) {
-							storage.activeCharacter.skills.forEach(function (s, j, skills) {
-								if (p.skill.name === s.name) {
-									skills.splice(j, 1);
-								}
-							});
-						}
-						powers.splice(i, 1);
-					}
-				});
-			},
-			deleteArmor: function (armor) {
-				var storage = mutantStaticdataFactory.getLocalStorage();
-				storage.activeCharacter.armors.forEach(function (a, i, arr) {
-					if (a === armor) {
-						arr.splice(i, 1);
-					}
-				});
 			}
 		};
     }]);

@@ -23,6 +23,10 @@ angular.module('chargenNgApp')
 		var storage = mutantStaticdataFactory.getLocalStorage(),
 			flatData = mutantStaticdataFactory.getStaticStorage();
 
+		storage.activeCharacter = storage.characters[0];
+
+		/* * * * * * * * * * * */
+
 		$scope.createCharacter = function () {
 			if ($scope.create.char.klass && $scope.create.char.job) {
 				mutantService.newCharacter($scope.create.char.klass, $scope.create.char.job);
@@ -30,46 +34,29 @@ angular.module('chargenNgApp')
 		};
 		$scope.loadCharacter = function (character) {
 			storage.activeCharacter = character;
-			$scope.create = undefined;
+			$scope.create = {};
 		};
-		$scope.deleteCharacter = function (character) {
-			mutantService.deleteCharacter(character);
+		$scope.deleteCharacter = function (charIndex) {
+			if (storage.characters.splice(charIndex, 1)[0] === storage.activeCharacter) {
+				storage.activeCharacter = undefined;
+			}
 		};
 		$scope.editWeapon = function (weapon) {
-			if (!$scope.create) {
-				$scope.create = {
-					weapon: weapon
-				};
+			if ($scope.weaponEdit === weapon) {
+				$scope.weaponEdit = undefined;
 			} else {
-				$scope.create.weapon = weapon;
+				$scope.weaponEdit = weapon;
 			}
-			$scope.weaponEdit = weapon;
 		};
-		$scope.saveWeapon = function () {
+		$scope.createWeapon = function () {
 			var newWep = angular.copy($scope.create.weapon);
-			if (!storage.activeCharacter.weapons && $scope.create.weapon) {
-				storage.activeCharacter.weapons = [newWep];
-			} else if (!$scope.weaponEdit && $scope.create && $scope.create.weapon) {
-				storage.activeCharacter.weapons.push(newWep);
-			}
+			storage.activeCharacter.weapons.push(newWep);
 			$scope.weaponEdit = newWep;
-			$scope.create.weapon = newWep;
 		};
-		$scope.deleteWeapon = function () {
-			if (!$scope.weaponEdit || !storage.activeCharacter.weapons) {
-				return;
+		$scope.deleteWeapon = function (weaponIndex) {
+			if (storage.activeCharacter.weapons.splice(weaponIndex, 1)[0] === $scope.weaponEdit) {
+				$scope.weaponEdit = undefined;
 			}
-			var i;
-			for (i = 0; i < storage.activeCharacter.weapons.length; i += 1) {
-				var weapon = storage.activeCharacter.weapons[i];
-				if ($scope.weaponEdit === weapon) {
-					storage.activeCharacter.weapons.splice(i, 1);
-				}
-			}
-			$scope.weaponEdit = undefined;
-			$scope.create = {
-				weapon: undefined
-			};
 		};
 		$scope.calcSecAttr = function (attr) {
 			if (attr === undefined) {
@@ -146,26 +133,15 @@ angular.module('chargenNgApp')
 			storage.activeCharacter.skills.push(angular.copy($scope.create.skill));
 			$scope.setCreationSkill();
 		};
-		$scope.deleteSkill = function (skill) {
-			storage.activeCharacter.skills.forEach(function (s, index) {
-				if (storage.activeCharacter.skills[index] === skill) {
-					storage.activeCharacter.skills.splice(index, 1);
-				}
-			});
-		};
-		$scope.setCreationPower = function (power) {
-			jsonLog(power);
-			if ($scope.create) {
-				$scope.create.power = power;
-			} else {
-				$scope.create = {
-					power: power
-				};
-			}
+		$scope.deleteSkill = function (skillIndex) {
+			storage.activeCharacter.skills.splice(skillIndex, 1);
 		};
 		$scope.editPower = function (power) {
-			$scope.setCreationPower(power);
-			$scope.powerEdit = power;
+			if ($scope.powerEdit === power) {
+				$scope.powerEdit = undefined;
+			} else {
+				$scope.powerEdit = power;
+			}
 		};
 		$scope.createPower = function () {
 			var newPower = angular.copy($scope.create.power);
@@ -173,13 +149,12 @@ angular.module('chargenNgApp')
 			if (newPower.skill) {
 				storage.activeCharacter.skills.push(angular.copy(newPower.skill));
 			}
-			$scope.setCreationPower(newPower);
 			$scope.powerEdit = newPower;
 		};
-		$scope.deletePower = function (power) {
-			mutantService.deletePower(power);
-			$scope.setCreationPower();
-			$scope.powerEdit = undefined;
+		$scope.deletePower = function (powerIndex) {
+			if (storage.activeCharacter.powers.splice(powerIndex, 1)[0] === $scope.powerEdit) {
+				$scope.powerEdit = undefined;
+			}
 		};
 		$scope.availablePowers = function () {
 			if (storage.activeCharacter) {
@@ -207,15 +182,17 @@ angular.module('chargenNgApp')
 			var newArmor = angular.copy($scope.create.armor);
 			storage.activeCharacter.armors.push(newArmor);
 		};
-		$scope.deleteArmor = function (armor) {
-			mutantService.deleteArmor(armor);
-			$scope.armorEdit = undefined;
-			if ($scope.create.armor) {
-				delete $scope.create.armor;
+		$scope.deleteArmor = function (armorIndex) {
+			if (storage.activeCharacter.armors.splice(armorIndex, 1)[0] === $scope.armorEdit) {
+				$scope.armorEdit = undefined;
 			}
 		};
 		$scope.editArmor = function (armor) {
-			$scope.armorEdit = armor;
+			if (armor === $scope.armorEdit) {
+				$scope.armorEdit = undefined;
+			} else {
+				$scope.armorEdit = armor;
+			}
 		};
 		$scope.createNote = function () {
 			var newNote = {
@@ -226,7 +203,11 @@ angular.module('chargenNgApp')
 			storage.activeCharacter.notes.push(newNote);
 		};
 		$scope.editNote = function (note) {
-			$scope.noteEdit = note;
+			if (note === $scope.noteEdit) {
+				$scope.noteEdit = undefined;
+			} else {
+				$scope.noteEdit = note;
+			}
 		};
 		$scope.deleteNote = function (noteIndex) {
 			if (storage.activeCharacter.notes.splice(noteIndex, 1)[0] === $scope.noteEdit) {

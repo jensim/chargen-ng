@@ -1,25 +1,17 @@
 'use strict';
 
-/**
- * @ngdoc service
- * @name chargenNgApp.mutantMongoServiceFactory
- * @description
- * # mutantMongoServiceFactory
- * Factory in the chargenNgApp.
- */
-
 angular.module('chargenNgApp')
 	.factory('mutantCalcFactory', ['mutantStaticdataFactory', function (mutantStaticdataFactory) {
 		//var storage = $localStorage.mutant;
 		var calcSecondarySkadeBonus = function () { //STY + STO
-			var storage = mutantStaticdataFactory.getLocalStorage();
-
-			var sum = storage.activeCharacter.attrPrim.STY.value + storage.activeCharacter.attrPrim.STO.value;
-			var skadeBonus = '',
+			var storage = mutantStaticdataFactory.getLocalStorage(),
+				flatData = mutantStaticdataFactory.getStaticStorage(),
+				sum = storage.activeCharacter.attrPrim.STY.value + storage.activeCharacter.attrPrim.STO.value,
+				skadeBonus = '',
 				key;
-			for (key in storage.skadeBonus) {
+			for (key in flatData.skadeBonus) {
 				if (sum >= key) {
-					skadeBonus = storage.skadeBonus[key];
+					skadeBonus = flatData.skadeBonus[key];
 				}
 			}
 			storage.activeCharacter.attrSec.sb.value = skadeBonus;

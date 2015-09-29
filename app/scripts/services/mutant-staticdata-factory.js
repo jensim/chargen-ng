@@ -1,12 +1,5 @@
 'use strict';
 
-/**
- * @ngdoc service
- * @name chargenNgApp.mutantStaticdataFactory
- * @description
- * # mutantStaticdataFactory
- * Factory in the chargenNgApp.
- */
 angular.module('chargenNgApp')
 	.factory('mutantStaticdataFactory', ['$localStorage', function ($localStorage) {
 		var version = '0.1';

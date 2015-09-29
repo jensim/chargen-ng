@@ -1,43 +1,47 @@
 <div class="row mutant">
-	<div class="col-lg-4 col-md-6 col-sm-12" data-ng-hide="storage.activeCharacter">
-		<div class="panel panel-primary">
+	<div class="col-lg-4 col-md-6 col-sm-12" ng-hide="storage.activeCharacter">
+		<div class="panel" ng-class="newCharacterFormEdit ? 'panel-danger':'panel-info'">
 			<div class="panel-heading">
-				<h3 class="panel-title">Skapa ny karakt&auml;r</h3>
+				<h3 class="panel-title">
+					Skapa ny karaktär
+					<!--<i class="fa pull-right" ng-click="newCharacterFormEdit = !newCharacterFormEdit" ng-class="newCharacterFormEdit ? 'fa-cogs':'fa-cog'"></i>-->
+					<i class="pull-right fa" ng-class="newCharacterBody ? 'fa-compress' : 'fa-expand' " ng-click="newCharacterBody = !newCharacterBody"></i>
+				</h3>
 			</div>
-			<div class="panel-body">
+			<div class="panel-body" ng-show="newCharacterBody" ng-init="newCharacterBody = true">
 				<form name="mutantCreateCharForm">
 					<div class="form-group">
 						<label for="createInputClass">Klass:</label>
-						<select class="form-control" data-ng-model="create.char.klass" name="Klass" required="true" data-ng-required="true" id="createInputClass" data-ng-options="klass.name for klass in flatData.klasses"></select>
-						<div class="list-group" data-ng-show="create.char.klass.description">
+						<select class="form-control" ng-model="create.char.klass" name="Klass" required="true" ng-required="true" id="createInputClass" ng-options="klass.name for klass in flatData.klasses"></select>
+						<div class="list-group" ng-show="create.char.klass.description">
 							<a class="list-group-item">
 								<b>Beskrivning:</b> {{create.char.klass.description}}
 							</a>
 						</div>
-						<span data-ng-show="mutantCreateCharForm.Klass.$error.required" class="label label-danger">
+						<span ng-show="mutantCreateCharForm.Klass.$error.required" class="label label-danger">
                         	Obligatoriskt fält...
                     	</span>
 					</div>
 					<div class="form-group">
 						<label for="createInputJob">Yrke:</label>
-						<select class="form-control" data-ng-model="create.char.job" name="Yrke" required="true" data-ng-required="true" id="createInputJob" data-ng-options="job.name for job in flatData.jobs"></select>
-						<div class="list-group" data-ng-show="create.char.job.description">
+						<select class="form-control" ng-model="create.char.job" name="Yrke" required="true" ng-required="true" id="createInputJob" ng-options="job.name for job in flatData.jobs"></select>
+						<div class="list-group" ng-show="create.char.job.description">
 							<a class="list-group-item">
 								<b>Beskrivning:</b> {{create.char.job.description}}
 							</a>
 						</div>
-						<div class="list-group" data-ng-show="create.char.job.startcapital">
+						<div class="list-group" ng-show="create.char.job.startcapital">
 							<a class="list-group-item">
 								<b>Startkapital:</b> {{create.char.job.startcapital}} krediter
 							</a>
 						</div>
-						<span data-ng-show="mutantCreateCharForm.Yrke.$error.required" class="label label-danger">
+						<span ng-show="mutantCreateCharForm.Yrke.$error.required" class="label label-danger">
                         	Obligatoriskt fält...
                     	</span>
 					</div>
 					<div class="btn-group pull-right" role="group">
-						<button class="btn btn-default btn-md" data-ng-click="create.char=undefined">Återställ formulär</button>
-						<button class="btn btn-primary btn-md" data-ng-disabled="mutantCreateCharForm.$invalid" data-ng-click="createCharacter()">
+						<button class="btn btn-default btn-md" ng-click="create.char=undefined">Återställ formulär</button>
+						<button class="btn btn-primary btn-md" ng-disabled="mutantCreateCharForm.$invalid" ng-click="createCharacter()">
 							Skapa
 						</button>
 					</div>
@@ -46,30 +50,34 @@
 		</div>
 	</div>
 
-	<div class="col-lg-4 col-md-6 col-sm-12" data-ng-show="storage.activeCharacter">
-		<div class="panel panel-primary">
+	<div class="col-lg-4 col-md-6 col-sm-12" ng-show="storage.activeCharacter">
+		<div class="panel" ng-class="activeCharacterFormEdit ? 'panel-danger':'panel-info'">
 			<div class="panel-heading">
-				<h3 class="panel-title">Karaktär: {{storage.activeCharacter.name}}</h3>
+				<h3 class="panel-title">
+					Karaktär: {{storage.activeCharacter.name}}
+					<i class="fa pull-right" ng-click="activeCharacterFormEdit = !activeCharacterFormEdit" ng-class="activeCharacterFormEdit ? 'fa-cogs':'fa-cog'"></i>
+					<i class="pull-right fa" ng-class="activeCharacterBody ? 'fa-compress' : 'fa-expand' " ng-click="activeCharacterBody = !activeCharacterBody"></i>
+				</h3>
 			</div>
-			<div class="panel-body">
+			<div class="panel-body" ng-show="activeCharacterBody" ng-init="activeCharacterBody = true">
 				Namn:
 				<input ng-model="storage.activeCharacter.name" type="text">
 			</div>
-			<div class="panel-heading">
+			<div class="panel-heading" ng-show="activeCharacterBody">
 				<h3 class="panel-title">Stats</h3>
 			</div>
-			<div class="panel-body">
+			<div class="panel-body" ng-show="activeCharacterBody">
 				<p>
 					Använd GrundEgenskapPoäng (GE): {{getUsedGE()}} / {{storage.activeCharacter.klass.ge}}
-					<span class="label label-warning" data-ng-show="getUsedGE() < storage.activeCharacter.klass.ge">Poäng att spendera</span>
-					<span class="label label-danger" data-ng-show="getUsedGE() > storage.activeCharacter.klass.ge">Över max</span>
+					<span class="label label-warning" ng-show="getUsedGE() < storage.activeCharacter.klass.ge">Poäng att spendera</span>
+					<span class="label label-danger" ng-show="getUsedGE() > storage.activeCharacter.klass.ge">Över max</span>
 				</p>
 				<p>
 					Använd SkapelsePoäng (SP): {{getUsedSP()}} / 30
-					<div class="text-warning" data-ng-show="getUsedSP() < 30">
+					<div class="text-warning" ng-show="getUsedSP() < 30">
 						<span class="label label-warning">Poäng att spendera</span> &nbsp;Köp färdigheter och förmågor för dina skapelsepoäng.
 					</div>
-					<span class="label label-danger" data-ng-show="getUsedSP() > 30">Över max</span>
+					<span class="label label-danger" ng-show="getUsedSP() > 30">Över max</span>
 				</p>
 				<p>
 					Använd Erfarenhet (Erf): {{getUsedErf()}}
@@ -78,29 +86,29 @@
 		</div>
 	</div>
 
-	<div class="col-lg-4 col-md-6 col-sm-12" data-ng-show="storage.activeCharacter">
-		<div class="panel panel-primary">
+	<div class="col-lg-4 col-md-6 col-sm-12" ng-show="storage.activeCharacter">
+		<div class="panel" ng-class="attrPrimFormEdit ? 'panel-danger':'panel-info'">
 			<div class="panel-heading">
-				<h3 class="panel-title">Grundegenskaper
-                    <i data-ng-class="mutantAttrPrimFormEdit ? 'text-danger' : ''">
-						<i class="glyphicon glyphicon-cog pull-right" data-ng-click="mutantAttrPrimFormEdit = !mutantAttrPrimFormEdit"></i>
-					</i>
+				<h3 class="panel-title">
+					Grundegenskaper
+					<i class="fa pull-right" ng-click="attrPrimFormEdit = !attrPrimFormEdit" ng-class="attrPrimFormEdit ? 'fa-cogs':'fa-cog'"></i>
+					<i class="pull-right fa" ng-class="attrPrimBody ? 'fa-compress' : 'fa-expand' " ng-click="attrPrimBody = !attrPrimBody"></i>
                     <div class="pull-right">&nbsp;</div>
                     <diceroller dice="1D100" class="pull-right" />
                 </h3>
 			</div>
-			<div class="panel-body" data-ng-init="mutantAttrPrimFormEdit=false">
-				<p data-ng-show="mutantAttrPrimFormEdit" style="text-align: right; width: 100%;" class="text-primary">
+			<div class="panel-body" ng-show="attrPrimBody" ng-init="attrPrimBody = true">
+				<p ng-show="attrPrimFormEdit" style="text-align: right; width: 100%;" class="text-primary">
 					GE &nbsp;tränad mod
 				</p>
 				<ul class="list-group row">
-					<li class="list-group-item anim-fade" data-ng-repeat="a in storage.activeCharacter.attrPrim">
-						<div data-ng-hide="mutantAttrPrimFormEdit">
+					<li class="list-group-item anim-fade" ng-repeat="a in storage.activeCharacter.attrPrim">
+						<div ng-hide="attrPrimFormEdit">
 							{{a.name}} ({{a.short}}): {{a.value + a.trained}}
-							<div data-ng-show="a.mod > 0">&nbsp;+ {{a.mod}}</div>
-							<div data-ng-show="a.mod < 0">&nbsp;{{a.mod}}</div>
+							<div ng-show="a.mod > 0">&nbsp;+ {{a.mod}}</div>
+							<div ng-show="a.mod < 0">&nbsp;{{a.mod}}</div>
 						</div>
-						<div data-ng-show="mutantAttrPrimFormEdit">
+						<div ng-show="attrPrimFormEdit">
 							{{a.name}} ({{a.short}}):
 							<input ng-model="a.mod" maxlength="2" size="2" min="0" type="number" class="pull-right">
 							<input ng-model="a.trained" maxlength="2" size="2" min="0" type="number" class="pull-right">
@@ -112,35 +120,36 @@
 		</div>
 	</div>
 
-	<div class="col-lg-4 col-md-6 col-sm-12" data-ng-show="storage.activeCharacter">
-		<div class="panel panel-primary">
+	<div class="col-lg-4 col-md-6 col-sm-12" ng-show="storage.activeCharacter">
+		<div class="panel" ng-class="attrSecFormEdit ? 'panel-danger':'panel-info'">
 			<div class="panel-heading">
-				<h3 class="panel-title">Sekundära egenskaper
-					<i data-ng-class="mutantAttrSecFormEdit ? 'text-danger' : ''">
-                    	<i class="glyphicon glyphicon-cog pull-right" data-ng-click="mutantAttrSecFormEdit = !mutantAttrSecFormEdit"></i>
-					</i>
+				<h3 class="panel-title">
+					Sekundära egenskaper
+					<i class="fa pull-right" ng-click="attrSecFormEdit = !attrSecFormEdit" ng-class="attrSecFormEdit ? 'fa-cogs':'fa-cog'"></i>
+					<div class="pull-right">&nbsp;</div>
+					<i class="pull-right fa" ng-class="attrSecBody ? 'fa-compress' : 'fa-expand' " ng-click="attrSecBody = !attrSecBody"></i>
                     <div class="pull-right">&nbsp;</div>
-                    <i class="glyphicon glyphicon-info-sign pull-right" data-ng-click="mutantAttrSecFormInfo = !mutantAttrSecFormInfo" data-ng-hide="mutantAttrSecFormEdit"></i>
+                    <i class="glyphicon glyphicon-info-sign pull-right" ng-click="attrSecFormInfo = !attrSecFormInfo" ng-hide="attrSecFormEdit"></i>
                     <div class="pull-right">&nbsp;</div>
-                    <i class="fa fa-calculator pull-right" data-ng-click="calcSecAttr()" data-ng-show="mutantAttrSecFormEdit"></i>
+                    <i class="fa fa-calculator pull-right" ng-click="calcSecAttr()" ng-show="attrSecFormEdit"></i>
                     <div class="pull-right">&nbsp;</div>
-                    <diceroller dice="1D100" class="pull-right" data-ng-hide="mutantAttrSecFormEdit"></diceroller>
+                    <diceroller dice="1D100" class="pull-right" ng-hide="attrSecFormEdit"></diceroller>
                 </h3>
 			</div>
-			<div class="panel-body">
+			<div class="panel-body" ng-show="attrSecBody" ng-init="attrSecBody = true">
 				<ul class="list-group row">
-					<li class="list-group-item anim-fade" data-ng-repeat="a in storage.activeCharacter.attrSec">
-						<div data-ng-hide="mutantAttrSecFormEdit">
+					<li class="list-group-item anim-fade" ng-repeat="a in storage.activeCharacter.attrSec">
+						<div ng-hide="attrSecFormEdit">
 							{{a.name}} {{a.value}}
 						</div>
-						<div data-ng-show="mutantAttrSecFormEdit">
+						<div ng-show="attrSecFormEdit">
 							{{a.name}}
 							<input ng-model="a.value" maxlength="4" size="4">
-							<i class="fa fa-calculator pull-right" data-ng-click="calcSecAttr(a)"></i>
+							<i class="fa fa-calculator pull-right" ng-click="calcSecAttr(a)"></i>
 							<br/>
 
 						</div>
-						<div class="text-primary" style="font-size: 0.8em;" data-ng-show="mutantAttrSecFormEdit||mutantAttrSecFormInfo">
+						<div class="text-primary" style="font-size: 0.8em;" ng-show="attrSecFormEdit||attrSecFormInfo">
 							{{a.description}}
 						</div>
 					</li>
@@ -149,71 +158,83 @@
 		</div>
 	</div>
 
-	<div class="col-lg-4 col-md-6 col-sm-12" data-ng-show="storage.activeCharacter">
-		<div class="panel panel-primary">
+	<div class="col-lg-4 col-md-6 col-sm-12" ng-show="storage.activeCharacter">
+		<div class="panel" ng-class="skillFormEdit ? 'panel-danger':'panel-info'">
 			<div class="panel-heading">
-				<h3 class="panel-title">Färdigheter
-					<i data-ng-class="mutantSkillFormEdit ? 'text-danger' : ''">
-                    	<i class="glyphicon glyphicon-cog pull-right" data-ng-click="mutantSkillFormEdit = !mutantSkillFormEdit"></i>
-					</i>
+				<h3 class="panel-title">
+					Färdigheter
+					<i class="fa pull-right" ng-click="skillFormEdit = !skillFormEdit" ng-class="skillFormEdit ? 'fa-cogs':'fa-cog'"></i>
+					<div class="pull-right">&nbsp;</div>
+					<i class="pull-right fa" ng-class="skillBody ? 'fa-compress' : 'fa-expand' " ng-click="skillBody = !skillBody"></i>
                     <div class="pull-right">&nbsp;</div>
                     <diceroller dice="1D100" class="pull-right" />
                     <div class="pull-right">&nbsp;</div>
-                    <i class="glyphicon glyphicon-info-sign pull-right" data-ng-show="mutantSkillFormEdit"></i>
+                    <i class="glyphicon glyphicon-info-sign pull-right" ng-show="skillFormEdit"></i>
                 </h3>
 			</div>
-			<div class="panel-body">
-				<div data-ng-show="mutantSkillFormEdit">
-					<a class="text-primary">namn</a>
-					<a class="pull-right text-primary">sp &lt;free erf &lt;free n/t T&nbsp; &nbsp; &nbsp;</a>
+			<div class="panel-body" ng-show="skillBody" ng-init="skillBody = true">
+				<div ng-show="skillFormEdit" class="row">
+					<div class="label label-primary">namn</div>
+
+					<div class="pull-right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+					<div class="label label-primary pull-right" title="Inlärd efter karaktärskapelse">T</div>
+					<div class="label label-primary pull-right" title="Naturlig/Tränad">n/t</div>
+					<div class="pull-right">&nbsp;&nbsp;</div>
+					<div class="label label-primary pull-right" title="Gratis erfarenhetspoäng">f</div>
+					<div class="pull-right">&nbsp;&lt;</div>
+					<div class="label label-primary pull-right" title="Erfarenhetspoäng">erf</div>
+					<div class="pull-right">&nbsp;&nbsp;&nbsp;</div>
+					<div class="label label-primary pull-right" title="Gratis skapelsepoäng">f</div>
+					<div class="pull-right">&nbsp;&lt;</div>
+					<div class="label label-primary pull-right" title="SkapelsePoäng">sp</div>
 
 				</div>
 				<ul class="list-group row">
-					<li class="list-group-item anim-fade" data-ng-repeat="a in storage.activeCharacter.skills | orderBy:['-postTrained','-natural','name']">
-						<div data-ng-hide="mutantSkillFormEdit">
+					<li class="list-group-item anim-fade" ng-repeat="a in storage.activeCharacter.skills | orderBy:['-postTrained','-natural','name']">
+						<div ng-hide="skillFormEdit">
 							{{a.name}} ({{a.attrPrim}}): {{skillSum(a)}}
 						</div>
-						<div data-ng-show="mutantSkillFormEdit">
+						<div ng-show="skillFormEdit">
 							{{a.name}} ({{a.attrPrim}}):
-							<button class="btn btn-xs btn-warning pull-right" data-ng-click="deleteSkill(a)">
+							<button class="btn btn-xs btn-warning pull-right" ng-click="deleteSkill($index)">
 								<i class="glyphicon glyphicon-trash"></i>
 							</button>
 							<i class="pull-right">&nbsp;</i>
-							<input type="checkbox" data-ng-model="a.postTrained" class="pull-right">
+							<input type="checkbox" ng-model="a.postTrained" class="pull-right">
 							<i class="pull-right">&nbsp;</i>
-							<input type="checkbox" data-ng-model="a.natural" class="pull-right">
+							<input type="checkbox" ng-model="a.natural" class="pull-right">
 							<i class="pull-right">&nbsp;</i>
-							<input type="number" data-ng-model="a.valueErfFree" maxlength="2" size="2" min="0" class="pull-right">
-							<input type="number" data-ng-model="a.valueErf" maxlength="2" size="2" min="0" class="pull-right">
-							<input type="number" data-ng-model="a.valueSpFree" maxlength="2" size="2" min="0" class="pull-right">
-							<input type="number" data-ng-model="a.valueSp" maxlength="2" size="2" min="0" class="pull-right">
+							<input type="number" ng-model="a.valueErfFree" maxlength="2" size="2" min="0" class="pull-right">
+							<input type="number" ng-model="a.valueErf" maxlength="2" size="2" min="0" class="pull-right">
+							<input type="number" ng-model="a.valueSpFree" maxlength="2" size="2" min="0" class="pull-right">
+							<input type="number" ng-model="a.valueSp" maxlength="2" size="2" min="0" class="pull-right">
 
 							<br/> Value: {{skillSum(a)}} Cost:{{getSkillUsedErf(a)}}
 						</div>
 					</li>
 				</ul>
 
-				<div data-ng-show="mutantSkillFormEdit">
+				<div ng-show="skillFormEdit">
 					<div class="pull-right" style="display: inline-block;">
 						<p>
-							<button class="btn btn-primary" data-ng-click="createSkill()">Lägg till färdighet</button>
+							<button class="btn btn-primary" ng-click="createSkill()">Lägg till färdighet</button>
 						</p>
 						<p>
-							<button class="btn btn-primary" data-ng-click="create.skill = {}">Återställ formulär</button>
+							<button class="btn btn-primary" ng-click="create.skill = {}">Återställ formulär</button>
 						</p>
 					</div>
 
 					<div class="input-group">
 						<label>Namn</label>
-						<input name="create.skill.name" type="text" class="form-control" aria-label="..." data-ng-model="create.skill.name">
+						<input name="create.skill.name" type="text" class="form-control" ng-model="create.skill.name">
 					</div>
 					<div class="input-group">
 						<label class="control-label">GE:</label>
-						<select class="form-control" data-ng-options="a.name as a.name for a in flatData.attrPrimShort" data-ng-model="create.skill.attrPrim"></select>
+						<select class="form-control" ng-options="a.name as a.name for a in flatData.attrPrimShort" ng-model="create.skill.attrPrim"></select>
 					</div>
 					<div class="input-group">
 						<label>Läs in färdighet</label>
-						<select class="form-control" data-ng-model="create.skill" data-ng-options="s.name for s in flatData.skills"></select>
+						<select class="form-control" ng-model="create.skill" ng-options="s.name for s in flatData.skills"></select>
 					</div>
 
 				</div>
@@ -221,117 +242,39 @@
 		</div>
 	</div>
 
-	<div class="col-lg-4 col-md-6 col-sm-12" data-ng-show="storage.activeCharacter">
-		<div class="panel panel-primary">
+	<div class="col-lg-4 col-md-6 col-sm-12" ng-show="storage.activeCharacter">
+		<div class="panel" ng-class="powerFormEdit ? 'panel-danger':'panel-info'">
 			<div class="panel-heading">
-				<h3 class="panel-title">Vapen</h3>
-			</div>
-			<div class="panel-body">
-				<ul class="list-group">
-					<li class="list-group-item anim-fade" data-ng-repeat="w in storage.activeCharacter.weapons | orderBy:[name]" data-ng-click="editWeapon(w)">{{w.name}}</li>
-				</ul>
-				<div class="pull-right" style="display: inline-block;">
-					<p>
-						<button class="btn btn-primary btn-sm" data-ng-click="saveWeapon()" data-ng-hide="weaponEdit" data-ng-show="create.weapon">
-							Spara
-						</button>
-					</p>
-					<p>
-						<button class="btn btn-primary btn-sm" data-ng-click="deleteWeapon()" data-ng-show="weaponEdit">
-							<span class="glyphicon glyphicon-minus"></span> Ta bort
-						</button>
-					</p>
-					<p>
-						<button class="btn btn-primary btn-sm" data-ng-click="create.weapon = {}; weaponEdit=undefined;">
-							<span class="glyphicon glyphicon-save-file"></span> Nytt formulär
-						</button>
-					</p>
-				</div>
-				<div class="input-group">
-					<label>VAPEN: </label>
-					<input name="weaponName" data-ng-model="create.weapon.name" type="text">
-				</div>
-				<div class="input-group">
-					<label>FATTN: </label>
-					<input name="weaponFattn" data-ng-model="create.weapon.fattn" type="text">
-				</div>
-				<div class="input-group">
-					<label>INIT: </label>
-					<input name="weaponInit" data-ng-model="create.weapon.init" type="number">
-				</div>
-				<div class="input-group" style="display: inline-block;">
-					<label>SKADA: </label>
-					<input name="weaponDice" data-ng-model="create.weapon.damage" type="text">
-				</div>
-				<diceroller dice="{{create.weapon.damage}}"></diceroller>
-				<div class="input-group">
-					<label>PEN: </label>
-					<input name="weaponPen" data-ng-model="create.weapon.penetration" type="number">
-				</div>
-				<div class="input-group">
-					<label>RÄCKVIDD: </label>
-					<input name="weaponReach" data-ng-model="create.weapon.reach" type="text">
-				</div>
-				<div class="input-group">
-					<label>TÅL: </label>
-					<input name="weaponDur" data-ng-model="create.weapon.durabillity" type="text">
-				</div>
-				<div class="input-group">
-					<label>PÅL: </label>
-					<input name="weaponDep" data-ng-model="create.weapon.dep" type="number">
-					<label>/MAX: </label>
-					<input name="weaponDepMax" data-ng-model="create.weapon.depmax" type="number">
-				</div>
-				<div class="input-group">
-					<label>VIKT: </label>
-					<input name="weaponWeight" data-ng-model="create.weapon.weight" type="number">
-				</div>
-				<div class="input-group">
-					<label>AMMO</label>
-					<input name="weaponAmmo" data-ng-model="create.weapon.ammo" type="number">
-					<label>/MAX</label>
-					<input name="weaponAmmoMax" data-ng-model="create.weapon.mag" type="number">
-				</div>
-				<hr/>
-				<div class="input-group" data-ng-hide="weaponEdit">
-					<label>Läs in vapen</label>
-					<select class="form-control" data-ng-model="create.weaponType" data-ng-options="w.name for w in flatData.weapons"></select>
-					<select class="form-control" data-ng-model="create.weapon" data-ng-options="w.name for w in create.weaponType.weapons" data-ng-show="create.weaponType"></select>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="col-lg-4 col-md-6 col-sm-12" data-ng-show="storage.activeCharacter">
-		<div class="panel panel-primary">
-			<div class="panel-heading">
-				<h3 class="panel-title">Förmågor
-					<i data-ng-class="mutantPowerFormEdit ? '' : 'text-danger' ">
-					 	<i class="glyphicon glyphicon-cog pull-right" data-ng-click="mutantPowerFormEdit = !mutantPowerFormEdit"></i>
-					</i>
+				<h3 class="panel-title">
+					Förmågor
+					<i class="fa pull-right" ng-click="powerFormEdit = !powerFormEdit" ng-class="powerFormEdit ? 'fa-cogs':'fa-cog'"></i>
+					<i class="pull-right fa" ng-class="powerBody ? 'fa-compress' : 'fa-expand' " ng-click="powerBody = !powerBody"></i>
 				</h3>
 			</div>
-			<div class="panel-body">
+			<div class="panel-body" ng-show="powerBody" ng-init="powerBody = true; powerFormEdit = (storage.activeCharacter.powers[0] === undefined);">
 				<ul class="list-group">
-					<li class="list-group-item anim-fade" data-ng-repeat="p in storage.activeCharacter.powers | orderBy:['name']" data-ng-click="editPower(p)">
+					<li class="list-group-item anim-fade" ng-repeat="p in storage.activeCharacter.powers | orderBy:['name']" ng-click="editPower(p)" ng-class="p === powerEdit ? 'active':''">
 						{{p.name}}
+						<div class="btn btn-danger glyphicon glyphicon-trash pull-right btn-xs" ng-click="deletePower($index)" ng-show="p === powerEdit">
+						</div>
 					</li>
 				</ul>
+				<div class="anim-fade" ng-show="powerEdit">
+					POWER EDIT
 
-				<div data-ng-hide="mutantPowerFormEdit" class="anim-fade">
+				</div>
+				<div ng-hide="powerFormEdit" class="anim-fade" ng-init="powerBody = true; powerFormEdit = true;">
+					unchangeable datas
+				</div>
+				<div ng-show="powerFormEdit" class="anim-fade">
 					<div class="pull-right" style="display: inline-block;">
 						<p>
-							<button class="btn btn-primary" data-ng-click="deletePower(powerEdit)" data-ng-show="powerEdit">
-								Ta bort förmåga
-							</button>
-						</p>
-						<p>
-							<button class="btn btn-primary" data-ng-click="createPower()" data-ng-hide="powerEdit">
+							<button class="btn btn-primary" ng-click="createPower()" ng-hide="powerEdit">
 								Lägg till förmåga
 							</button>
 						</p>
 						<p>
-							<button class="btn btn-primary" data-ng-click="create.power={}; powerEdit=undefined;">
+							<button class="btn btn-primary" ng-click="create.power={}; powerEdit=undefined;">
 								Återställ
 							</button>
 						</p>
@@ -339,23 +282,23 @@
 					<div class="form-group">
 						<div class="input-group">
 							<label>Namn</label>
-							<input name="create.power.name" type="text" class="form-control" data-ng-model="create.power.name">
+							<input name="create.power.name" type="text" class="form-control" ng-model="create.power.name">
 						</div>
 						<div class="input-group">
 							<label for="create.power.cost">Kostnad</label>
 							<br/>
-							<input name="create.power.cost" type="number" data-ng-model="create.power.cost">
+							<input name="create.power.cost" type="number" ng-model="create.power.cost">
 						</div>
 						<div class="input-group">
 							<label>Beskrivning</label>
-							<textarea name="create.power.description" type="text" class="form-control" data-ng-model="create.power.description"></textarea>
+							<textarea name="create.power.description" type="text" class="form-control" ng-model="create.power.description"></textarea>
 						</div>
-						<div class="text-danger" data-ng-show="create.power.skill">
+						<div class="text-danger" ng-show="create.power.skill">
 							Ny färdighet ({{create.power.skill.attrPrim}})
 						</div>
-						<div class="input-group" data-ng-hide="powerEdit">
+						<div class="input-group" ng-hide="powerEdit">
 							<label>Läs in förmåga </label>
-							<select class="selectpicker form-control" data-ng-model="create.power" data-ng-options="p.name for p in availablePowers()"></select>
+							<select class="selectpicker form-control" ng-model="create.power" ng-options="p.name for p in availablePowers()"></select>
 						</div>
 					</div>
 				</div>
@@ -363,122 +306,213 @@
 		</div>
 	</div>
 
-	<div class="col-lg-4 col-md-6 col-sm-12" data-ng-show="storage.activeCharacter">
-		<div class="panel panel-primary">
+	<div class="col-lg-4 col-md-6 col-sm-12" ng-show="storage.activeCharacter">
+		<div class="panel" ng-class="weaponFormEdit ? 'panel-danger':'panel-info'">
 			<div class="panel-heading">
-				<h3 class="panel-title">Rustning
-					 <i data-ng-class="mutantArmorFormEdit ? 'text-danger' : '' ">
-					 	<i class="glyphicon glyphicon-cog pull-right" data-ng-click="mutantArmorFormEdit = !mutantArmorFormEdit"></i>
-					</i>
+				<h3 class="panel-title">
+					Vapen
+					<i class="fa pull-right" ng-click="weaponFormEdit = !weaponFormEdit" ng-class="weaponFormEdit ? 'fa-cogs':'fa-cog'"></i>
+					<i class="pull-right fa" ng-class="weaponBody ? 'fa-compress' : 'fa-expand' " ng-click="weaponBody = !weaponBody"></i>
+				</h3>
+			</div>
+			<div class="panel-body" ng-show="weaponBody">
+				<ul class="list-group">
+					<li class="list-group-item anim-fade" ng-repeat="w in storage.activeCharacter.weapons | orderBy:[name]" ng-click="editWeapon(w)" ng-class="w === weaponEdit ? 'list-group-item-info':''">
+						{{w.name}}
+						<div class="btn btn-danger btn-xs glyphicon glyphicon-trash pull-right" ng-click="deleteWeapon($index)" ng-show="w === weaponEdit"></div>
+					</li>
+				</ul>
+				<div ng-show="weaponEdit">
+					<div class="input-group">
+						<label>VAPEN: </label>
+						<input name="weaponName" ng-model="weaponEdit.name" type="text">
+					</div>
+					<div class="input-group">
+						<label>FATTN: </label>
+						<input name="weaponFattn" ng-model="weaponEdit.fattn" type="text">
+					</div>
+					<div class="input-group">
+						<label>INIT: </label>
+						<input name="weaponInit" ng-model="weaponEdit.init" type="number">
+					</div>
+					<div class="input-group" style="display: inline-block;">
+						<label>SKADA: </label>
+						<input name="weaponDice" ng-model="weaponEdit.damage" type="text">
+					</div>
+					<diceroller dice="{{weaponEdit.damage}}"></diceroller>
+					<div class="input-group">
+						<label>PEN: </label>
+						<input name="weaponPen" ng-model="weaponEdit.penetration" type="number">
+					</div>
+					<div class="input-group">
+						<label>RÄCKVIDD: </label>
+						<input name="weaponReach" ng-model="weaponEdit.reach" type="text">
+					</div>
+					<div class="input-group">
+						<label>TÅL: </label>
+						<input name="weaponDur" ng-model="weaponEdit.durabillity" type="text">
+					</div>
+					<div class="input-group">
+						<label>PÅL: </label>
+						<input name="weaponDep" ng-model="weaponEdit.dep" type="number">
+						<label>/MAX: </label>
+						<input name="weaponDepMax" ng-model="weaponEdit.depmax" type="number">
+					</div>
+					<div class="input-group">
+						<label>VIKT: </label>
+						<input name="weaponWeight" ng-model="weaponEdit.weight" type="number">
+					</div>
+					<div class="input-group">
+						<label>AMMO</label>
+						<input name="weaponAmmo" ng-model="weaponEdit.ammo" type="number">
+						<label>/MAX</label>
+						<input name="weaponAmmoMax" ng-model="weaponEdit.mag" type="number">
+					</div>
+				</div>
+				<div ng-show="!weaponEdit && weaponFormEdit">
+					<div ng-show="create.weapon">
+						<div class="btn btn-primary pull-right" ng-click="createWeapon()">Lägg till vapen</div>
+						VAPEN: {{create.weapon.name}}
+						<br/>FATTN: {{create.weapon.fattn}}
+						<br/>INIT: {{create.weapon.init}}
+						<br/>SKADA: {{create.weapon.damage}}
+						<br/>PEN: {{create.weapon.penetration}}
+						<br/>RÄCKVIDD: {{create.weapon.reach}}
+						<br/>TÅL: {{create.weapon.durabillity}}
+						<br/>PÅL: {{create.weapon.dep}}
+						<br/>/MAX: {{create.weapon.depmax}}
+						<br/>VIKT: {{create.weapon.weight}}
+						<br/>
+					</div>
+					<div class="input-group" ng-hide="weaponEdit">
+						<label>Läs in vapen</label>
+						<select class="form-control" ng-model="create.weaponType" ng-options="w.name for w in flatData.weapons"></select>
+						<select class="form-control" ng-model="create.weapon" ng-options="w.name for w in create.weaponType.weapons" ng-show="create.weaponType"></select>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-lg-4 col-md-6 col-sm-12" ng-show="storage.activeCharacter">
+		<div class="panel" ng-class="armorFormEdit ? 'panel-danger':'panel-info'">
+			<div class="panel-heading">
+				<h3 class="panel-title">
+					Rustning
+					<i class="fa pull-right" ng-click="armorFormEdit = !armorFormEdit" ng-class="armorFormEdit ? 'fa-cogs':'fa-cog'"></i>
+					<i class="pull-right fa" ng-class="armorBody ? 'fa-compress' : 'fa-expand' " ng-click="armorBody = !armorBody"></i>
 				 </h3>
 			</div>
-			<div class="panel-body">
+			<div class="panel-body" ng-show="armorBody">
 				Rustning, ABS, BEG: {{calcBeg(i)}}, Vikt
-				<div data-ng-repeat="(i, b) in flatData.bodyParts">
+				<div ng-repeat="(i, b) in flatData.bodyParts">
 					{{b}} ABS: {{calcArmor(i)}}
 				</div>
-				<div data-ng-show="mutantArmorFormEdit">
+				<div ng-show="armorFormEdit">
 					<hr/> RustningsDelar:
 					<ul class="list-group">
-						<li data-ng-repeat="r in storage.activeCharacter.armors | orderBy:['wearing','bodyPart','name']" data-ng-click="editArmor(r)" class="list-group-item" data-ng-class="r.wearing ? 'active' : ''">
+						<li ng-repeat="r in storage.activeCharacter.armors | orderBy:['wearing','bodyPart','name']" ng-click="editArmor(r)" class="list-group-item" ng-class="r===armorEdit ? 'active' : r.wearing ? 'list-group-item-info' : ''">
 							{{flatData.bodyParts[r.bodyPart]}}: {{r.name}}, ABS: {{r.ABS}}, BEG: {{r.BEG}}, {{r.wearing ? 'På' : 'Av'}}
-							<div class="btn btn-xs pull-right" data-ng-class="r.wearing ? 'btn-danger' : 'btn-primary'" data-ng-click="r.wearing=!r.wearing">
-								<i class="glyphicon" data-ng-class="r.wearing ? 'glyphicon-minus' : 'glyphicon-plus'"></i>
+							<div class="btn btn-xs pull-right" ng-class="r.wearing ? 'btn-danger' : 'btn-primary'" ng-click="r.wearing=!r.wearing">
+								<i class="glyphicon" ng-class="r.wearing ? 'glyphicon-minus' : 'glyphicon-plus'"></i>
+							</div>
+							<div class="pull-right">&nbsp;</div>
+							<div class="btn btn-danger btn-xs pull-right" ng-click="deleteArmor($index)" ng-show="r === armorEdit">
+								<div class="glyphicon glyphicon-trash"></div>
 							</div>
 						</li>
 					</ul>
-					<div data-ng-show="armorEdit" class="form-group">
+					<div ng-show="armorEdit" class="form-group">
 						<div class="input-group">
 							<label>Name:</label>
-							<input type="text" class="form-control" data-ng-model="armorEdit.name">
+							<input type="text" class="form-control" ng-model="armorEdit.name">
 						</div>
 						<div class="input-group">
 							<label>ABS:</label>
-							<input type="number" class="form-control" data-ng-model="armorEdit.ABS">
+							<input type="number" class="form-control" ng-model="armorEdit.ABS">
 						</div>
 						<div class="input-group">
 							<label>BEG:</label>
-							<input type="number" class="form-control" data-ng-model="armorEdit.BEG">
+							<input type="number" class="form-control" ng-model="armorEdit.BEG">
 						</div>
 						<div class="input-group">
 							<label>Kroppsdel:</label>
-							<select class="selectpicker form-control" data-ng-model="armorEdit.bodyPart" data-ng-options="i as flatData.bodyParts[i] for i in armorEdit.fits"></select>
+							<select class="selectpicker form-control" ng-model="armorEdit.bodyPart" ng-options="i as flatData.bodyParts[i] for i in armorEdit.fits"></select>
 						</div>
 
-						<button class="btn btn-primary btn-sm" data-ng-click="deleteArmor(armorEdit)">
-							Ta bort
-						</button>
-						<button class="btn btn-primary btn-sm" data-ng-click="armorEdit=undefined;">
+
+						<button class="btn btn-primary btn-sm" ng-click="armorEdit=undefined;">
 							Återställ formulär
 						</button>
 					</div>
-					<div data-ng-hide="armorEdit" class="input-group">
-						<label>Läs in rustning</label>
-						<select class="selectpicker form-control" data-ng-model="create.armortype" data-ng-options="at.name for at in flatData.armors"></select>
-						<select class="selectpicker form-control" data-ng-model="create.armor" data-ng-options="a.name for a in create.armortype.armors" data-ng-show="create.armortype"></select>
-						<select class="selectpicker form-control" data-ng-model="create.armor.bodyPart" data-ng-options="i as flatData.bodyParts[i] for i in create.armor.fits" data-ng-show="create.armor"></select>
-						<div data-ng-show="create.armor.bodyPart" data-ng-click="createArmor()" class="btn btn-primary btn-sm">
+					<div ng-hide="armorEdit" class="input-group">
+						<label>Läs in rustning &nbsp;</label>
+						<button ng-show="create.armor.bodyPart" ng-click="createArmor()" class="btn btn-primary btn-sm">
 							Lägg till
-						</div>
+						</button>
+						<select class="selectpicker form-control" ng-model="create.armortype" ng-options="at.name for at in flatData.armors"></select>
+						<select class="selectpicker form-control" ng-model="create.armor" ng-options="a.name for a in create.armortype.armors" ng-show="create.armortype"></select>
+						<select class="selectpicker form-control" ng-model="create.armor.bodyPart" ng-options="i as flatData.bodyParts[i] for i in create.armor.fits" ng-show="create.armor"></select>
+
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 
-	<div class="col-lg-4 col-md-6 col-sm-12" data-ng-show="storage.activeCharacter">
-		<div class="panel panel-primary">
+	<div class="col-lg-4 col-md-6 col-sm-12" ng-show="storage.activeCharacter">
+		<div class="panel" ng-class="gearFormEdit ? 'panel-danger':'panel-info'">
 			<div class="panel-heading">
-				<h3 class="panel-title">Utrustning
-                    <i data-ng-class="mutantGearFormEdit ? 'text-danger' : '' ">
-					 	<i class="glyphicon glyphicon-cog pull-right" data-ng-click="mutantGearFormEdit = !mutantGearFormEdit"></i>
-					</i>
+				<h3 class="panel-title">
+					Utrustning
+					<i class="fa pull-right" ng-click="gearFormEdit = !gearFormEdit" ng-class="gearFormEdit ? 'fa-cogs':'fa-cog'"></i>
+					<i class="pull-right fa" ng-class="gearBody ? 'fa-compress' : 'fa-expand' " ng-click="gearBody = !gearBody"></i>
                 </h3>
 			</div>
-			<div class="panel-body">
+			<div class="panel-body" ng-show="gearBody">
 				<ul class="list-group">
-					<li class="list-group-item" data-ng-repeat="i in storage.activeCharacter.items" data-ng-click="editItem(i)" data-ng-class="itemEdit===i?'active':''">
+					<li class="list-group-item" ng-repeat="i in storage.activeCharacter.items" ng-click="editItem(i)" ng-class="itemEdit===i?'active':''">
 						{{i.name}} : {{i.quantity}}
-						<div class="btn btn-xs btn-danger pull-right" data-ng-click="deleteItem($index)">
+						<div class="btn btn-xs btn-danger pull-right" ng-click="deleteItem($index)">
 							<i class="glyphicon glyphicon-trash"></i>
 						</div>
 					</li>
 				</ul>
-				<div data-ng-show="itemEdit" class="input-group">
+				<div ng-show="itemEdit" class="input-group">
 					<div class="input-group">
 						<label>Name:</label>
-						<input type="text" class="form-control" data-ng-model="itemEdit.name">
+						<input type="text" class="form-control" ng-model="itemEdit.name">
 					</div>
 					<div class="input-group">
 						<label>Antal:</label>
-						<input type="text" class="form-control" data-ng-model="itemEdit.quantity">
+						<input type="text" class="form-control" ng-model="itemEdit.quantity">
 					</div>
 					<div class="input-group">
 						<label>Beskrivning:</label>
-						<input type="text" class="form-control" data-ng-model="itemEdit.description">
+						<input type="text" class="form-control" ng-model="itemEdit.description">
 					</div>
 					<div class="input-group">
 						<label>Värde:</label>
-						<input type="text" class="form-control" data-ng-model="itemEdit.cost">
+						<input type="text" class="form-control" ng-model="itemEdit.cost">
 					</div>
 				</div>
-				<div data-ng-show="mutantGearFormEdit" class="input-group">
+				<div ng-show="gearFormEdit" class="input-group">
 					<hr/>
 					<label>Läs in utrustning:</label>
-					<select class="selectpicker form-control" data-ng-options="g.name for g in flatData.gear" data-ng-model="create.itemType"></select>
-					<select class="selectpicker form-control" data-ng-options="g.name for g in create.itemType.items" data-ng-model="create.item" data-ng-show="create.itemType"></select>
-					<a class="list-group-item" data-ng-show="create.item.description">
+					<select class="selectpicker form-control" ng-options="g.name for g in flatData.gear" ng-model="create.itemType"></select>
+					<select class="selectpicker form-control" ng-options="g.name for g in create.itemType.items" ng-model="create.item" ng-show="create.itemType"></select>
+					<a class="list-group-item" ng-show="create.item.description">
 						Beskrivning: {{create.item.description}}
 					</a>
-					<a class="list-group-item" data-ng-show="create.item.cost">
+					<a class="list-group-item" ng-show="create.item.cost">
 						Kostnad: {{create.item.cost}} krediter
 					</a>
 					<div class="form-group">
-						<div class="btn btn-primary" data-ng-click="createItem()">
+						<div class="btn btn-primary" ng-click="createItem()">
 							<i class="glyphicon glyphicon-plus"></i> Lägg till
-							<div data-ng-hide="create.item">(eget)</div>
+							<div ng-hide="create.item">(eget)</div>
 						</div>
-						<div class="btn btn-primary" data-ng-click="" data-ng-show="create.item">
+						<div class="btn btn-primary" ng-click="" ng-show="create.item">
 							<i class="fa fa-money"></i> Köp
 						</div>
 					</div>
@@ -487,85 +521,85 @@
 		</div>
 	</div>
 
-	<div class="col-lg-4 col-md-6 col-sm-12" data-ng-show="storage.activeCharacter">
-		<div class="panel panel-primary">
+	<div class="col-lg-4 col-md-6 col-sm-12" ng-show="storage.activeCharacter">
+		<div class="panel" ng-class="combatFormEdit ? 'panel-danger':'panel-info'">
 			<div class="panel-heading">
-				<h3 class="panel-title">Strid - snabbverktyg
-                    <i data-ng-class="mutantCombatFormEdit ? 'text-danger' : '' ">
-					 	<i class="glyphicon glyphicon-cog pull-right" data-ng-click="mutantCombatFormEdit = !mutantCombatFormEdit"></i>
-					</i>
+				<h3 class="panel-title">
+					Strid - snabbverktyg
+					<i class="fa pull-right" ng-click="combatFormEdit = !combatFormEdit" ng-class="combatFormEdit ? 'fa-cogs':'fa-cog'"></i>
+					<i class="pull-right fa" ng-class="combatBody ? 'fa-compress' : 'fa-expand' " ng-click="combatBody = !combatBody"></i>
                 </h3>
 			</div>
-			<div class="panel-body">
+			<div class="panel-body" ng-show="combatBody">
 				something
 			</div>
 		</div>
 	</div>
 
-	<div class="col-lg-4 col-md-6 col-sm-12" data-ng-show="storage.activeCharacter">
-		<div class="panel panel-primary">
+	<div class="col-lg-4 col-md-6 col-sm-12" ng-show="storage.activeCharacter">
+		<div class="panel" ng-class="miscFormEdit ? 'panel-danger':'panel-info'">
 			<div class="panel-heading">
-				<h3 class="panel-title">Övrigt
-                    <i data-ng-class="mutantMiscFormEdit ? 'text-danger' : '' ">
-					 	<i class="glyphicon glyphicon-cog pull-right" data-ng-click="mutantMiscFormEdit = !mutantMiscFormEdit"></i>
-					</i>
+				<h3 class="panel-title">
+					Övrigt
+					<i class="fa pull-right" ng-click="miscFormEdit = !miscFormEdit" ng-class="miscFormEdit ? 'fa-cogs':'fa-cog'"></i>
+					<i class="pull-right fa" ng-class="miscBody ? 'fa-compress' : 'fa-expand' " ng-click="miscBody = !miscBody"></i>
                 </h3>
 			</div>
-			<div class="panel-body">
+			<div class="panel-body" ng-show="miscBody">
 				<ul class="list-group">
-					<li class="list-group-item" data-ng-repeat="n in storage.activeCharacter.notes">
-						<span data-ng-click="editNote(n)">
+					<li class="list-group-item" ng-repeat="n in storage.activeCharacter.notes">
+						<span ng-click="editNote(n)">
 							{{n.head}}
 						</span>
-						<div class="btn btn-warning pull-right" data-ng-click="deleteNote($index)">
+						<div class="btn btn-warning pull-right" ng-click="deleteNote($index)">
 							<i class="glyphicon glyphicon-trash"></i>
 						</div>
 					</li>
 				</ul>
 
-				<div data-ng-show="noteEdit">
+				<div ng-show="noteEdit">
 					<div class="input-group">
 						<label>Rubrik</label>
-						<input type="text" data-ng-model="noteEdit.head" class="form-control">
+						<input type="text" ng-model="noteEdit.head" class="form-control">
 					</div>
 					<div class="input-group">
 						<label>Innehåll</label>
-						<textarea class="form-control" data-ng-model="noteEdit.content"></textarea>
+						<textarea class="form-control" ng-model="noteEdit.content"></textarea>
 					</div>
 				</div>
-				<div class="btn btn-primary pull-right" data-ng-click="createNote()">
-					<i class="glyphicon glyphicon-plus"></i> Lägg till
+				<div class="btn btn-primary pull-right" ng-click="createNote()">
+					<i class="glyphicon glyphicon-plus"></i> Ny lapp
 				</div>
 			</div>
 		</div>
 	</div>
 
-	<div class="col-lg-4 col-md-6 col-sm-12" data-ng-show="storage.activeCharacter">
-		<div class="panel panel-primary">
+	<div class="col-lg-4 col-md-6 col-sm-12" ng-show="storage.activeCharacter">
+		<div class="panel" ng-class="moneyFormEdit ? 'panel-danger':'panel-info'">
 			<div class="panel-heading">
-				<h3 class="panel-title">Pengar
-                    <i data-ng-class="mutantMoneyFormEdit ? 'text-danger' : '' ">
-					 	<i class="glyphicon glyphicon-cog pull-right" data-ng-click="mutantMoneyFormEdit = !mutantMoneyFormEdit"></i>
-					</i>
+				<h3 class="panel-title">
+					Pengar
+					<i class="fa pull-right" ng-click="moneyFormEdit = !moneyFormEdit" ng-class="moneyFormEdit ? 'fa-cogs':'fa-cog'"></i>
+					<i class="pull-right fa" ng-class="moneyBody ? 'fa-compress' : 'fa-expand' " ng-click="moneyBody = !moneyBody"></i>
                 </h3>
 			</div>
-			<div class="panel-body">
+			<div class="panel-body" ng-show="moneyBody">
 				<p>
 					<div class="list-group-item">
-						<div data-ng-show="storage.activeCharacter.money">{{storage.activeCharacter.money}} krediter</div>
-						<div data-ng-hide="storage.activeCharacter.money">&nbsp;</div>
+						<div ng-show="storage.activeCharacter.money">{{storage.activeCharacter.money}} krediter</div>
+						<div ng-hide="storage.activeCharacter.money">&nbsp;</div>
 					</div>
 				</p>
-				<div class="input-group" data-ng-show="mutantMoneyFormEdit">
-					<div class="btn btn-primary btn-sm" data-ng-click="moneyManage(create.money * -1); create.money = 0;">
+				<div class="input-group" ng-show="mutantMoneyFormEdit">
+					<div class="btn btn-primary btn-sm" ng-click="moneyManage(create.money * -1); create.money = 0;">
 						<span class="glyphicon glyphicon-minus"></span> Ta bort
 					</div>
 					&nbsp;
 					<div style="display: inline-block;">
-						<input type="number" data-ng-model="create.money" min=0 class="form-control" style="width: 5em;">
+						<input type="number" ng-model="create.money" min=0 class="form-control" style="width: 5em;">
 					</div>
 					&nbsp;
-					<div class="btn btn-primary btn-sm" data-ng-click="moneyManage(create.money); create.money = 0;">
+					<div class="btn btn-primary btn-sm" ng-click="moneyManage(create.money); create.money = 0;">
 						<span class="glyphicon glyphicon-plus"></span> Lägg till
 					</div>
 				</div>
@@ -574,28 +608,30 @@
 		</div>
 	</div>
 
-	<div class="col-lg-4 col-md-6 col-sm-12" data-ng-show="storage.characters && storage.characters.length > 0">
-		<div class="panel panel-primary">
+	<div class="col-lg-4 col-md-6 col-sm-12">
+		<div class="panel" ng-class="loadCharacterFormEdit ? 'panel-danger':'panel-info'">
 			<div class="panel-heading">
-				<h3 class="panel-title">Läs in sparad karakt&auml;r
-					<i class="pull-right glyphicon" data-ng-class="loadCharacterBody ? 'glyphicon-minus' : 'glyphicon-plus' " data-ng-click="loadCharacterBody = !loadCharacterBody"></i>
+				<h3 class="panel-title">
+					Läs in sparad karaktär
+					<i class="fa pull-right" ng-click="loadCharacterFormEdit = !loadCharacterFormEdit" ng-class="loadCharacterFormEdit ? 'fa-cogs':'fa-cog'"></i>
+					<i class="pull-right fa" ng-class="loadCharacterBody ? 'fa-compress' : 'fa-expand' " ng-click="loadCharacterBody = !loadCharacterBody"></i>
             	</h3>
 			</div>
-			<div class="panel-body anim-fade" data-ng-show="loadCharacterBody">
-				<div class="list-group anim-fade" data-ng-repeat="character in storage.characters">
+			<div class="panel-body anim-fade" ng-show="loadCharacterBody">
+				<div class="list-group anim-fade" ng-repeat="character in storage.characters">
 					<a class="list-group-item clearfix">
 						<span class="glyphicon glyphicon-file"></span> {{character.name}}
 						<span class="pull-right">
-                        <button class="btn btn-sm btn-info" data-ng-click="loadCharacter(character)">
+                        <button class="btn btn-sm btn-info" ng-click="loadCharacter(character)">
                         <span class="glyphicon glyphicon-cloud-download"></span> Ladda
 						</button>
-						<button class="btn btn-sm btn-warning" data-ng-click="deleteCharacter(character)">
+						<button class="btn btn-sm btn-warning" ng-click="deleteCharacter($index)">
 							<span class="glyphicon glyphicon-trash"></span>
 						</button>
 						</span>
 					</a>
 				</div>
-				<button class="btn btn-sm btn-info pull-right" data-ng-click="loadCharacter()">
+				<button class="btn btn-sm btn-info pull-right" ng-click="loadCharacter()">
 					<span class="glyphicon glyphicon-plus"></span> Skapa ny
 				</button>
 			</div>
