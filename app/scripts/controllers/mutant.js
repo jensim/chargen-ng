@@ -20,11 +20,10 @@ angular.module('chargenNgApp')
 
 		$scope.storage = mutantStaticdataFactory.getLocalStorage();
 		$scope.flatData = mutantStaticdataFactory.getStaticStorage();
-		var storage = mutantStaticdataFactory.getLocalStorage(),
-			flatData = mutantStaticdataFactory.getStaticStorage();
+		var storage = $scope.storage;
+		var flatData = $scope.flatData;
 
 		storage.activeCharacter = storage.characters ? storage.characters[0] : undefined;
-		//storage.activeCharacter = storage.characters[0];
 
 		/* * * * * * * * * * * */
 
@@ -35,7 +34,6 @@ angular.module('chargenNgApp')
 		};
 		$scope.loadCharacter = function (character) {
 			storage.activeCharacter = character;
-			$scope.create = {};
 		};
 		$scope.deleteCharacter = function (charIndex) {
 			if (storage.characters.splice(charIndex, 1)[0] === storage.activeCharacter) {
@@ -69,7 +67,7 @@ angular.module('chargenNgApp')
 			}
 		};
 		$scope.skillSum = function (skill) {
-			var timesGE = skill.natural ? 1 : 0;
+			var timesGE = skill.natural ? 1 : skill.postTrained ? 1 : 0;
 			timesGE += skill.valueSp + skill.valueSpFree;
 			var fromGE = timesGE * (
 				storage.activeCharacter.attrPrim[skill.attrPrim].value +
@@ -114,28 +112,25 @@ angular.module('chargenNgApp')
 		$scope.getSkillUsedErf = function (skill) {
 			return mutantCalcFactory.getSkillUsedErf(skill);
 		};
-		$scope.setCreationSkill = function (skill) {
-			if (skill) {
-				skill.postTrained = true;
-			} else {
-				skill = {
-					postTrained: true
-				};
-			}
-			if ($scope.create) {
-				$scope.create.skill = skill;
-			} else {
-				$scope.create = {
-					skill: skill
-				};
-			}
-		};
 		$scope.createSkill = function () {
-			storage.activeCharacter.skills.push(angular.copy($scope.create.skill));
-			$scope.setCreationSkill();
+			var newSkill = angular.copy($scope.create.skill);
+			newSkill.postTrained = 14 - storage.activeCharacter.attrPrim['INT'].value;
+			if (newSkill.postTrained < 2) {
+				newSkill.postTrained = 2;
+			}
+			storage.activeCharacter.skills.push(newSkill);
+			$scope.create.skill = {};
 		};
 		$scope.deleteSkill = function (skillIndex) {
 			storage.activeCharacter.skills.splice(skillIndex, 1);
+			$scope.skillEdit = undefined;
+		};
+		$scope.editSkill = function (skill) {
+			if (skill === $scope.skillEdit) {
+				$scope.skillEdit = undefined;
+			} else {
+				$scope.skillEdit = skill;
+			}
 		};
 		$scope.editPower = function (power) {
 			if ($scope.powerEdit === power) {
