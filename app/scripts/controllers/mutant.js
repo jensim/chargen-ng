@@ -178,10 +178,15 @@ angular.module('chargenNgApp')
 			var newArmor = angular.copy($scope.create.armor);
 			storage.activeCharacter.armors.push(newArmor);
 		};
-		$scope.deleteArmor = function (armorIndex) {
-			if (storage.activeCharacter.armors.splice(armorIndex, 1)[0] === $scope.armorEdit) {
+		$scope.deleteArmor = function (armor) {
+			if (armor === $scope.armorEdit) {
 				$scope.armorEdit = undefined;
 			}
+			storage.activeCharacter.armors.forEach(function (a, i, armors) {
+				if (a === armor) {
+					armors.splice(i, 1);
+				}
+			});
 		};
 		$scope.editArmor = function (armor) {
 			if (armor === $scope.armorEdit) {

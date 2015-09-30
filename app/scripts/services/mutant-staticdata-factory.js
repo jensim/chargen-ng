@@ -1541,7 +1541,7 @@ angular.module('chargenNgApp')
 						damage: '1D4',
 						STR: 0,
 						weight: 0,
-						reach: 'close',
+						reach: 'melee',
 						cost: 0
 				},
 					{
@@ -1551,7 +1551,7 @@ angular.module('chargenNgApp')
 						damage: '1D6',
 						STR: 0,
 						weight: 0,
-						reach: 'close',
+						reach: 'melee',
 						cost: 0
 				}, {
 						name: 'Bajonett (på k-pist)',
@@ -1560,7 +1560,7 @@ angular.module('chargenNgApp')
 						damage: '2D6 +1',
 						STR: 7,
 						weight: 0.25,
-						reach: 'close',
+						reach: 'melee',
 						cost: 1.5
 				}, {
 						name: 'Bajonett (på karbin eller gevär)',
@@ -1569,7 +1569,7 @@ angular.module('chargenNgApp')
 						damage: '2D6 +1',
 						STR: 7,
 						weight: 0.25,
-						reach: 'close',
+						reach: 'melee',
 						cost: 1.5
 				}]
 			},
@@ -1587,7 +1587,7 @@ angular.module('chargenNgApp')
 						STR: 5,
 						durabillity: 8,
 						weight: 1,
-						reach: 'close',
+						reach: 'melee',
 						cost: 225
 				}
 				]
@@ -1623,7 +1623,7 @@ angular.module('chargenNgApp')
 					durabillity: 6,
 					STR: 0,
 					weight: 2.5,
-					reach: 'menium',
+					reach: 'medium',
 					cost: 350
 					}]
 			},
@@ -1868,8 +1868,6 @@ angular.module('chargenNgApp')
 			shields: shields,
 			gear: gear
 		};
-
-
 
 		var storageM = function (forceReset) {
 				if ($localStorage.mutant === undefined || $localStorage.mutant.version === undefined || $localStorage.mutant.version !== version || forceReset === true) {

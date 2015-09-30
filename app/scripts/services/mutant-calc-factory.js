@@ -2,7 +2,7 @@
 
 angular.module('chargenNgApp')
 	.factory('mutantCalcFactory', ['mutantStaticdataFactory', function (mutantStaticdataFactory) {
-		//var storage = $localStorage.mutant;
+
 		var calcSecondarySkadeBonus = function () { //STY + STO
 			var storage = mutantStaticdataFactory.getLocalStorage(),
 				flatData = mutantStaticdataFactory.getStaticStorage(),

@@ -199,7 +199,7 @@
 
 				<ul class="list-group row">
 					<div class="anim-fade" ng-repeat="a in storage.activeCharacter.skills | orderBy:['-postTrained','-natural','name']">
-						<li class="list-group-item" ng-class="a === skillEdit ? 'list-group-item-info':''">
+						<li class="list-group-item" ng-class="a === skillEdit ? 'active':''">
 							<div ng-click="editSkill(a)">
 								<label>{{a.name}} ({{a.attrPrim}}): {{skillSum(a)}}</label>
 							</div>
@@ -250,7 +250,7 @@
 								<input type="number" ng-model="a.postTrained" maxlength="2" size="2" min="2">
 							</li>
 							<li class="list-group-item list-group-item-info">
-								<div class="btn btn-warning" ng-click="deleteSkill($index+1)">
+								<div class="btn btn-warning btn-xs" ng-click="deleteSkill($index+1)">
 									<i class="glyphicon glyphicon-trash"></i> Ta bort
 								</div>
 							</li>
@@ -279,8 +279,6 @@
 					</li>
 				</ul>
 				<div class="anim-fade" ng-show="powerEdit" class="anim-fade" ng-init="powerBody = true;">
-
-
 					<div class="input-group">
 						<label>Namn</label>
 						<input name="powerEdit.name" type="text" class="form-control" ng-model="powerEdit.name">
@@ -350,6 +348,10 @@
 						<div class="btn btn-danger btn-xs pull-right" ng-click="deleteWeapon($index)" ng-show="w === weaponEdit">
 							<span class="glyphicon glyphicon-trash"></span>
 						</div>
+						<div class="pull-right">&nbsp;</div>
+						<div class="btn btn-danger btn-xs pull-right" ng-click="moneyManage(w.cost); deleteWeapon($index);" ng-show="w === weaponEdit && w.cost">
+							Sälj
+						</div>
 					</li>
 				</ul>
 				<div ng-show="weaponEdit">
@@ -401,17 +403,28 @@
 				</div>
 				<div ng-show="!weaponEdit && weaponFormEdit">
 					<div ng-show="create.weapon">
-						<div class="btn btn-primary pull-right" ng-click="createWeapon()">Lägg till vapen</div>
+						<div class="pull-right" style="display: inline-block;">
+							<div class="btn btn-primary" ng-click="createWeapon()">
+								Lägg till vapen
+							</div>
+							<br/>
+							<div class="btn" ng-click="createWeapon(); moneyManage(create.weapon.cost * -1);" ng-show="create.weapon.cost" ng-class="create.weapon.cost > storage.activeCharacter.money ? 'btn-danger':'btn-primary'">
+								Köp vapen
+								<div ng-if="create.weapon.cost > storage.activeCharacter.money">
+									(Har ej råd)
+								</div>
+							</div>
+						</div>
 						VAPEN: {{create.weapon.name}}
 						<br/>FATTN: {{create.weapon.fattn}}
 						<br/>INIT: {{create.weapon.init}}
 						<br/>SKADA: {{create.weapon.damage}}
 						<br/>PEN: {{create.weapon.penetration}}
-						<br/>RÄCKVIDD: {{create.weapon.reach}}
+						<br/>RÄCKVIDD: {{flatData.weaponReach[create.weapon.reach].aproxDist}}
 						<br/>TÅL: {{create.weapon.durabillity}}
-						<br/>PÅL: {{create.weapon.dep}}
-						<br/>/MAX: {{create.weapon.depmax}}
-						<br/>VIKT: {{create.weapon.weight}}
+						<br/>PÅL: {{create.weapon.dep}}/{{create.weapon.depmax}}(max)
+						<br/>VIKT: {{create.weapon.weight}} kg
+						<br/>Pris: {{create.weapon.cost}} krediter
 						<br/>
 					</div>
 					<div class="input-group" ng-hide="weaponEdit">
@@ -441,14 +454,10 @@
 				<div ng-show="armorFormEdit">
 					<hr/> RustningsDelar:
 					<ul class="list-group">
-						<li ng-repeat="r in storage.activeCharacter.armors | orderBy:['wearing','bodyPart','name']" ng-click="editArmor(r)" class="list-group-item" ng-class="r===armorEdit ? 'active' : r.wearing ? 'list-group-item-info' : ''">
+						<li ng-repeat="r in storage.activeCharacter.armors | orderBy:['-wearing','-bodyPart','name']" ng-click="editArmor(r)" class="list-group-item" ng-class="r===armorEdit ? 'active' : r.wearing ? 'list-group-item-info' : ''">
 							{{flatData.bodyParts[r.bodyPart]}}: {{r.name}}, ABS: {{r.ABS}}, BEG: {{r.BEG}}, {{r.wearing ? 'På' : 'Av'}}
 							<div class="btn btn-xs pull-right" ng-class="r.wearing ? 'btn-danger' : 'btn-primary'" ng-click="r.wearing=!r.wearing">
 								<i class="glyphicon" ng-class="r.wearing ? 'glyphicon-minus' : 'glyphicon-plus'"></i>
-							</div>
-							<div class="pull-right">&nbsp;</div>
-							<div class="btn btn-danger btn-xs pull-right" ng-click="deleteArmor($index)" ng-show="r === armorEdit">
-								<div class="glyphicon glyphicon-trash"></div>
 							</div>
 						</li>
 					</ul>
@@ -470,16 +479,26 @@
 							<select class="selectpicker form-control" ng-model="armorEdit.bodyPart" ng-options="i as flatData.bodyParts[i] for i in armorEdit.fits"></select>
 						</div>
 
-
-						<button class="btn btn-primary btn-sm" ng-click="armorEdit=undefined;">
+						<div class="btn btn-danger btn-xs pull-right" ng-click="deleteArmor($index)">
+							<div class="glyphicon glyphicon-trash"></div>
+						</div>
+						<div class="btn btn-danger btn-xs pull-right" ng-click="moneyManage(armorEdit.cost); deleteArmor(armorEdit);" ng-show="armorEdit.cost">
+							Sälj ({{armorEdit.cost}})
+						</div>
+						<div class="btn btn-primary btn-xs" ng-click="armorEdit=undefined;">
 							Återställ formulär
-						</button>
+						</div>
 					</div>
 					<div ng-hide="armorEdit" class="input-group">
 						<label>Läs in rustning &nbsp;</label>
-						<button ng-show="create.armor.bodyPart" ng-click="createArmor()" class="btn btn-primary btn-sm">
-							Lägg till
-						</button>
+						<div ng-show="create.armor.bodyPart">
+							<div class="btn btn-primary btn-sm" ng-click="createArmor()">
+								Lägg till
+							</div>
+							<div class="btn btn-sm" ng-click="createArmor(); moneyManage(create.armor.cost *-1);" ng-class="r.cost > storage.activeCharacter.money ? 'btn-danger':'btn-primary'">
+								Köp
+							</div>
+						</div>
 						<select class="selectpicker form-control" ng-model="create.armortype" ng-options="at.name for at in flatData.armors"></select>
 						<select class="selectpicker form-control" ng-model="create.armor" ng-options="a.name for a in create.armortype.armors" ng-show="create.armortype"></select>
 						<select class="selectpicker form-control" ng-model="create.armor.bodyPart" ng-options="i as flatData.bodyParts[i] for i in create.armor.fits" ng-show="create.armor"></select>
@@ -507,7 +526,7 @@
 							<i class="glyphicon glyphicon-trash"></i>
 						</div>
 						<div class="pull-right">&nbsp;</div>
-						<div class="btn btn-xs btn-danger pull-right" ng-click="deleteItem($index); moneyManage(i.cost)" ng-show="i === itemEdit">
+						<div class="btn btn-xs btn-danger pull-right" ng-click="moneyManage(i.cost); deleteItem($index);" ng-show="i === itemEdit">
 							<i class="fa fa-money"></i>
 						</div>
 					</li>
@@ -530,7 +549,7 @@
 						<input type="text" class="form-control" ng-model="itemEdit.cost">
 					</div>
 				</div>
-				<div ng-show="gearFormEdit" class="input-group">
+				<div ng-show="!itemEdit && gearFormEdit" class="input-group">
 					<hr/>
 					<label>Läs in utrustning:</label>
 					<select class="selectpicker form-control" ng-options="g.name for g in flatData.gear" ng-model="create.itemType"></select>
