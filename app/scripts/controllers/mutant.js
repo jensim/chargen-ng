@@ -23,7 +23,8 @@ angular.module('chargenNgApp')
 		var storage = mutantStaticdataFactory.getLocalStorage(),
 			flatData = mutantStaticdataFactory.getStaticStorage();
 
-		storage.activeCharacter = storage.characters[0];
+		storage.activeCharacter = storage.characters ? storage.characters[0] : undefined;
+		//storage.activeCharacter = storage.characters[0];
 
 		/* * * * * * * * * * * */
 
