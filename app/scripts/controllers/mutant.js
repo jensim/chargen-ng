@@ -114,7 +114,7 @@ angular.module('chargenNgApp')
 		};
 		$scope.createSkill = function () {
 			var newSkill = angular.copy($scope.create.skill);
-			newSkill.postTrained = 14 - storage.activeCharacter.attrPrim['INT'].value;
+			newSkill.postTrained = 14 - storage.activeCharacter.attrPrim.INT.value;
 			if (newSkill.postTrained < 2) {
 				newSkill.postTrained = 2;
 			}
