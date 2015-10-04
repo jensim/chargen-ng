@@ -61,7 +61,7 @@
 			</div>
 			<div class="panel-body" ng-show="activeCharacterBody" ng-init="activeCharacterBody = true">
 				Namn:
-				<input ng-model="storage.activeCharacter.name" type="text">
+				<input type="text" class="form-control" ng-model="storage.activeCharacter.name">
 			</div>
 			<div class="panel-heading" ng-show="activeCharacterBody">
 				<h3 class="panel-title">Stats</h3>
@@ -601,17 +601,15 @@
 			</div>
 			<div class="panel-body" ng-show="miscBody" ng-init="miscBody = true;">
 				<ul class="list-group">
-					<li class="list-group-item" ng-repeat="n in storage.activeCharacter.notes">
-						<span ng-click="editNote(n)">
-							{{n.head}}
-						</span>
-						<div class="btn btn-warning pull-right" ng-click="deleteNote($index)">
-							<i class="glyphicon glyphicon-trash"></i>
-						</div>
+					<li class="list-group-item" ng-repeat="n in storage.activeCharacter.notes" ng-click="editNote(n)" ng-class="n === noteEdit ? 'list-group-item-info':''">
+						<span class="glyphicon glyphicon-file"></span> {{n.head}}
+						<button class="btn btn-warning btn-sm pull-right" ng-click="deleteNote($index)">
+							<span class="glyphicon glyphicon-trash"></span>
+						</button>
 					</li>
 				</ul>
 
-				<div ng-show="noteEdit">
+				<div ng-show="noteEdit" ng-if="storage.activeCharacter.notes.indexOf(noteEdit) !== -1">
 					<div class="input-group">
 						<label>Rubrik</label>
 						<input type="text" ng-model="noteEdit.head" class="form-control">
@@ -667,23 +665,22 @@
 			<div class="panel-heading">
 				<h3 class="panel-title">
 					Läs in sparad karaktär
-					<!--<i class="fa pull-right" ng-click="loadCharacterFormEdit = !loadCharacterFormEdit" ng-class="loadCharacterFormEdit ? 'fa-cogs':'fa-cog'"></i>-->
 					<i class="pull-right fa" ng-class="loadCharacterBody ? 'fa-compress' : 'fa-expand' " ng-click="loadCharacterBody = !loadCharacterBody"></i>
             	</h3>
 			</div>
 			<div class="panel-body anim-fade" ng-show="loadCharacterBody" ng-init="loadCharacterBody = true;">
-				<div class="list-group anim-fade" ng-repeat="character in storage.characters">
-					<a class="list-group-item clearfix">
-						<span class="glyphicon glyphicon-file"></span> {{character.name}}
+				<div class="list-group anim-fade">
+					<div class="list-group-item clearfix" ng-repeat="c in storage.characters" ng-class="c === storage.activeCharacter ? 'list-group-item-info':''">
+						<span class="glyphicon glyphicon-file"></span> {{c.name}}
 						<span class="pull-right">
-                        <button class="btn btn-sm btn-info" ng-click="loadCharacter(character)">
-                        <span class="glyphicon glyphicon-cloud-download"></span> Ladda
+                        <button class="btn btn-sm btn-info" ng-click="loadCharacter(c)">
+                        	<span class="glyphicon glyphicon-cloud-download"></span> Ladda
 						</button>
-						<button class="btn btn-sm btn-warning" ng-click="deleteCharacter($index)">
+						<button class="btn btn-sm btn-warning" ng-click="deleteCharacter($index)" ng-show="c === storage.activeCharacter">
 							<span class="glyphicon glyphicon-trash"></span>
 						</button>
 						</span>
-					</a>
+					</div>
 				</div>
 				<button class="btn btn-sm btn-info pull-right" ng-click="loadCharacter()">
 					<span class="glyphicon glyphicon-plus"></span> Skapa ny
