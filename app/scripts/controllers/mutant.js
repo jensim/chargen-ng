@@ -8,7 +8,7 @@
  * Controller of the chargenNgApp
  */
 angular.module('chargenNgApp')
-	.controller('MutantCtrl', ['$scope', 'mutantServiceFactory', 'mutantStaticdataFactory', 'mutantCalcFactory', function ($scope, mutantService, mutantStaticdataFactory, mutantCalcFactory) {
+	.controller('MutantCtrl', ['$scope', '$log', 'mutantServiceFactory', 'mutantStaticdataFactory', 'mutantCalcFactory', function ($scope, $log, mutantService, mutantStaticdataFactory, mutantCalcFactory) {
 
 		var jsonLog = function (j) {
 			console.log(JSON.stringify(j, null, '\t'));
@@ -194,6 +194,9 @@ angular.module('chargenNgApp')
 					armors.splice(i, 1);
 				}
 			});
+		};
+		$scope.armorFilter = function (bodyPart) {
+			return /\d/.test(bodyPart);
 		};
 		$scope.editArmor = function (armor) {
 			if (armor === $scope.armorEdit) {

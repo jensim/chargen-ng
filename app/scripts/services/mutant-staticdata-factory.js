@@ -1,8 +1,9 @@
 'use strict';
 
 angular.module('chargenNgApp')
-	.factory('mutantStaticdataFactory', ['$localStorage', 'Tabletop', function ($localStorage, Tabletop) {
+	.factory('mutantStaticdataFactory', ['$localStorage', '$log', 'Tabletop', function ($localStorage, $log, Tabletop) {
 		var version = '0.1';
+		var dataLoaded = false;
 		var attrPrimShort = [
 			{
 				name: 'STY'
@@ -343,19 +344,19 @@ angular.module('chargenNgApp')
 				name: 'Primitiva rustningar',
 				place: 'armors',
 				subPlace: 'primitive',
-				subsubPlace: 'armors'
+				subSubPlace: 'armors'
 				}, {
 				key: 'armors_kevlar',
 				name: 'Kevlar- och Impactrustningar',
 				place: 'armors',
 				subPlace: 'kevlar',
-				subsubPlace: 'armors'
+				subSubPlace: 'armors'
 				}, {
 				key: 'armors_energyArmor',
 				name: 'Energirustningar och reflecskydd',
 				place: 'armors',
 				subPlace: 'energyArmor',
-				subsubPlace: 'armors'
+				subSubPlace: 'armors'
 				}, {
 				key: 'shields',
 				place: 'shields'
@@ -364,51 +365,70 @@ angular.module('chargenNgApp')
 				name: 'Reservdelar',
 				place: 'gear',
 				subPlace: 'spareParts',
-				subsubPlace: 'items'
+				subSubPlace: 'items'
 				}, {
 				key: 'gear_foods',
 				name: 'Mat, dryck & boende',
 				place: 'gear',
 				subPlace: 'foods',
-				subsubPlace: 'items'
+				subSubPlace: 'items'
 				}, {
 				key: 'gear_animals/transport',
 				name: 'Djur & transport',
 				place: 'gear',
 				subPlace: 'transport',
-				subsubPlace: 'items'
+				subSubPlace: 'items'
 				}, {
 				key: 'gear_adventure',
 				name: 'Expeditionsutrustning',
 				place: 'gear',
 				subPlace: 'adventure',
-				subsubPlace: 'items'
+				subSubPlace: 'items'
 				}, {
 				key: 'gear_misc',
 				name: 'Diverse utrustning',
 				place: 'gear',
 				subPlace: 'misc',
-				subsubPlace: 'items'
+				subSubPlace: 'items'
 				}, {
 				key: 'gear_services',
 				name: 'Tjänster',
 				place: 'gear',
 				subPlace: 'services',
-				subsubPlace: 'items'
+				subSubPlace: 'items'
 				}, {
 				key: 'gear_tools',
 				name: 'Verktyg',
 				place: 'gear',
 				subPlace: 'tools',
-				subsubPlace: 'items'
+				subSubPlace: 'items'
 				}, {
 				key: 'gear_traps',
 				name: 'Fällor och vapentillbehör',
 				place: 'gear',
 				subPlace: 'traps',
-				subsubPlace: 'items'
+				subSubPlace: 'items'
 				}
 			];
+
+		var storageM = function (forceReset) {
+				if ($localStorage.mutant === undefined || $localStorage.mutant.version === undefined || $localStorage.mutant.version !== version || forceReset === true) {
+					$localStorage.mutant = {
+						version: version
+					};
+				}
+				return $localStorage.mutant;
+			},
+			storageMS = function (forceReset) {
+				if ($localStorage.mutantflat === undefined || $localStorage.mutantflat.version === undefined || $localStorage.mutantflat.version !== staticData.version || forceReset === true) {
+					if (!dataLoaded) {
+						throw 'Data not yet loaded..';
+					}
+					$localStorage.mutantflat = angular.copy(staticData);
+					$log.log('Mutant static data has been SET.');
+				}
+				return $localStorage.mutantflat;
+			};
 
 		(function () {
 			Tabletop.then(function (data) {
@@ -421,8 +441,6 @@ angular.module('chargenNgApp')
 							data[0][s.key].column_names.forEach(function (c) {
 								if (e[c].length === 0) {
 									//do nothing
-									//} else if (angular.isArray(e[c])) {
-									//	e[c] = eval(e[c]);
 								} else if (!isNaN(e[c])) {
 									e[c] = Number(e[c]);
 								}
@@ -447,30 +465,15 @@ angular.module('chargenNgApp')
 							throw 'Error';
 						}
 					} catch (err) {
-						//console.error('Error on sheet: ' + s.key + ' :: ' + err);
+						$log.error('Error on sheet: ' + s.key + ' :: ' + err);
 					}
-					//console.log('Loaded sheet: ' + s.key);
-					//console.log(data[0][s.key]);
 				});
-
+				$log.debug('static data loaded');
+				//$log.debug(JSON.stringify(staticData, null, '\t'));
+				dataLoaded = true;
+				storageMS();
 			});
 		})();
-
-		var storageM = function (forceReset) {
-				if ($localStorage.mutant === undefined || $localStorage.mutant.version === undefined || $localStorage.mutant.version !== version || forceReset === true) {
-					$localStorage.mutant = {
-						version: version
-					};
-				}
-				return $localStorage.mutant;
-			},
-			storageMS = function (forceReset) {
-				if ($localStorage.mutantflat === undefined || $localStorage.mutantflat.version === undefined || $localStorage.mutantflat.version !== staticData.version || forceReset === true) {
-					$localStorage.mutantflat = angular.copy(staticData);
-					//console.log('Mutant static data has been SET.');
-				}
-				return $localStorage.mutantflat;
-			};
 
 		return {
 			getLocalStorage: function () {

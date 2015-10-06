@@ -504,7 +504,7 @@
 				</div>
 			</div>
 			<div class="panel-heading" ng-show="armorFormEdit">
-				RustningsDelar
+				Köp rustning
 			</div>
 			<div class="panel-body" ng-show="armorFormEdit">
 				<div class="input-group">
@@ -517,9 +517,9 @@
 							Köp
 						</div>
 					</div>
-					<select class="selectpicker form-control" ng-model="create.armortype" ng-options="at.name for at in flatData.armors"></select>
+					<select class="selectpicker form-control" ng-model="create.armortype" ng-options="a.name for a in flatData.armors"></select>
 					<select class="selectpicker form-control" ng-model="create.armor" ng-options="a.name for a in create.armortype.armors" ng-show="create.armortype"></select>
-					<select class="selectpicker form-control" ng-model="create.armor.bodyPart" ng-options="i as flatData.bodyParts[i] for i in create.armor.fits" ng-show="create.armor"></select>
+					<select class="selectpicker form-control" ng-model="create.armor.bodyPart" ng-options="i as flatData.bodyParts[i] for i in create.armor.fits | filter:armorFilter" ng-show="create.armor"></select>
 
 				</div>
 			</div>
