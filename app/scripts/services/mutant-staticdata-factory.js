@@ -430,7 +430,7 @@ angular.module('chargenNgApp')
 						});
 						if (s.subSubPlace) {
 							if (staticData[s.place][s.subPlace] === undefined) {
-								staticData[s.place][s.subPlace] = [];
+								staticData[s.place][s.subPlace] = {};
 							}
 							staticData[s.place][s.subPlace][s.subSubPlace] = data[0][s.key].elements;
 							if (s.name) {
@@ -447,10 +447,10 @@ angular.module('chargenNgApp')
 							throw 'Error';
 						}
 					} catch (err) {
-						console.error('Error on sheet: ' + s.key + ' :: ' + err);
+						//console.error('Error on sheet: ' + s.key + ' :: ' + err);
 					}
-					console.log('Loaded sheet: ' + s.key);
-					console.log(data[0][s.key]);
+					//console.log('Loaded sheet: ' + s.key);
+					//console.log(data[0][s.key]);
 				});
 
 			});
