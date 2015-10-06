@@ -421,8 +421,8 @@ angular.module('chargenNgApp')
 							data[0][s.key].column_names.forEach(function (c) {
 								if (e[c].length === 0) {
 									//do nothing
-								} else if (angular.isArray(e[c])) {
-									e[c] = eval(e[c]);
+									//} else if (angular.isArray(e[c])) {
+									//	e[c] = eval(e[c]);
 								} else if (!isNaN(e[c])) {
 									e[c] = Number(e[c]);
 								}
