@@ -23,22 +23,18 @@ angular.module('chargenNgApp')
 			},
 			resetAll = function () {
 				$localStorage.$reset();
-				console.log(JSON.stringify($localStorage, null, '\t'));
 			};
 
 		$http.get('https://api.github.com/repos/jensim/chargen-ng/milestones')
 			.then(function (res) { //SUCCESS
 				$scope.milestones = res.data;
-				var m;
-				for (m in $scope.milestones) {
-					$scope.milestones[m].progress = getProgress($scope.milestones[m]);
-				}
+				$scope.milestones.forEach(function (m) {
+					m.progress = getProgress($scope.milestones[m]);
+				});
 			}, function () { //FAIL
-				console.error('Failed loading milestones');
 				$scope.milestones = [];
 			});
 		$scope.resetCachedItems = function () {
-			console.log();
 			resetAll();
 		};
-				}]);
+	}]);

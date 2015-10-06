@@ -30,20 +30,25 @@ angular.module('chargenNgApp')
 						job: angular.copy(ijob),
 						attrPrim: angular.copy(staticStorage.attrPrim),
 						attrSec: angular.copy(staticStorage.attrSec),
-						skills: angular.copy(ijob.trainedSkills),
+						skills: [],
 						armors: [],
 						powers: [],
 						notes: [],
 						weapons: [],
 						items: [],
 						money: angular.copy(ijob.startcapital)
-					},
-					skill;
-				for (skill in staticStorage.skills) {
-					if (staticStorage.skills[skill].natural) {
-						newChar.skills.push(angular.copy(staticStorage.skills[skill]));
+					};
+				staticStorage.skills.forEach(function (s) {
+					if (s.natural || ijob.trainedSkills.indexOf(s.name) !== -1) {
+						var newSkill = angular.copy(s);
+						newSkill.valueSp = 0;
+						newSkill.valueSpFree = 0;
+						newSkill.valueErf = 0;
+						newSkill.valueErfFree = 0;
+						newChar.skills.push(newSkill);
 					}
-				}
+				});
+
 				storage.activeCharacter = newChar;
 				saveCharacter(newChar);
 			}

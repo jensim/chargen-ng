@@ -87,34 +87,38 @@
 	</div>
 
 	<div class="col-lg-4 col-md-6 col-sm-12" ng-show="storage.activeCharacter">
-		<div class="panel" ng-class="attrPrimFormEdit ? 'panel-danger':'panel-info'">
+		<div class="panel panel-info">
 			<div class="panel-heading">
 				<h3 class="panel-title">
 					Grundegenskaper
-					<i class="fa pull-right" ng-click="attrPrimFormEdit = !attrPrimFormEdit" ng-class="attrPrimFormEdit ? 'fa-cogs':'fa-cog'"></i>
 					<i class="pull-right fa" ng-class="attrPrimBody ? 'fa-compress' : 'fa-expand' " ng-click="attrPrimBody = !attrPrimBody"></i>
                     <div class="pull-right">&nbsp;</div>
                     <diceroller dice="1D100" class="pull-right" />
                 </h3>
 			</div>
 			<div class="panel-body" ng-show="attrPrimBody" ng-init="attrPrimBody = true">
-				<p ng-show="attrPrimFormEdit" style="text-align: right; width: 100%;" class="text-primary">
-					GE &nbsp;tränad mod
-				</p>
-				<ul class="list-group row">
-					<li class="list-group-item anim-fade" ng-repeat="a in storage.activeCharacter.attrPrim">
-						<div ng-hide="attrPrimFormEdit">
+				<ul class="list-group">
+					<div ng-repeat="a in storage.activeCharacter.attrPrim">
+						<li class="list-group-item anim-fade" ng-class="a === attrPrimEdit ? 'active':''" ng-click="editAttrPrim(a)">
 							{{a.name}} ({{a.short}}): {{a.value + a.trained}}
 							<div ng-show="a.mod > 0">&nbsp;+ {{a.mod}}</div>
 							<div ng-show="a.mod < 0">&nbsp;{{a.mod}}</div>
+						</li>
+						<div ng-show="a === attrPrimEdit">
+							<li class="list-group-item list-group-item-info">
+								<label class="control-label">Modifikation:</label>
+								<input ng-model="a.mod" maxlength="2" size="2" min="0" type="number" class="pull-right">
+							</li>
+							<li class="list-group-item list-group-item-info">
+								<label class="control-label">Tränad med erf:</label>
+								<input ng-model="a.trained" maxlength="2" size="2" min="0" type="number" class="pull-right">
+							</li>
+							<li class="list-group-item list-group-item-info">
+								<label class="control-label">GE-poäng:</label>
+								<input ng-model="a.value" maxlength="2" size="2" min="0" type="number" class="pull-right">
+							</li>
 						</div>
-						<div ng-show="attrPrimFormEdit">
-							{{a.name}} ({{a.short}}):
-							<input ng-model="a.mod" maxlength="2" size="2" min="0" type="number" class="pull-right">
-							<input ng-model="a.trained" maxlength="2" size="2" min="0" type="number" class="pull-right">
-							<input ng-model="a.value" maxlength="2" size="2" min="0" type="number" class="pull-right">
-						</div>
-					</li>
+					</div>
 				</ul>
 			</div>
 		</div>
@@ -343,16 +347,20 @@
 			</div>
 			<div class="panel-body" ng-show="weaponBody" ng-init="weaponBody = true;">
 				<ul class="list-group">
-					<li class="list-group-item anim-fade" ng-repeat="w in storage.activeCharacter.weapons | orderBy:[name]" ng-click="editWeapon(w)" ng-class="w === weaponEdit ? 'list-group-item-info':''">
-						{{w.name}}
-						<div class="btn btn-danger btn-xs pull-right" ng-click="deleteWeapon($index)" ng-show="w === weaponEdit">
-							<span class="glyphicon glyphicon-trash"></span>
-						</div>
-						<div class="pull-right">&nbsp;</div>
-						<div class="btn btn-danger btn-xs pull-right" ng-click="moneyManage(w.cost); deleteWeapon($index);" ng-show="w === weaponEdit && w.cost">
-							Sälj
-						</div>
-					</li>
+					<div ng-repeat="w in storage.activeCharacter.weapons | orderBy:[name]">
+						<li class="list-group-item anim-fade" ng-click="editWeapon(w)" ng-class="w === weaponEdit ? 'active':''">
+							{{w.name}}
+
+						</li>
+						<li ng-show="w === weaponEdit" class="list-group-item-info">
+							<div class="btn btn-danger btn-sm" ng-click="deleteWeapon($index)">
+								<span class="glyphicon glyphicon-trash"></span>
+							</div>
+							<div class="btn btn-danger btn-sm" ng-click="moneyManage(w.cost); deleteWeapon($index);" ng-show="w.cost">
+								Sälj
+							</div>
+						</li>
+					</div>
 				</ul>
 				<div ng-show="weaponEdit">
 					<div class="input-group">
@@ -401,37 +409,40 @@
 						<input name="weaponAmmoMax" ng-model="weaponEdit.mag" type="number">
 					</div>
 				</div>
-				<div ng-show="!weaponEdit && weaponFormEdit">
-					<div ng-show="create.weapon">
-						<div class="pull-right" style="display: inline-block;">
-							<div class="btn btn-primary" ng-click="createWeapon()">
-								Lägg till vapen
-							</div>
-							<br/>
-							<div class="btn" ng-click="createWeapon(); moneyManage(create.weapon.cost * -1);" ng-show="create.weapon.cost" ng-class="create.weapon.cost > storage.activeCharacter.money ? 'btn-danger':'btn-primary'">
-								Köp vapen
-								<div ng-if="create.weapon.cost > storage.activeCharacter.money">
-									(Har ej råd)
-								</div>
+			</div>
+			<div class="panel-heading" ng-show="weaponFormEdit">
+				Läs in vapen
+				<i class="fa pull-right" ng-click="weaponFormEdit = !weaponFormEdit" ng-class="weaponFormEdit ? 'fa-cogs':'fa-cog'"></i>
+			</div>
+			<div class="panel-body" ng-show="weaponFormEdit">
+				<div ng-show="create.weapon">
+					<div class="pull-right" style="display: inline-block;">
+						<div class="btn btn-primary" ng-click="createWeapon()">
+							Lägg till vapen
+						</div>
+						<br/>
+						<div class="btn" ng-click="createWeapon(); moneyManage(create.weapon.cost * -1);" ng-show="create.weapon.cost" ng-class="create.weapon.cost > storage.activeCharacter.money ? 'btn-danger':'btn-primary'">
+							Köp vapen
+							<div ng-if="create.weapon.cost > storage.activeCharacter.money">
+								(Har ej råd)
 							</div>
 						</div>
-						VAPEN: {{create.weapon.name}}
-						<br/>FATTN: {{create.weapon.fattn}}
-						<br/>INIT: {{create.weapon.init}}
-						<br/>SKADA: {{create.weapon.damage}}
-						<br/>PEN: {{create.weapon.penetration}}
-						<br/>RÄCKVIDD: {{flatData.weaponReach[create.weapon.reach].aproxDist}}
-						<br/>TÅL: {{create.weapon.durabillity}}
-						<br/>PÅL: {{create.weapon.dep}}/{{create.weapon.depmax}}(max)
-						<br/>VIKT: {{create.weapon.weight}} kg
-						<br/>Pris: {{create.weapon.cost}} krediter
-						<br/>
 					</div>
-					<div class="input-group" ng-hide="weaponEdit">
-						<label>Läs in vapen</label>
-						<select class="form-control" ng-model="create.weaponType" ng-options="w.name for w in flatData.weapons"></select>
-						<select class="form-control" ng-model="create.weapon" ng-options="w.name for w in create.weaponType.weapons" ng-show="create.weaponType"></select>
-					</div>
+					VAPEN: {{create.weapon.name}}
+					<br/>FATTN: {{create.weapon.fattn}}
+					<br/>INIT: {{create.weapon.init}}
+					<br/>SKADA: {{create.weapon.damage}}
+					<br/>PEN: {{create.weapon.penetration}}
+					<br/>RÄCKVIDD: {{flatData.weaponReach[create.weapon.reach].aproxDist}}
+					<br/>TÅL: {{create.weapon.durabillity}}
+					<br/>PÅL: {{create.weapon.dep}}/{{create.weapon.depmax}}(max)
+					<br/>VIKT: {{create.weapon.weight}} kg
+					<br/>Pris: {{create.weapon.cost}} krediter
+					<br/>
+				</div>
+				<div class="input-group">
+					<select class="form-control" ng-model="create.weaponType" ng-options="w.name for w in flatData.weapons"></select>
+					<select class="form-control" ng-model="create.weapon" ng-options="w.name for w in create.weaponType.weapons" ng-show="create.weaponType"></select>
 				</div>
 			</div>
 		</div>
@@ -451,59 +462,65 @@
 				<div ng-repeat="(i, b) in flatData.bodyParts">
 					{{b}} ABS: {{calcArmor(i)}}
 				</div>
-				<div ng-show="armorFormEdit">
-					<hr/> RustningsDelar:
-					<ul class="list-group">
-						<li ng-repeat="r in storage.activeCharacter.armors | orderBy:['-wearing','-bodyPart','name']" ng-click="editArmor(r)" class="list-group-item" ng-class="r===armorEdit ? 'active' : r.wearing ? 'list-group-item-info' : ''">
-							{{flatData.bodyParts[r.bodyPart]}}: {{r.name}}, ABS: {{r.ABS}}, BEG: {{r.BEG}}, {{r.wearing ? 'På' : 'Av'}}
-							<div class="btn btn-xs pull-right" ng-class="r.wearing ? 'btn-danger' : 'btn-primary'" ng-click="r.wearing=!r.wearing">
-								<i class="glyphicon" ng-class="r.wearing ? 'glyphicon-minus' : 'glyphicon-plus'"></i>
-							</div>
-						</li>
-					</ul>
-					<div ng-show="armorEdit" class="form-group">
-						<div class="input-group">
-							<label>Name:</label>
-							<input type="text" class="form-control" ng-model="armorEdit.name">
+			</div>
+			<div class="panel-heading" ng-show="armorFormEdit">
+				RustningsDelar
+			</div>
+			<div class="panel-body" ng-show="armorFormEdit">
+				<ul class="list-group">
+					<li ng-repeat="r in storage.activeCharacter.armors | orderBy:['-wearing','bodyPart','name']" ng-click="editArmor(r)" class="list-group-item" ng-class="r===armorEdit ? 'active' : r.wearing ? 'list-group-item-info' : ''">
+						{{flatData.bodyParts[r.bodyPart]}}: {{r.name}}, ABS: {{r.ABS}}, BEG: {{r.BEG}}, {{r.wearing ? 'På' : 'Av'}}
+						<div class="btn btn-xs pull-right" ng-class="r.wearing ? 'btn-danger' : 'btn-primary'" ng-click="r.wearing=!r.wearing">
+							<i class="glyphicon" ng-class="r.wearing ? 'glyphicon-minus' : 'glyphicon-plus'"></i>
 						</div>
-						<div class="input-group">
-							<label>ABS:</label>
-							<input type="number" class="form-control" ng-model="armorEdit.ABS">
-						</div>
-						<div class="input-group">
-							<label>BEG:</label>
-							<input type="number" class="form-control" ng-model="armorEdit.BEG">
-						</div>
-						<div class="input-group">
-							<label>Kroppsdel:</label>
-							<select class="selectpicker form-control" ng-model="armorEdit.bodyPart" ng-options="i as flatData.bodyParts[i] for i in armorEdit.fits"></select>
-						</div>
+					</li>
+				</ul>
 
-						<div class="btn btn-danger btn-xs pull-right" ng-click="deleteArmor($index)">
+				<div ng-show="armorEdit" class="form-group">
+					<div class="input-group">
+						<label>Name:</label>
+						<input type="text" class="form-control" ng-model="armorEdit.name">
+					</div>
+					<div class="input-group">
+						<label>ABS:</label>
+						<input type="number" class="form-control" ng-model="armorEdit.ABS">
+					</div>
+					<div class="input-group">
+						<label>BEG:</label>
+						<input type="number" class="form-control" ng-model="armorEdit.BEG">
+					</div>
+					<div class="input-group">
+						<label>Kroppsdel:</label>
+						<select class="selectpicker form-control" ng-model="armorEdit.bodyPart" ng-options="i as flatData.bodyParts[i] for i in armorEdit.fits"></select>
+					</div>
+					<p>
+						<div class="btn btn-danger btn-sm" ng-click="deleteArmor($index)">
 							<div class="glyphicon glyphicon-trash"></div>
 						</div>
-						<div class="btn btn-danger btn-xs pull-right" ng-click="moneyManage(armorEdit.cost); deleteArmor(armorEdit);" ng-show="armorEdit.cost">
+						<div class="btn btn-danger btn-sm" ng-click="moneyManage(armorEdit.cost); deleteArmor(armorEdit);" ng-show="armorEdit.cost">
 							Sälj ({{armorEdit.cost}})
 						</div>
-						<div class="btn btn-primary btn-xs" ng-click="armorEdit=undefined;">
-							Återställ formulär
+					</p>
+				</div>
+			</div>
+			<div class="panel-heading" ng-show="armorFormEdit">
+				RustningsDelar
+			</div>
+			<div class="panel-body" ng-show="armorFormEdit">
+				<div class="input-group">
+					<label>Läs in rustning &nbsp;</label>
+					<div ng-show="create.armor.bodyPart">
+						<div class="btn btn-primary btn-sm" ng-click="createArmor()">
+							Lägg till
+						</div>
+						<div class="btn btn-sm" ng-click="createArmor(); moneyManage(create.armor.cost *-1);" ng-class="r.cost > storage.activeCharacter.money ? 'btn-danger':'btn-primary'">
+							Köp
 						</div>
 					</div>
-					<div ng-hide="armorEdit" class="input-group">
-						<label>Läs in rustning &nbsp;</label>
-						<div ng-show="create.armor.bodyPart">
-							<div class="btn btn-primary btn-sm" ng-click="createArmor()">
-								Lägg till
-							</div>
-							<div class="btn btn-sm" ng-click="createArmor(); moneyManage(create.armor.cost *-1);" ng-class="r.cost > storage.activeCharacter.money ? 'btn-danger':'btn-primary'">
-								Köp
-							</div>
-						</div>
-						<select class="selectpicker form-control" ng-model="create.armortype" ng-options="at.name for at in flatData.armors"></select>
-						<select class="selectpicker form-control" ng-model="create.armor" ng-options="a.name for a in create.armortype.armors" ng-show="create.armortype"></select>
-						<select class="selectpicker form-control" ng-model="create.armor.bodyPart" ng-options="i as flatData.bodyParts[i] for i in create.armor.fits" ng-show="create.armor"></select>
+					<select class="selectpicker form-control" ng-model="create.armortype" ng-options="at.name for at in flatData.armors"></select>
+					<select class="selectpicker form-control" ng-model="create.armor" ng-options="a.name for a in create.armortype.armors" ng-show="create.armortype"></select>
+					<select class="selectpicker form-control" ng-model="create.armor.bodyPart" ng-options="i as flatData.bodyParts[i] for i in create.armor.fits" ng-show="create.armor"></select>
 
-					</div>
 				</div>
 			</div>
 		</div>

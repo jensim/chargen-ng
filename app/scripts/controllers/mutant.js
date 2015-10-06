@@ -40,6 +40,13 @@ angular.module('chargenNgApp')
 				storage.activeCharacter = undefined;
 			}
 		};
+		$scope.editAttrPrim = function (a) {
+			if ($scope.attrPrimEdit === a) {
+				$scope.attrPrimEdit = undefined;
+			} else {
+				$scope.attrPrimEdit = a;
+			}
+		};
 		$scope.editWeapon = function (weapon) {
 			if ($scope.weaponEdit === weapon) {
 				$scope.weaponEdit = undefined;
