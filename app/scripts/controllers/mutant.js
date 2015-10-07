@@ -8,7 +8,7 @@
  * Controller of the chargenNgApp
  */
 angular.module('chargenNgApp')
-	.controller('MutantCtrl', ['$scope', '$log', 'mutantServiceFactory', 'mutantStaticdataFactory', 'mutantCalcFactory', function ($scope, $log, mutantService, mutantStaticdataFactory, mutantCalcFactory) {
+	.controller('MutantCtrl', ['$scope', '$log', '$localStorage', '$interval', 'mutantServiceFactory', 'mutantStaticdataFactory', 'mutantCalcFactory', function ($scope, $log, $localStorage, $interval, mutantService, mutantStaticdataFactory, mutantCalcFactory) {
 
 		var jsonLog = function (j) {
 			console.log(JSON.stringify(j, null, '\t'));
@@ -17,13 +17,22 @@ angular.module('chargenNgApp')
 		$scope.logIt = function (msg) {
 			jsonLog(msg);
 		};
+		var storage, flatData;
+		var stopTime = $interval(function () {
+			if ($localStorage.storage && $localStorage.flatData) {
+				storage = $localStorage.storage;
+				$scope.storage = $localStorage.storage;
+				flatData = $localStorage.flatData;
+				$scope.flatData = $localStorage.flatData;
 
-		$scope.storage = mutantStaticdataFactory.getLocalStorage();
-		$scope.flatData = mutantStaticdataFactory.getStaticStorage();
-		var storage = $scope.storage;
-		var flatData = $scope.flatData;
+				storage.activeCharacter = storage.characters ? storage.characters[0] : undefined;
 
-		storage.activeCharacter = storage.characters ? storage.characters[0] : undefined;
+				$log.log('Data loaded');
+				$interval.cancel(stopTime);
+			} else {
+				$log.warn('not loaded');
+			}
+		}, 250);
 
 		/* * * * * * * * * * * */
 

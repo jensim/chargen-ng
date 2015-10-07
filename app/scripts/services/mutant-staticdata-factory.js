@@ -412,25 +412,26 @@ angular.module('chargenNgApp')
 			];
 
 		var storageM = function (forceReset) {
-				if ($localStorage.mutant === undefined || $localStorage.mutant.version === undefined || $localStorage.mutant.version !== version || forceReset === true) {
-					$localStorage.mutant = {
+				if ($localStorage.storage === undefined || $localStorage.storage.version === undefined || $localStorage.storage.version !== version || forceReset === true) {
+					$localStorage.storage = {
 						version: version
 					};
 				}
-				return $localStorage.mutant;
 			},
 			storageMS = function (forceReset) {
-				if ($localStorage.mutantflat === undefined || $localStorage.mutantflat.version === undefined || $localStorage.mutantflat.version !== staticData.version || forceReset === true) {
-					if (!dataLoaded) {
-						throw 'Data not yet loaded..';
+				if ($localStorage.flatData === undefined || $localStorage.flatData.version === undefined || $localStorage.flatData.version !== staticData.version || forceReset === true) {
+					if (dataLoaded) {
+						$localStorage.flatData = angular.copy(staticData);
+						$log.log('Mutant static data has been SET.');
+					} else {
+						$log.error('Data not ready for loading');
 					}
-					$localStorage.mutantflat = angular.copy(staticData);
-					$log.log('Mutant static data has been SET.');
 				}
-				return $localStorage.mutantflat;
 			};
 
 		(function () {
+			storageM();
+			storageMS();
 			Tabletop.then(function (data) {
 				gSheets.forEach(function (s) {
 					try {
@@ -471,24 +472,17 @@ angular.module('chargenNgApp')
 				$log.debug('static data loaded');
 				//$log.debug(JSON.stringify(staticData, null, '\t'));
 				dataLoaded = true;
+				storageM();
 				storageMS();
 			});
 		})();
 
 		return {
-			getLocalStorage: function () {
-				return storageM();
-			},
-			getStaticStorage: function () {
-				return storageMS();
-			},
 			resetStaticData: function () {
-				var storage = storageMS(true);
-				return storage;
+				storageMS(true);
 			},
 			resetData: function () {
-				var storage = storageM(true);
-				return storage;
+				storageM(true);
 			}
 		};
 	}]);

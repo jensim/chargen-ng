@@ -1,10 +1,10 @@
 'use strict';
 
 angular.module('chargenNgApp')
-	.factory('mutantServiceFactory', ['mutantStaticdataFactory', function (mutantStaticdataFactory) {
+	.factory('mutantServiceFactory', ['$localStorage', function ($localStorage) {
 
 		var saveCharacter = function (inChar) {
-			var storage = mutantStaticdataFactory.getLocalStorage();
+			var storage = $localStorage.storage;
 			//character = angular.copy(inChar);
 
 			if (inChar) {
@@ -21,8 +21,8 @@ angular.module('chargenNgApp')
 
 		return {
 			newCharacter: function (iklass, ijob) {
-				var staticStorage = mutantStaticdataFactory.getStaticStorage(),
-					storage = mutantStaticdataFactory.getLocalStorage(),
+				var staticStorage = $localStorage.flatData,
+					storage = $localStorage.storage,
 
 					newChar = {
 						name: 'Ny',

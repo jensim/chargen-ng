@@ -1,11 +1,11 @@
 'use strict';
 
 angular.module('chargenNgApp')
-	.factory('mutantCalcFactory', ['mutantStaticdataFactory', function (mutantStaticdataFactory) {
+	.factory('mutantCalcFactory', ['$localStorage', function ($localStorage) {
 
 		var calcSecondarySkadeBonus = function () { //STY + STO
-			var storage = mutantStaticdataFactory.getLocalStorage(),
-				flatData = mutantStaticdataFactory.getStaticStorage(),
+			var storage = $localStorage.storage,
+				flatData = $localStorage.flatData,
 				sum = storage.activeCharacter.attrPrim.STY.value + storage.activeCharacter.attrPrim.STO.value,
 				skadeBonus = '',
 				key;
@@ -19,7 +19,7 @@ angular.module('chargenNgApp')
 
 		return {
 			calcSecondaryAttribute: function (attr) {
-				var storage = mutantStaticdataFactory.getLocalStorage();
+				var storage = $localStorage.storage;
 
 				if (attr.name === storage.activeCharacter.attrSec.sb.name) {
 					calcSecondarySkadeBonus();
@@ -48,7 +48,7 @@ angular.module('chargenNgApp')
 			getSkillUsedErf: function (skill) {
 				var sum = 0;
 				if (skill.valueErf > 0 || skill.postTrained) {
-					var storage = mutantStaticdataFactory.getLocalStorage();
+					var storage = $localStorage.storage;
 
 					sum += skill.postTrained ? skill.postTrained : 0;
 
@@ -84,7 +84,7 @@ angular.module('chargenNgApp')
 			},
 			calcArmorBodypart: function (part) {
 				var sum = 0;
-				var storage = mutantStaticdataFactory.getLocalStorage();
+				var storage = $localStorage.storage;
 				storage.activeCharacter.armors.forEach(function (a) {
 					if (Number(a.bodyPart) === Number(part) && a.wearing) {
 						sum += a.ABS;
@@ -94,7 +94,7 @@ angular.module('chargenNgApp')
 			},
 			calcArmorBeg: function () {
 				var sum = 0;
-				var storage = mutantStaticdataFactory.getLocalStorage();
+				var storage = $localStorage.storage;
 				storage.activeCharacter.armors.forEach(function (a) {
 					if (a.wearing) {
 						sum += a.BEG;

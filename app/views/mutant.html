@@ -1,4 +1,8 @@
-<div class="row mutant">
+<h1 class="label label-danger" data-ng-hide="flatData.klasses">
+	Laddar data...
+</h1>
+
+<div class="row mutant" data-ng-show="flatData.klasses">
 	<div class="col-lg-4 col-md-6 col-sm-12" ng-hide="storage.activeCharacter">
 		<div class="panel" ng-class="newCharacterFormEdit ? 'panel-danger':'panel-info'">
 			<div class="panel-heading">
