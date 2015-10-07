@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('chargenNgApp')
-	.factory('mutantServiceFactory', ['$localStorage', function ($localStorage) {
+	.factory('mutantServiceFactory', ['$localStorage', '$log', function ($localStorage, $log) {
 
 		var saveCharacter = function (inChar) {
 			var storage = $localStorage.storage;
@@ -14,7 +14,7 @@ angular.module('chargenNgApp')
 				} else if (storage.characters.indexOf(inChar) === -1) {
 					storage.characters.push(inChar);
 				} else {
-					console.error('Didn\'t save.');
+					$log.error('Didn\'t save.');
 				}
 			}
 		};
@@ -38,14 +38,24 @@ angular.module('chargenNgApp')
 						items: [],
 						money: angular.copy(ijob.startcapital)
 					};
-				staticStorage.skills.forEach(function (s) {
-					if (s.natural || ijob.trainedSkills.indexOf(s.name) !== -1) {
-						var newSkill = angular.copy(s);
-						newSkill.valueSp = 0;
-						newSkill.valueSpFree = 0;
-						newSkill.valueErf = 0;
-						newSkill.valueErfFree = 0;
-						newChar.skills.push(newSkill);
+				var addSkill = function (s) {
+					var newSkill = angular.copy(s);
+					newSkill.valueSp = 0;
+					newSkill.valueSpFree = 0;
+					newSkill.valueErf = 0;
+					newSkill.valueErfFree = 0;
+					newChar.skills.push(newSkill);
+				};
+				ijob.trainedSkills.split(',').forEach(function (s) {
+					staticStorage.skills.forEach(function (skill) {
+						if (s.trim().toLowerCase() === skill.name.toLowerCase()) {
+							addSkill(skill);
+						}
+					});
+				});
+				staticStorage.skills.forEach(function (skill) {
+					if (skill.natural) {
+						addSkill(skill);
 					}
 				});
 

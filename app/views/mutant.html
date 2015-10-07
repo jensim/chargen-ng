@@ -29,23 +29,24 @@
 					<div class="form-group">
 						<label for="createInputJob">Yrke:</label>
 						<select class="form-control" ng-model="create.char.job" name="Yrke" required="true" ng-required="true" id="createInputJob" ng-options="job.name for job in flatData.jobs"></select>
-						<div class="list-group" ng-show="create.char.job.description">
-							<a class="list-group-item">
+						<ul class="list-group">
+							<li class="list-group-item" ng-show="create.char.job.description">
 								<b>Beskrivning:</b> {{create.char.job.description}}
-							</a>
-						</div>
-						<div class="list-group" ng-show="create.char.job.startcapital">
-							<a class="list-group-item">
+							</li>
+							<li class="list-group-item" ng-show="create.char.job.trainedSkills">
+								<b>Färdigheter:</b> {{create.char.job.trainedSkills}}
+							</li>
+							<li class="list-group-item" ng-show="create.char.job.startcapital">
 								<b>Startkapital:</b> {{create.char.job.startcapital}} krediter
-							</a>
-						</div>
+							</li>
+						</ul>
 						<span ng-show="mutantCreateCharForm.Yrke.$error.required" class="label label-danger">
                         	Obligatoriskt fält...
                     	</span>
 					</div>
 					<div class="btn-group pull-right" role="group">
 						<button class="btn btn-default btn-md" ng-click="create.char=undefined">Återställ formulär</button>
-						<button class="btn btn-primary btn-md" ng-disabled="mutantCreateCharForm.$invalid" ng-click="createCharacter()">
+						<button class="btn btn-primary btn-md" ng-disabled="mutantCreateCharForm.$invalid" ng-click="createCharacter(create.char.klass, create.char.job)">
 							Skapa
 						</button>
 					</div>
@@ -59,7 +60,7 @@
 			<div class="panel-heading">
 				<h3 class="panel-title">
 					Karaktär: {{storage.activeCharacter.name}}
-					<i class="fa pull-right" ng-click="activeCharacterFormEdit = !activeCharacterFormEdit" ng-class="activeCharacterFormEdit ? 'fa-cogs':'fa-cog'"></i>
+					<!--<i class="fa pull-right" ng-click="activeCharacterFormEdit = !activeCharacterFormEdit" ng-class="activeCharacterFormEdit ? 'fa-cogs':'fa-cog'"></i>-->
 					<i class="pull-right fa" ng-class="activeCharacterBody ? 'fa-compress' : 'fa-expand' " ng-click="activeCharacterBody = !activeCharacterBody"></i>
 				</h3>
 			</div>
@@ -103,11 +104,12 @@
 			<div class="panel-body" ng-show="attrPrimBody" ng-init="attrPrimBody = true">
 				<ul class="list-group">
 					<div ng-repeat="a in storage.activeCharacter.attrPrim">
-						<li class="list-group-item anim-fade" ng-class="a === attrPrimEdit ? 'active':''" ng-click="editAttrPrim(a)">
+						<a class="list-group-item anim-fade" ng-class="a === attrPrimEdit ? 'active':''" ng-click="editAttrPrim(a)">
+							
 							{{a.name}} ({{a.short}}): {{a.value + a.trained}}
 							<div ng-show="a.mod > 0">&nbsp;+ {{a.mod}}</div>
 							<div ng-show="a.mod < 0">&nbsp;{{a.mod}}</div>
-						</li>
+						</a>
 						<div ng-show="a === attrPrimEdit">
 							<li class="list-group-item list-group-item-info">
 								<label class="control-label">Modifikation:</label>
@@ -184,7 +186,7 @@
 				<div ng-show="skillFormEdit">
 					<div class="pull-right" style="display: inline-block;">
 						<p>
-							<div class="btn btn-primary" ng-click="createSkill()">
+							<div class="btn btn-primary" ng-click="createSkill(create.skill)">
 								Lägg till
 							</div>
 						</p>
@@ -207,11 +209,11 @@
 
 				<ul class="list-group row">
 					<div class="anim-fade" ng-repeat="a in storage.activeCharacter.skills | orderBy:['-postTrained','-natural','name']">
-						<li class="list-group-item" ng-class="a === skillEdit ? 'active':''">
+						<a class="list-group-item" ng-class="a === skillEdit ? 'active':''">
 							<div ng-click="editSkill(a)">
 								<label>{{a.name}} ({{a.attrPrim}}): {{skillSum(a)}}</label>
 							</div>
-						</li>
+						</a>
 						<div ng-show="skillEdit === a">
 							<li class="list-group-item list-group-item-info">
 								<label>Erf-kostnad:</label>
@@ -258,7 +260,7 @@
 								<input type="number" ng-model="a.postTrained" maxlength="2" size="2" min="2">
 							</li>
 							<li class="list-group-item list-group-item-info">
-								<div class="btn btn-warning btn-xs" ng-click="deleteSkill($index+1)">
+								<div class="btn btn-warning btn-xs" ng-click="deleteSkill($index)">
 									<i class="glyphicon glyphicon-trash"></i> Ta bort
 								</div>
 							</li>
@@ -308,7 +310,7 @@
 				<div ng-show="!powerEdit && powerFormEdit" class="anim-fade">
 					<div class="pull-right" style="display: inline-block;">
 						<p>
-							<div class="btn btn-primary btn-xs" ng-click="createPower()" ng-hide="powerEdit">
+							<div class="btn btn-primary btn-xs" ng-click="createPower(create.power)" ng-hide="powerEdit">
 								<span class="glyphicon glyphicon-plus"></span> Lägg till förmåga
 							</div>
 						</p>
@@ -352,21 +354,25 @@
 			<div class="panel-body" ng-show="weaponBody" ng-init="weaponBody = true;">
 				<ul class="list-group">
 					<div ng-repeat="w in storage.activeCharacter.weapons | orderBy:[name]">
-						<li class="list-group-item anim-fade" ng-click="editWeapon(w)" ng-class="w === weaponEdit ? 'active':''">
+						<li class="list-group-item anim-fade" ng-click="editWeapon(w)" ng-class="w === weaponEdit ? 'list-group-item-info':''">
 							{{w.name}}
-
-						</li>
-						<li ng-show="w === weaponEdit" class="list-group-item-info">
-							<div class="btn btn-danger btn-sm" ng-click="deleteWeapon($index)">
-								<span class="glyphicon glyphicon-trash"></span>
-							</div>
-							<div class="btn btn-danger btn-sm" ng-click="moneyManage(w.cost); deleteWeapon($index);" ng-show="w.cost">
-								Sälj
-							</div>
 						</li>
 					</div>
 				</ul>
 				<div ng-show="weaponEdit">
+					<div style="display: inline-block;" class="pull-right">
+						<p>
+							<div class="btn btn-danger btn-sm" ng-click="deleteWeapon($index)">
+								<span class="glyphicon glyphicon-trash"></span>
+							</div>
+						</p>
+						<p>
+							<div class="btn btn-danger btn-sm" ng-click="moneyManage(w.cost); deleteWeapon($index);" ng-show="weaponEdit.cost">
+								Sälj
+							</div>
+						</p>
+					</div>
+
 					<div class="input-group">
 						<label>VAPEN: </label>
 						<input name="weaponName" ng-model="weaponEdit.name" type="text">
@@ -421,11 +427,11 @@
 			<div class="panel-body" ng-show="weaponFormEdit">
 				<div ng-show="create.weapon">
 					<div class="pull-right" style="display: inline-block;">
-						<div class="btn btn-primary" ng-click="createWeapon()">
+						<div class="btn btn-primary" ng-click="createWeapon(create.weapon)">
 							Lägg till vapen
 						</div>
 						<br/>
-						<div class="btn" ng-click="createWeapon(); moneyManage(create.weapon.cost * -1);" ng-show="create.weapon.cost" ng-class="create.weapon.cost > storage.activeCharacter.money ? 'btn-danger':'btn-primary'">
+						<div class="btn" ng-click="createWeapon(create.weapon); moneyManage(create.weapon.cost * -1);" ng-show="create.weapon.cost" ng-class="create.weapon.cost > storage.activeCharacter.money ? 'btn-danger':'btn-primary'">
 							Köp vapen
 							<div ng-if="create.weapon.cost > storage.activeCharacter.money">
 								(Har ej råd)
@@ -514,10 +520,10 @@
 				<div class="input-group">
 					<label>Läs in rustning &nbsp;</label>
 					<div ng-show="create.armor.bodyPart">
-						<div class="btn btn-primary btn-sm" ng-click="createArmor()">
+						<div class="btn btn-primary btn-sm" ng-click="createArmor(create.armor)">
 							Lägg till
 						</div>
-						<div class="btn btn-sm" ng-click="createArmor(); moneyManage(create.armor.cost *-1);" ng-class="r.cost > storage.activeCharacter.money ? 'btn-danger':'btn-primary'">
+						<div class="btn btn-sm" ng-click="createArmor(create.armor); moneyManage(create.armor.cost *-1);" ng-class="r.cost > storage.activeCharacter.money ? 'btn-danger':'btn-primary'">
 							Köp
 						</div>
 					</div>
@@ -582,11 +588,11 @@
 						Kostnad: {{create.item.cost}} krediter
 					</a>
 					<div class="form-group">
-						<div class="btn btn-primary" ng-click="createItem()">
+						<div class="btn btn-primary" ng-click="createItem(create.item)">
 							<i class="glyphicon glyphicon-plus"></i> Lägg till
 							<div ng-hide="create.item">(eget)</div>
 						</div>
-						<div class="btn" ng-class="create.item.cost > storage.activeCharacter.money ? 'btn-danger':'btn-primary' " ng-click="createItem(); moneyManage(create.item.cost * -1)" ng-show="create.item.cost">
+						<div class="btn" ng-class="create.item.cost > storage.activeCharacter.money ? 'btn-danger':'btn-primary' " ng-click="createItem(create.item); moneyManage(create.item.cost * -1)" ng-show="create.item.cost">
 							<i class="fa fa-money"></i> Köp&nbsp;
 							<div ng-if="create.item.cost > storage.activeCharacter.money">(Har inte råd)</div>
 						</div>
@@ -705,6 +711,12 @@
 				</div>
 				<button class="btn btn-sm btn-info pull-right" ng-click="loadCharacter()">
 					<span class="glyphicon glyphicon-plus"></span> Skapa ny
+				</button>
+				<button class="btn btn-sm btn-info" ng-click="resetStaticData()">
+					Återställ formulärdata
+				</button>
+				<button class="btn btn-sm btn-info" ng-click="resetUserData()">
+					Återställ användardata
 				</button>
 			</div>
 		</div>

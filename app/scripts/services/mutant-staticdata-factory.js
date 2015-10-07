@@ -444,6 +444,10 @@ angular.module('chargenNgApp')
 									//do nothing
 								} else if (!isNaN(e[c])) {
 									e[c] = Number(e[c]);
+								} else if (e[c] === 'TRUE') {
+									e[c] = true;
+								} else if (e[c] === 'FALSE') {
+									e[c] = false;
 								}
 							});
 						});
