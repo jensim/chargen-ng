@@ -11,20 +11,3 @@
 		<input data-ng-model="leDice" type="text" size="10" class="form-control" placeholder="1D6 1D4 +2" data-ng-init="leDice='1D6 1D4 +2'">
 	</div>
 </div>
-<div class="panel panel-default" data-ng-show="milestones">
-	<h2>
-		<a href="https://github.com/jensim/chargen-ng/milestones" style="font-color: black;">Milestones på Github <i class="fa fa-github"></i></a>
-	</h2>
-	<div data-ng-repeat="milestone in milestones | orderBy:['-progress','title']">
-		<!--filter: {'state': 'open'}-->
-		<h3><i class="fa fa-flag" ng-class="milestone.closed_issues === 0 ? 'text-danger' : milestone.open_issues === 0 ? 'text-success' : 'text-primary' "></i> {{milestone.title}}</h3>
-		<p>{{milestone.progress}}% "klart"</p>
-		<p>{{milestone.open_issues}} {{milestone.open_issues === 1 ? 'Öppet ärende' : 'Öppna ärenden'}}</p>
-		<p>{{milestone.closed_issues}} {{milestone.closed_issues === 1 ? 'Stängt ärende' : 'Stängda ärenden'}}</p>
-		<div class="progress">
-			<div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="{{milestone.progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{milestone.progress}}%;">
-				<span class="sr-only">{{milestone.progress}}% Complete</span>
-			</div>
-		</div>
-	</div>
-</div>

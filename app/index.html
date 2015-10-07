@@ -25,27 +25,11 @@
     <![endif]-->
 
 	<!-- Add your site or application content here -->
-	<div class="header">
-		<div class="navbar navbar-default" role="navigation" data-ng-controller="NavCtrl">
-			<div class="container">
-				<div class="navbar-header">
+	<div class="navbar navbar-default navbar-static-top">
+		<div class="container">
+			<a class="navbar-brand" href="#/mutant">Mutant</a>
 
-					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-
-					<a class="navbar-brand" href="#/">CharGen</a>
-				</div>
-
-				<div class="collapse navbar-collapse" id="js-navbar-collapse">
-					<ul class="nav navbar-nav" data-ng-repeat="menu in menus">
-						<li data-ng-class="getActiveClass('menu.route')"><a data-ng-href="#{{menu.route}}" data-toggle="collapse" data-target="#js-navbar-collapse">{{menu.name}}</a></li>
-					</ul>
-				</div>
-			</div>
+			<p class="navbar-text navbar-right"><a href="#/">Start</a></p>
 		</div>
 	</div>
 
@@ -72,17 +56,12 @@
 
 	<!-- build:js({.tmp,app}) scripts/scripts.js -->
 	<script src="scripts/app.js"></script>
-	<script src="scripts/controllers/navigation.js"></script>
 	<script src="scripts/controllers/main.js"></script>
 
 	<script src="scripts/services/mutant-service-factory.js"></script>
 	<script src="scripts/services/mutant-calc-factory.js"></script>
 
 	<script src="scripts/controllers/mutant.js"></script>
-	<script src="scripts/controllers/dnd35.js"></script>
-	<script src="scripts/controllers/dnd5.js"></script>
-	<script src="scripts/controllers/svavelvinter.js"></script>
-	<script src="scripts/controllers/dod.js"></script>
 
 	<script src="scripts/directives/diceroller.js"></script>
 	<script src="scripts/services/mutant-staticdata-factory.js"></script>

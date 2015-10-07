@@ -27,10 +27,7 @@ angular.module('chargenNgApp')
 
 				storage.activeCharacter = storage.characters ? storage.characters[0] : undefined;
 
-				$log.log('Data loaded');
 				$interval.cancel(stopTime);
-			} else {
-				$log.warn('not loaded');
 			}
 		}, 250);
 
