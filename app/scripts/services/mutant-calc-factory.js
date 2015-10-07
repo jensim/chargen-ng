@@ -27,13 +27,13 @@ angular.module('chargenNgApp')
 					sumWeight = 0;
 				begArr.forEach(function (arr) {
 					arr.forEach(function (item) {
-						if (item !== undefined && item['beg'] !== undefined && !isNaN(item['beg']) && item['wearing'] !== undefined && item['wearing'] === true) {
-							sumBeg += Number(item['beg']);
+						if (item !== undefined && item.beg !== undefined && !isNaN(item.beg) && item.wearing !== undefined && item.wearing === true) {
+							sumBeg += Number(item.beg);
 						}
-						if (item !== undefined && item['weight'] !== undefined && !isNaN(item['weight'])) {
-							sumWeight += Number(item['weight']);
+						if (item !== undefined && item.weight !== undefined && !isNaN(item.weight)) {
+							sumWeight += Number(item.weight);
 						}
-					})
+					});
 				});
 				if (c.attrSec.bf.value < sumWeight) {
 					sumBeg += (sumWeight - c.attrSec.bf.value);
