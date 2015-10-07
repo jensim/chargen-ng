@@ -11,6 +11,21 @@ angular.module('chargenNgApp')
 	.controller('MutantCtrl', ['$scope', '$log', '$localStorage', '$interval', 'mutantServiceFactory', 'mutantStaticdataFactory', 'mutantCalcFactory', function ($scope, $log, $localStorage, $interval, mutantService, mutantStaticdataFactory, mutantCalcFactory) {
 
 		var storage, flatData;
+		var rebindStorages = function () {
+			var stopTime = $interval(function () {
+				if ($localStorage.storage && $localStorage.flatData) {
+					storage = $localStorage.storage;
+					$scope.storage = $localStorage.storage;
+					flatData = $localStorage.flatData;
+					$scope.flatData = $localStorage.flatData;
+
+					storage.activeCharacter = storage.characters ? storage.characters[0] : undefined;
+
+					$interval.cancel(stopTime);
+				}
+			}, 250);
+		};
+		rebindStorages();
 
 		var jsonLog = function (j) {
 			$log.log(JSON.stringify(j, null, '\t'));
@@ -20,24 +35,14 @@ angular.module('chargenNgApp')
 			jsonLog(msg);
 		};
 		$scope.resetStaticData = function () {
-			mutantStaticdataFactory.resetStaticData();
+			mutantStaticdataFactory.resetStaticData(true);
+			rebindStorages();
 		};
 		$scope.resetUserData = function () {
-			mutantStaticdataFactory.resetData();
+			mutantStaticdataFactory.resetData(true);
+			rebindStorages();
 		};
 
-		var stopTime = $interval(function () {
-			if ($localStorage.storage && $localStorage.flatData) {
-				storage = $localStorage.storage;
-				$scope.storage = $localStorage.storage;
-				flatData = $localStorage.flatData;
-				$scope.flatData = $localStorage.flatData;
-
-				storage.activeCharacter = storage.characters ? storage.characters[0] : undefined;
-
-				$interval.cancel(stopTime);
-			}
-		}, 250);
 
 		/* * * * * * * * * * * */
 

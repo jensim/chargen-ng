@@ -9,10 +9,10 @@
 				<h3 class="panel-title">
 					Skapa ny karaktär
 					<!--<i class="fa pull-right" ng-click="newCharacterFormEdit = !newCharacterFormEdit" ng-class="newCharacterFormEdit ? 'fa-cogs':'fa-cog'"></i>-->
-					<i class="pull-right fa" ng-class="newCharacterBody ? 'fa-compress' : 'fa-expand' " ng-click="newCharacterBody = !newCharacterBody"></i>
+					<i class="pull-right fa" ng-class="storage.newCharacterBody ? 'fa-compress' : 'fa-expand' " ng-click="storage.newCharacterBody = !storage.newCharacterBody"></i>
 				</h3>
 			</div>
-			<div class="panel-body" ng-show="newCharacterBody" ng-init="newCharacterBody = true">
+			<div class="panel-body" ng-hide="storage.newCharacterBody">
 				<form name="mutantCreateCharForm">
 					<div class="form-group">
 						<label for="createInputClass">Klass:</label>
@@ -61,17 +61,17 @@
 				<h3 class="panel-title">
 					Karaktär: {{storage.activeCharacter.name}}
 					<!--<i class="fa pull-right" ng-click="activeCharacterFormEdit = !activeCharacterFormEdit" ng-class="activeCharacterFormEdit ? 'fa-cogs':'fa-cog'"></i>-->
-					<i class="pull-right fa" ng-class="activeCharacterBody ? 'fa-compress' : 'fa-expand' " ng-click="activeCharacterBody = !activeCharacterBody"></i>
+					<i class="pull-right fa" ng-class="storage.activeCharacter.activeCharacterBody ? 'fa-compress' : 'fa-expand' " ng-click="storage.activeCharacter.activeCharacterBody = !storage.activeCharacter.activeCharacterBody"></i>
 				</h3>
 			</div>
-			<div class="panel-body" ng-show="activeCharacterBody" ng-init="activeCharacterBody = true">
+			<div class="panel-body" ng-hide="storage.activeCharacter.activeCharacterBody">
 				Namn:
 				<input type="text" class="form-control" ng-model="storage.activeCharacter.name">
 			</div>
-			<div class="panel-heading" ng-show="activeCharacterBody">
+			<div class="panel-heading" ng-hide="storage.activeCharacter.activeCharacterBody">
 				<h3 class="panel-title">Stats</h3>
 			</div>
-			<div class="panel-body" ng-show="activeCharacterBody">
+			<div class="panel-body" ng-hide="storage.activeCharacter.activeCharacterBody">
 				<p>
 					Använd GrundEgenskapPoäng (GE): {{getUsedGE()}} / {{storage.activeCharacter.klass.ge}}
 					<span class="label label-warning" ng-show="getUsedGE() < storage.activeCharacter.klass.ge">Poäng att spendera</span>
@@ -96,12 +96,12 @@
 			<div class="panel-heading">
 				<h3 class="panel-title">
 					Grundegenskaper
-					<i class="pull-right fa" ng-class="attrPrimBody ? 'fa-compress' : 'fa-expand' " ng-click="attrPrimBody = !attrPrimBody"></i>
+					<i class="pull-right fa" ng-class="storage.activeCharacter.attrPrimBody ? 'fa-compress' : 'fa-expand' " ng-click="storage.activeCharacter.attrPrimBody = !storage.activeCharacter.attrPrimBody"></i>
                     <div class="pull-right">&nbsp;</div>
                     <diceroller dice="1D100" class="pull-right" />
                 </h3>
 			</div>
-			<div class="panel-body" ng-show="attrPrimBody" ng-init="attrPrimBody = true">
+			<div class="panel-body" ng-hide="storage.activeCharacter.attrPrimBody">
 				<ul class="list-group">
 					<div ng-repeat="a in storage.activeCharacter.attrPrim">
 						<a class="list-group-item anim-fade" ng-class="a === attrPrimEdit ? 'active':''" ng-click="editAttrPrim(a)">
@@ -137,7 +137,7 @@
 					Sekundära egenskaper
 					<i class="fa pull-right" ng-click="attrSecFormEdit = !attrSecFormEdit" ng-class="attrSecFormEdit ? 'fa-cogs':'fa-cog'"></i>
 					<div class="pull-right">&nbsp;</div>
-					<i class="pull-right fa" ng-class="attrSecBody ? 'fa-compress' : 'fa-expand' " ng-click="attrSecBody = !attrSecBody"></i>
+					<i class="pull-right fa" ng-class="storage.activeCharacter.attrSecBody ? 'fa-compress' : 'fa-expand' " ng-click="storage.activeCharacter.attrSecBody = !storage.activeCharacter.attrSecBody"></i>
                     <div class="pull-right">&nbsp;</div>
                     <i class="glyphicon glyphicon-info-sign pull-right" ng-click="attrSecFormInfo = !attrSecFormInfo" ng-hide="attrSecFormEdit"></i>
                     <div class="pull-right">&nbsp;</div>
@@ -146,7 +146,7 @@
                     <diceroller dice="1D100" class="pull-right" ng-hide="attrSecFormEdit"></diceroller>
                 </h3>
 			</div>
-			<div class="panel-body" ng-show="attrSecBody" ng-init="attrSecBody = true">
+			<div class="panel-body" ng-hide="storage.activeCharacter.attrSecBody">
 				<ul class="list-group row">
 					<li class="list-group-item anim-fade" ng-repeat="a in storage.activeCharacter.attrSec">
 						<div ng-hide="attrSecFormEdit">
@@ -175,14 +175,14 @@
 					Färdigheter
 					<i class="fa pull-right" ng-click="skillFormEdit = !skillFormEdit" ng-class="skillFormEdit ? 'fa-cogs':'fa-cog'"></i>
 					<div class="pull-right">&nbsp;</div>
-					<i class="pull-right fa" ng-class="skillBody ? 'fa-compress' : 'fa-expand' " ng-click="skillBody = !skillBody"></i>
+					<i class="pull-right fa" ng-class="storage.activeCharacter.skillBody ? 'fa-compress' : 'fa-expand' " ng-click="storage.activeCharacter.skillBody = !storage.activeCharacter.skillBody"></i>
                     <div class="pull-right">&nbsp;</div>
                     <diceroller dice="1D100" class="pull-right" />
                     <div class="pull-right">&nbsp;</div>
                     <i class="glyphicon glyphicon-info-sign pull-right" ng-show="skillFormEdit"></i>
                 </h3>
 			</div>
-			<div class="panel-body" ng-show="skillBody" ng-init="skillBody = true">
+			<div class="panel-body" ng-hide="storage.activeCharacter.skillBody">
 				<div ng-show="skillFormEdit">
 					<div class="pull-right" style="display: inline-block;">
 						<p>
@@ -277,10 +277,10 @@
 				<h3 class="panel-title">
 					Förmågor
 					<i class="fa pull-right" ng-click="powerFormEdit = !powerFormEdit" ng-class="powerFormEdit ? 'fa-cogs':'fa-cog'"></i>
-					<i class="pull-right fa" ng-class="powerBody ? 'fa-compress' : 'fa-expand' " ng-click="powerBody = !powerBody"></i>
+					<i class="pull-right fa" ng-class="storage.activeCharacter.powerBody ? 'fa-compress' : 'fa-expand' " ng-click="storage.activeCharacter.powerBody = !storage.activeCharacter.powerBody"></i>
 				</h3>
 			</div>
-			<div class="panel-body" ng-show="powerBody" ng-init="powerBody = true; powerFormEdit = (storage.activeCharacter.powers[0] === undefined);">
+			<div class="panel-body" ng-hide="storage.activeCharacter.powerBody" ng-init="powerFormEdit = (storage.activeCharacter.powers[0] === undefined);">
 				<ul class="list-group">
 					<li class="list-group-item anim-fade" ng-repeat="p in storage.activeCharacter.powers | orderBy:['name']" ng-click="editPower(p)" ng-class="p === powerEdit ? 'list-group-item-info':''">
 						{{p.name}}
@@ -288,7 +288,7 @@
 						</div>
 					</li>
 				</ul>
-				<div class="anim-fade" ng-show="powerEdit" class="anim-fade" ng-init="powerBody = true;">
+				<div class="anim-fade" ng-show="powerEdit" class="anim-fade">
 					<div class="input-group">
 						<label>Namn</label>
 						<input name="powerEdit.name" type="text" class="form-control" ng-model="powerEdit.name">
@@ -348,10 +348,10 @@
 				<h3 class="panel-title">
 					Vapen
 					<i class="fa pull-right" ng-click="weaponFormEdit = !weaponFormEdit" ng-class="weaponFormEdit ? 'fa-cogs':'fa-cog'"></i>
-					<i class="pull-right fa" ng-class="weaponBody ? 'fa-compress' : 'fa-expand' " ng-click="weaponBody = !weaponBody"></i>
+					<i class="pull-right fa" ng-class="storage.activeCharacter.weaponBody ? 'fa-compress' : 'fa-expand' " ng-click="storage.activeCharacter.weaponBody = !storage.activeCharacter.weaponBody"></i>
 				</h3>
 			</div>
-			<div class="panel-body" ng-show="weaponBody" ng-init="weaponBody = true;">
+			<div class="panel-body" ng-hide="storage.activeCharacter.weaponBody">
 				<ul class="list-group">
 					<div ng-repeat="w in storage.activeCharacter.weapons | orderBy:[name]">
 						<li class="list-group-item anim-fade" ng-click="editWeapon(w)" ng-class="w === weaponEdit ? 'list-group-item-info':''">
@@ -420,11 +420,11 @@
 					</div>
 				</div>
 			</div>
-			<div class="panel-heading" ng-show="weaponFormEdit">
+			<div class="panel-heading" ng-show="weaponFormEdit && !storage.activeCharacter.weaponBody">
 				Läs in vapen
 				<i class="fa pull-right" ng-click="weaponFormEdit = !weaponFormEdit" ng-class="weaponFormEdit ? 'fa-cogs':'fa-cog'"></i>
 			</div>
-			<div class="panel-body" ng-show="weaponFormEdit">
+			<div class="panel-body" ng-show="weaponFormEdit && !storage.activeCharacter.weaponBody">
 				<div ng-show="create.weapon">
 					<div class="pull-right" style="display: inline-block;">
 						<div class="btn btn-primary" ng-click="createWeapon(create.weapon)">
@@ -464,19 +464,19 @@
 				<h3 class="panel-title">
 					Rustning
 					<i class="fa pull-right" ng-click="armorFormEdit = !armorFormEdit" ng-class="armorFormEdit ? 'fa-cogs':'fa-cog'"></i>
-					<i class="pull-right fa" ng-class="armorBody ? 'fa-compress' : 'fa-expand' " ng-click="armorBody = !armorBody"></i>
+					<i class="pull-right fa" ng-class="storage.activeCharacter.armorBody ? 'fa-compress' : 'fa-expand' " ng-click="storage.activeCharacter.armorBody = !storage.activeCharacter.armorBody"></i>
 				 </h3>
 			</div>
-			<div class="panel-body" ng-show="armorBody" ng-init="armorBody = true;">
+			<div class="panel-body" ng-hide="storage.activeCharacter.armorBody">
 				Rustning, ABS, BEG: {{calcBeg(i)}}, Vikt
 				<div ng-repeat="(i, b) in flatData.bodyParts">
 					{{b}} ABS: {{calcArmor(i)}}
 				</div>
 			</div>
-			<div class="panel-heading" ng-show="armorFormEdit">
+			<div class="panel-heading" ng-show="armorFormEdit && !storage.activeCharacter.armorBody">
 				RustningsDelar
 			</div>
-			<div class="panel-body" ng-show="armorFormEdit">
+			<div class="panel-body" ng-show="armorFormEdit && !storage.activeCharacter.armorBody">
 				<ul class="list-group">
 					<li ng-repeat="r in storage.activeCharacter.armors | orderBy:['-wearing','bodyPart','name']" ng-click="editArmor(r)" class="list-group-item" ng-class="r===armorEdit ? 'active' : r.wearing ? 'list-group-item-info' : ''">
 						{{flatData.bodyParts[r.bodyPart]}}: {{r.name}}, ABS: {{r.ABS}}, BEG: {{r.BEG}}, {{r.wearing ? 'På' : 'Av'}}
@@ -513,10 +513,10 @@
 					</p>
 				</div>
 			</div>
-			<div class="panel-heading" ng-show="armorFormEdit">
+			<div class="panel-heading" ng-show="armorFormEdit && !storage.activeCharacter.armorBody">
 				Köp rustning
 			</div>
-			<div class="panel-body" ng-show="armorFormEdit">
+			<div class="panel-body" ng-show="armorFormEdit && !storage.activeCharacter.armorBody">
 				<div class="input-group">
 					<label>Läs in rustning &nbsp;</label>
 					<div ng-show="create.armor.bodyPart">
@@ -542,10 +542,10 @@
 				<h3 class="panel-title">
 					Utrustning
 					<i class="fa pull-right" ng-click="gearFormEdit = !gearFormEdit" ng-class="gearFormEdit ? 'fa-cogs':'fa-cog'"></i>
-					<i class="pull-right fa" ng-class="gearBody ? 'fa-compress' : 'fa-expand' " ng-click="gearBody = !gearBody"></i>
+					<i class="pull-right fa" ng-class="storage.activeCharacter.gearBody ? 'fa-compress' : 'fa-expand' " ng-click="storage.activeCharacter.gearBody = !storage.activeCharacter.gearBody"></i>
                 </h3>
 			</div>
-			<div class="panel-body" ng-show="gearBody" ng-init="gearBody = true;">
+			<div class="panel-body" ng-hide="storage.activeCharacter.gearBody">
 				<ul class="list-group">
 					<li class="list-group-item" ng-repeat="i in storage.activeCharacter.items" ng-click="editItem(i)" ng-class="itemEdit===i?'active':''">
 						{{i.name}} : {{i.quantity}}
@@ -576,26 +576,28 @@
 						<input type="text" class="form-control" ng-model="itemEdit.cost">
 					</div>
 				</div>
-				<div ng-show="!itemEdit && gearFormEdit" class="input-group">
-					<hr/>
-					<label>Läs in utrustning:</label>
-					<select class="selectpicker form-control" ng-options="g.name for g in flatData.gear" ng-model="create.itemType"></select>
-					<select class="selectpicker form-control" ng-options="g.name for g in create.itemType.items" ng-model="create.item" ng-show="create.itemType"></select>
-					<a class="list-group-item" ng-show="create.item.description">
-						Beskrivning: {{create.item.description}}
-					</a>
-					<a class="list-group-item" ng-show="create.item.cost">
-						Kostnad: {{create.item.cost}} krediter
-					</a>
-					<div class="form-group">
-						<div class="btn btn-primary" ng-click="createItem(create.item)">
-							<i class="glyphicon glyphicon-plus"></i> Lägg till
-							<div ng-hide="create.item">(eget)</div>
-						</div>
-						<div class="btn" ng-class="create.item.cost > storage.activeCharacter.money ? 'btn-danger':'btn-primary' " ng-click="createItem(create.item); moneyManage(create.item.cost * -1)" ng-show="create.item.cost">
-							<i class="fa fa-money"></i> Köp&nbsp;
-							<div ng-if="create.item.cost > storage.activeCharacter.money">(Har inte råd)</div>
-						</div>
+			</div>
+			<div class="panel-heading" ng-show="gearFormEdit && !storage.activeCharacter.gearBody">
+				Läs in utrustning:
+			</div>
+			<div class="panel-body" ng-show="gearFormEdit && !storage.activeCharacter.gearBody">
+
+				<select class="selectpicker form-control" ng-options="g.name for g in flatData.gear" ng-model="create.itemType"></select>
+				<select class="selectpicker form-control" ng-options="g.name for g in create.itemType.items" ng-model="create.item" ng-show="create.itemType"></select>
+				<a class="list-group-item" ng-show="create.item.description">
+					Beskrivning: {{create.item.description}}
+				</a>
+				<a class="list-group-item" ng-show="create.item.cost">
+					Kostnad: {{create.item.cost}} krediter
+				</a>
+				<div class="form-group">
+					<div class="btn btn-primary" ng-click="createItem(create.item)">
+						<i class="glyphicon glyphicon-plus"></i> Lägg till
+						<div ng-hide="create.item">(eget)</div>
+					</div>
+					<div class="btn" ng-class="create.item.cost > storage.activeCharacter.money ? 'btn-danger':'btn-primary' " ng-click="createItem(create.item); moneyManage(create.item.cost * -1)" ng-show="create.item.cost">
+						<i class="fa fa-money"></i> Köp&nbsp;
+						<div ng-if="create.item.cost > storage.activeCharacter.money">(Har inte råd)</div>
 					</div>
 				</div>
 			</div>
@@ -608,10 +610,10 @@
 				<h3 class="panel-title">
 					Strid - snabbverktyg
 					<i class="fa pull-right" ng-click="combatFormEdit = !combatFormEdit" ng-class="combatFormEdit ? 'fa-cogs':'fa-cog'"></i>
-					<i class="pull-right fa" ng-class="combatBody ? 'fa-compress' : 'fa-expand' " ng-click="combatBody = !combatBody"></i>
+					<i class="pull-right fa" ng-class="storage.activeCharacter.combatBody ? 'fa-compress' : 'fa-expand' " ng-click="storage.activeCharacter.combatBody = !storage.activeCharacter.combatBody"></i>
                 </h3>
 			</div>
-			<div class="panel-body" ng-show="combatBody" ng-init="combatBody = true;">
+			<div class="panel-body" ng-hide="storage.activeCharacter.combatBody">
 				something
 			</div>
 		</div>
@@ -623,10 +625,10 @@
 				<h3 class="panel-title">
 					Övrigt
 					<i class="fa pull-right" ng-click="miscFormEdit = !miscFormEdit" ng-class="miscFormEdit ? 'fa-cogs':'fa-cog'"></i>
-					<i class="pull-right fa" ng-class="miscBody ? 'fa-compress' : 'fa-expand' " ng-click="miscBody = !miscBody"></i>
+					<i class="pull-right fa" ng-class="storage.activeCharacter.miscBody ? 'fa-compress' : 'fa-expand' " ng-click="storage.activeCharacter.miscBody = !storage.activeCharacter.miscBody"></i>
                 </h3>
 			</div>
-			<div class="panel-body" ng-show="miscBody" ng-init="miscBody = true;">
+			<div class="panel-body" ng-hide="storage.activeCharacter.miscBody">
 				<ul class="list-group">
 					<li class="list-group-item" ng-repeat="n in storage.activeCharacter.notes" ng-click="editNote(n)" ng-class="n === noteEdit ? 'list-group-item-info':''">
 						<span class="glyphicon glyphicon-file"></span> {{n.head}}
@@ -659,10 +661,10 @@
 				<h3 class="panel-title">
 					Pengar
 					<i class="fa pull-right" ng-click="moneyFormEdit = !moneyFormEdit" ng-class="moneyFormEdit ? 'fa-cogs':'fa-cog'"></i>
-					<i class="pull-right fa" ng-class="moneyBody ? 'fa-compress' : 'fa-expand' " ng-click="moneyBody = !moneyBody"></i>
+					<i class="pull-right fa" ng-class="storage.activeCharacter.moneyBody ? 'fa-compress' : 'fa-expand' " ng-click="storage.activeCharacter.moneyBody = !storage.activeCharacter.moneyBody"></i>
                 </h3>
 			</div>
-			<div class="panel-body" ng-show="moneyBody" ng-init="moneyBody = true;">
+			<div class="panel-body" ng-hide="storage.activeCharacter.moneyBody">
 				<p>
 					<div class="list-group-item">
 						<div ng-show="storage.activeCharacter.money">{{storage.activeCharacter.money}} krediter</div>
@@ -692,10 +694,10 @@
 			<div class="panel-heading">
 				<h3 class="panel-title">
 					Läs in sparad karaktär
-					<i class="pull-right fa" ng-class="loadCharacterBody ? 'fa-compress' : 'fa-expand' " ng-click="loadCharacterBody = !loadCharacterBody"></i>
+					<i class="pull-right fa" ng-class="storage.loadCharacterBody ? 'fa-compress' : 'fa-expand' " ng-click="storage.loadCharacterBody = !storage.loadCharacterBody"></i>
             	</h3>
 			</div>
-			<div class="panel-body anim-fade" ng-show="loadCharacterBody" ng-init="loadCharacterBody = true;">
+			<div class="panel-body anim-fade" ng-hide="storage.loadCharacterBody">
 				<div class="list-group anim-fade">
 					<div class="list-group-item clearfix" ng-repeat="c in storage.characters" ng-class="c === storage.activeCharacter ? 'list-group-item-info':''">
 						<span class="glyphicon glyphicon-file"></span> {{c.name}}
