@@ -202,6 +202,9 @@ angular.module('chargenNgApp')
 		};
 		$scope.createArmor = function (armor) {
 			var newArmor = angular.copy(armor);
+			if (armor.fits.length === 1) {
+				armor.bodyPart = armor.fits[0];
+			}
 			storage.activeCharacter.armors.push(newArmor);
 		};
 		$scope.deleteArmor = function (armor) {

@@ -4,18 +4,42 @@ angular.module('chargenNgApp')
 	.factory('mutantCalcFactory', ['$localStorage', function ($localStorage) {
 
 		var calcSecondarySkadeBonus = function () { //STY + STO
-			var storage = $localStorage.storage,
-				flatData = $localStorage.flatData,
-				sum = storage.activeCharacter.attrPrim.STY.value + storage.activeCharacter.attrPrim.STO.value,
-				skadeBonus = '',
-				key;
-			for (key in flatData.skadeBonus) {
-				if (sum >= key) {
-					skadeBonus = flatData.skadeBonus[key];
+				var storage = $localStorage.storage,
+					flatData = $localStorage.flatData,
+					sum = storage.activeCharacter.attrPrim.STY.value + storage.activeCharacter.attrPrim.STO.value,
+					skadeBonus = '',
+					key;
+				for (key in flatData.skadeBonus) {
+					if (sum >= key) {
+						skadeBonus = flatData.skadeBonus[key];
+					}
 				}
-			}
-			storage.activeCharacter.attrSec.sb.value = skadeBonus;
-		};
+				storage.activeCharacter.attrSec.sb.value = skadeBonus;
+			},
+			calcSecondaryBeg = function () {
+				var c = $localStorage.storage.activeCharacter,
+					weapons = c.weapons,
+					armors = c.armors,
+					items = c.gear,
+					shields = c.shields,
+					begArr = [weapons, armors, items, shields],
+					sumBeg = 0,
+					sumWeight = 0;
+				begArr.forEach(function (arr) {
+					arr.forEach(function (item) {
+						if (item !== undefined && item['beg'] !== undefined && !isNaN(item['beg']) && item['wearing'] !== undefined && item['wearing'] === true) {
+							sumBeg += Number(item['beg']);
+						}
+						if (item !== undefined && item['weight'] !== undefined && !isNaN(item['weight'])) {
+							sumWeight += Number(item['weight']);
+						}
+					})
+				});
+				if (c.attrSec.bf.value < sumWeight) {
+					sumBeg += (sumWeight - c.attrSec.bf.value);
+				}
+				c.attrSec.beg.value = sumBeg;
+			};
 
 		return {
 			calcSecondaryAttribute: function (attr) {
@@ -43,6 +67,8 @@ angular.module('chargenNgApp')
 					attr.value = storage.activeCharacter.attrPrim.FYS.value + storage.activeCharacter.attrPrim.STO.value;
 				} else if (attr.name === storage.activeCharacter.attrSec.tt.name) {
 					attr.value = Math.floor((storage.activeCharacter.attrPrim.FYS.value + storage.activeCharacter.attrPrim.STO.value) / 2);
+				} else if (attr.name === storage.activeCharacter.attrSec) {
+					calcSecondaryBeg();
 				}
 			},
 			getSkillUsedErf: function (skill) {
