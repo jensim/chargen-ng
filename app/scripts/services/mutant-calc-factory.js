@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('chargenNgApp')
-	.factory('mutantCalcFactory', ['$localStorage', function ($localStorage) {
+	.factory('mutantCalcFactory', ['$localStorage', '$log', function ($localStorage, $log) {
 
 		var calcSecondarySkadeBonus = function () { //STY + STO
 				var storage = $localStorage.storage,
@@ -20,20 +20,26 @@ angular.module('chargenNgApp')
 				var c = $localStorage.storage.activeCharacter,
 					weapons = c.weapons,
 					armors = c.armors,
-					items = c.gear,
+					items = c.items,
 					shields = c.shields,
 					begArr = [weapons, armors, items, shields],
 					sumBeg = 0,
 					sumWeight = 0;
 				begArr.forEach(function (arr) {
-					arr.forEach(function (item) {
-						if (item !== undefined && item.beg !== undefined && !isNaN(item.beg) && item.wearing !== undefined && item.wearing === true) {
-							sumBeg += Number(item.beg);
-						}
-						if (item !== undefined && item.weight !== undefined && !isNaN(item.weight)) {
-							sumWeight += Number(item.weight);
-						}
-					});
+					if (angular.isArray(arr)) {
+						arr.forEach(function (item) {
+							if (item !== undefined && item.wearing !== undefined && item.wearing === true) {
+								if (item.BEG !== undefined && !isNaN(item.BEG)) {
+									sumBeg += Number(item.BEG);
+								} else if (item.beg !== undefined && !isNaN(item.beg)) {
+									sumBeg += Number(item.beg);
+								}
+							}
+							if (item !== undefined && item.weight !== undefined && !isNaN(item.weight)) {
+								sumWeight += Number(item.weight);
+							}
+						});
+					}
 				});
 				if (c.attrSec.bf.value < sumWeight) {
 					sumBeg += (sumWeight - c.attrSec.bf.value);
@@ -67,7 +73,7 @@ angular.module('chargenNgApp')
 					attr.value = storage.activeCharacter.attrPrim.FYS.value + storage.activeCharacter.attrPrim.STO.value;
 				} else if (attr.name === storage.activeCharacter.attrSec.tt.name) {
 					attr.value = Math.floor((storage.activeCharacter.attrPrim.FYS.value + storage.activeCharacter.attrPrim.STO.value) / 2);
-				} else if (attr.name === storage.activeCharacter.attrSec) {
+				} else if (attr.name === storage.activeCharacter.attrSec.beg.name) {
 					calcSecondaryBeg();
 				}
 			},

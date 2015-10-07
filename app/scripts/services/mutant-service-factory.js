@@ -32,6 +32,7 @@ angular.module('chargenNgApp')
 						attrSec: angular.copy(staticStorage.attrSec),
 						skills: [],
 						armors: [],
+						shields: [],
 						powers: [],
 						notes: [],
 						weapons: [],
