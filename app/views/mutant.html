@@ -252,6 +252,11 @@
 								<input class="pull-right" type="checkbox" ng-model="a.natural">
 							</li>
 							<li class="list-group-item list-group-item-info">
+								<label>
+									BEG: {{calcBeg(a)}}
+								</label>
+							</li>
+							<li class="list-group-item list-group-item-info">
 								<label class="control-label">
 									Efr-kostnad för efter-skapelse-träning
 									<br>Kom ihåg att det även kostar att muta
@@ -468,8 +473,7 @@
 				 </h3>
 			</div>
 			<div class="panel-body" ng-hide="storage.activeCharacter.armorBody">
-				Rustning, ABS, BEG: {{calcBeg(i)}}, Vikt
-				<div ng-repeat="(i, b) in flatData.bodyParts">
+				<div ng-repeat="(i, b) in flatData.bodyParts" ng-if="calcArmor(i) > 0">
 					{{b}} ABS: {{calcArmor(i)}}
 				</div>
 			</div>
@@ -478,8 +482,7 @@
 			</div>
 			<div class="panel-body" ng-show="armorFormEdit && !storage.activeCharacter.armorBody">
 				<ul class="list-group">
-					<li ng-repeat="r in storage.activeCharacter.armors | orderBy:['-wearing','bodyPart','name']" ng-click="editArmor(r)" class="list-group-item" ng-class="r===armorEdit ? 'active' : r.wearing ? 'list-group-item-info' : ''">
-						{{flatData.bodyParts[r.bodyPart]}}: {{r.name}}, ABS: {{r.ABS}}, BEG: {{r.BEG}}, {{r.wearing ? 'På' : 'Av'}}
+					<li ng-repeat="r in storage.activeCharacter.armors | orderBy:['-wearing','bodyPart','name']" ng-click="editArmor(r)" class="list-group-item" ng-class="r===armorEdit ? 'active' : r.wearing ? 'list-group-item-info' : ''"> {{r.name}}
 						<div class="btn btn-xs pull-right" ng-class="r.wearing ? 'btn-danger' : 'btn-primary'" ng-click="r.wearing=!r.wearing">
 							<i class="glyphicon" ng-class="r.wearing ? 'glyphicon-minus' : 'glyphicon-plus'"></i>
 						</div>
@@ -500,11 +503,20 @@
 						<input type="number" class="form-control" ng-model="armorEdit.BEG">
 					</div>
 					<div class="input-group">
+						<label>Vikt:</label>
+						<input type="number" class="form-control" ng-model="armorEdit.weight">
+					</div>
+					<div class="input-group">
 						<label>Kroppsdel:</label>
-						<select class="selectpicker form-control" ng-model="armorEdit.bodyPart" ng-options="i as flatData.bodyParts[i] for i in armorEdit.fits"></select>
+						<select class="selectpicker form-control" ng-model="armorEdit.bodyPart" ng-options="i as flatData.bodyParts[i] for i in armorEdit.fits" ng-if="!armorEdit.multiPart"></select>
+						<select class="form-control" ng-model="armorEdit.bodyPart" ng-options="i as flatData.bodyParts[i] for i in armorEdit.fits" ng-if="armorEdit.multiPart" multiple></select>
+					</div>
+					<div class="input-group">
+						<label>Täcker flera kroppsdelar:</label>
+						<input type="checkbox" ng-model="armorEdit.multiPart">
 					</div>
 					<p>
-						<div class="btn btn-danger btn-sm" ng-click="deleteArmor($index)">
+						<div class="btn btn-danger btn-sm" ng-click="deleteArmor(armorEdit)">
 							<div class="glyphicon glyphicon-trash"></div>
 						</div>
 						<div class="btn btn-danger btn-sm" ng-click="moneyManage(armorEdit.cost); deleteArmor(armorEdit);" ng-show="armorEdit.cost">
@@ -518,8 +530,8 @@
 			</div>
 			<div class="panel-body" ng-show="armorFormEdit && !storage.activeCharacter.armorBody">
 				<div class="input-group">
-					<label>Läs in rustning &nbsp;</label>
-					<div ng-show="create.armor.bodyPart">
+
+					<div ng-show="create.armor.bodyPart || create.armor.multiPart">
 						<div class="btn btn-primary btn-sm" ng-click="createArmor(create.armor)">
 							Lägg till
 						</div>
@@ -527,10 +539,15 @@
 							Köp
 						</div>
 					</div>
+
+					<label>Läs in rustning &nbsp;</label>
 					<select class="selectpicker form-control" ng-model="create.armortype" ng-options="a.name for a in flatData.armors"></select>
 					<select class="selectpicker form-control" ng-model="create.armor" ng-options="a.name for a in create.armortype.armors" ng-show="create.armortype"></select>
-					<select class="selectpicker form-control" ng-model="create.armor.bodyPart" ng-options="i as flatData.bodyParts[i] for i in create.armor.fits | filter:armorFilter" ng-show="create.armor"></select>
-
+					<select class="selectpicker form-control" ng-model="create.armor.bodyPart" ng-options="i as flatData.bodyParts[i] for i in create.armor.fits | filter:armorFilter" ng-show="create.armor && !create.armor.multiPart"></select>
+					<div ng-show="create.armor.multiPart">
+						Sitter på kroppsdelar:
+						<div ng-repeat="i in create.armor.fits">{{flatData.bodyParts[i]}}</div>
+					</div>
 				</div>
 			</div>
 		</div>

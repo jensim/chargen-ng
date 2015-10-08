@@ -99,7 +99,8 @@ angular.module('chargenNgApp')
 				storage.activeCharacter.attrPrim[skill.attrPrim].value +
 				storage.activeCharacter.attrPrim[skill.attrPrim].mod);
 			var fromTrain = skill.valueErf + skill.valueErfFree;
-			return fromGE + fromTrain;
+
+			return fromGE + fromTrain - mutantCalcFactory.calcBeg(skill);
 		};
 		$scope.getUsedGE = function () {
 			var sum = 0;
@@ -194,16 +195,16 @@ angular.module('chargenNgApp')
 			}
 			return mutantCalcFactory.calcArmorBodypart(part);
 		};
-		$scope.calcBeg = function () {
+		$scope.calcBeg = function (skill) {
 			if (storage.activeCharacter === undefined) {
 				return 0;
 			}
-			return mutantCalcFactory.calcArmorBeg();
+			return mutantCalcFactory.calcBeg(skill);
 		};
 		$scope.createArmor = function (armor) {
 			var newArmor = angular.copy(armor);
-			if (armor.fits.length === 1) {
-				armor.bodyPart = armor.fits[0];
+			if (newArmor.multiPart === true) {
+				newArmor.bodyPart = newArmor.fits;
 			}
 			storage.activeCharacter.armors.push(newArmor);
 		};

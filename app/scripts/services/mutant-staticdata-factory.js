@@ -159,11 +159,6 @@ angular.module('chargenNgApp')
 				name: 'TRAUMATRÖSKEL (TT)',
 				description: '(STO + FYS) / 2',
 				value: 0
-			},
-			beg: {
-				name: 'Begränsning (BEG)',
-				description: 'Rusgningar, vapen, sköldar och varje kilo över BF begränsar SMI-FV med %',
-				value: 0
 			}
 		};
 		var weaponReach = {
@@ -209,7 +204,17 @@ angular.module('chargenNgApp')
 			3: 'Bål',
 			4: 'Höger arm',
 			5: 'Vänster arm',
-			6: 'Huvudet'
+			6: 'Huvudet',
+			7: 'Extra kroppsdel 1',
+			8: 'Extra kroppsdel 2',
+			9: 'Extra kroppsdel 3',
+			10: 'Extra kroppsdel 4',
+			11: 'Extra kroppsdel 5',
+			12: 'Extra kroppsdel 6',
+			13: 'Extra kroppsdel 7',
+			14: 'Extra kroppsdel 8',
+			15: 'Extra kroppsdel 9',
+			16: 'Extra kroppsdel 10',
 		};
 		var staticData = {
 			version: version,
