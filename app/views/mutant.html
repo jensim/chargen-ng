@@ -18,9 +18,9 @@
 						<label for="createInputClass">Klass:</label>
 						<select class="form-control" ng-model="create.char.klass" name="Klass" required="true" ng-required="true" id="createInputClass" ng-options="klass.name for klass in flatData.klasses"></select>
 						<div class="list-group" ng-show="create.char.klass.description">
-							<a class="list-group-item">
+							<li class="list-group-item">
 								<b>Beskrivning:</b> {{create.char.klass.description}}
-							</a>
+							</li>
 						</div>
 						<span ng-show="mutantCreateCharForm.Klass.$error.required" class="label label-danger">
                         	Obligatoriskt fält...
@@ -104,12 +104,12 @@
 			<div class="panel-body" ng-hide="storage.activeCharacter.attrPrimBody">
 				<ul class="list-group">
 					<div ng-repeat="a in storage.activeCharacter.attrPrim">
-						<a class="list-group-item anim-fade" ng-class="a === attrPrimEdit ? 'active':''" ng-click="editAttrPrim(a)">
-							
+						<li class="list-group-item list-group-item-highlight" ng-class="a === attrPrimEdit ? 'active':''" ng-click="editAttrPrim(a)">
+
 							{{a.name}} ({{a.short}}): {{a.value + a.trained}}
 							<div ng-show="a.mod > 0">&nbsp;+ {{a.mod}}</div>
 							<div ng-show="a.mod < 0">&nbsp;{{a.mod}}</div>
-						</a>
+						</li>
 						<div ng-show="a === attrPrimEdit">
 							<li class="list-group-item list-group-item-info">
 								<label class="control-label">Modifikation:</label>
@@ -209,12 +209,10 @@
 
 				<ul class="list-group row">
 					<div class="anim-fade" ng-repeat="a in storage.activeCharacter.skills | orderBy:['-postTrained','-natural','name']">
-						<a class="list-group-item" ng-class="a === skillEdit ? 'active':''">
-							<div ng-click="editSkill(a)">
-								<label>{{a.name}} ({{a.attrPrim}}): {{skillSum(a)}}</label>
-							</div>
-						</a>
-						<div ng-show="skillEdit === a">
+						<li class="list-group-item list-group-item-highlight" ng-class="a === skillEdit ? 'active':''" ng-click="editSkill(a)">
+							<label>{{a.name}} ({{a.attrPrim}}): {{skillSum(a)}}</label>
+						</li>
+						<div ng-show="skillEdit === a" class="anim-fade">
 							<li class="list-group-item list-group-item-info">
 								<label>Erf-kostnad:</label>
 								<label>{{getSkillUsedErf(a)}}</label>
@@ -287,7 +285,7 @@
 			</div>
 			<div class="panel-body" ng-hide="storage.activeCharacter.powerBody" ng-init="powerFormEdit = (storage.activeCharacter.powers[0] === undefined);">
 				<ul class="list-group">
-					<li class="list-group-item anim-fade" ng-repeat="p in storage.activeCharacter.powers | orderBy:['name']" ng-click="editPower(p)" ng-class="p === powerEdit ? 'list-group-item-info':''">
+					<li class="list-group-item list-group-item-highlight" ng-repeat="p in storage.activeCharacter.powers | orderBy:['name']" ng-click="editPower(p)" ng-class="p === powerEdit ? 'list-group-item-info':''">
 						{{p.name}}
 						<div class="btn btn-danger glyphicon glyphicon-trash pull-right btn-xs" ng-click="deletePower($index)" ng-show="p === powerEdit">
 						</div>
@@ -312,35 +310,38 @@
 					</div>
 
 				</div>
-				<div ng-show="!powerEdit && powerFormEdit" class="anim-fade">
-					<div class="pull-right" style="display: inline-block;">
-						<p>
-							<div class="btn btn-primary btn-xs" ng-click="createPower(create.power)" ng-hide="powerEdit">
-								<span class="glyphicon glyphicon-plus"></span> Lägg till förmåga
-							</div>
-						</p>
+			</div>
+			<div class="panel-heading" ng-show="powerFormEdit && !storage.activeCharacter.powerBody" class="anim-fade">
+				Ny förmåga
+			</div>
+			<div class="panel-body" ng-show="powerFormEdit && !storage.activeCharacter.powerBody" class="anim-fade">
+				<div class="pull-right" style="display: inline-block;">
+					<p>
+						<div class="btn btn-primary btn-xs" ng-click="createPower(create.power)" ng-hide="powerEdit">
+							<span class="glyphicon glyphicon-plus"></span> Lägg till förmåga
+						</div>
+					</p>
+				</div>
+				<div class="form-group">
+					<div class="input-group">
+						<label>Namn</label>
+						<input name="create.power.name" type="text" class="form-control" ng-model="create.power.name">
 					</div>
-					<div class="form-group">
-						<div class="input-group">
-							<label>Namn</label>
-							<input name="create.power.name" type="text" class="form-control" ng-model="create.power.name">
-						</div>
-						<div class="input-group">
-							<label for="create.power.cost">Kostnad</label>
-							<br/>
-							<input name="create.power.cost" type="number" ng-model="create.power.cost">
-						</div>
-						<div class="input-group">
-							<label>Beskrivning</label>
-							<textarea name="create.power.description" type="text" class="form-control" ng-model="create.power.description"></textarea>
-						</div>
-						<div class="text-danger" ng-show="create.power.skill">
-							Ny färdighet ({{create.power.skill.attrPrim}})
-						</div>
-						<div class="input-group" ng-hide="powerEdit">
-							<label>Läs in förmåga </label>
-							<select class="selectpicker form-control" ng-model="create.power" ng-options="p.name for p in availablePowers()"></select>
-						</div>
+					<div class="input-group">
+						<label for="create.power.cost">Kostnad</label>
+						<br/>
+						<input name="create.power.cost" type="number" ng-model="create.power.cost">
+					</div>
+					<div class="input-group">
+						<label>Beskrivning</label>
+						<textarea name="create.power.description" type="text" class="form-control" ng-model="create.power.description"></textarea>
+					</div>
+					<div class="text-danger" ng-show="create.power.skill">
+						Ny färdighet ({{create.power.skill.attrPrim}})
+					</div>
+					<div class="input-group" ng-hide="powerEdit">
+						<label>Läs in förmåga </label>
+						<select class="selectpicker form-control" ng-model="create.power" ng-options="p.name for p in availablePowers()"></select>
 					</div>
 				</div>
 			</div>
@@ -359,12 +360,12 @@
 			<div class="panel-body" ng-hide="storage.activeCharacter.weaponBody">
 				<ul class="list-group">
 					<div ng-repeat="w in storage.activeCharacter.weapons | orderBy:[name]">
-						<li class="list-group-item anim-fade" ng-click="editWeapon(w)" ng-class="w === weaponEdit ? 'list-group-item-info':''">
+						<li class="list-group-item list-group-item-highlight" ng-click="editWeapon(w)" ng-class="w === weaponEdit ? 'list-group-item-info':''">
 							{{w.name}}
 						</li>
 					</div>
 				</ul>
-				<div ng-show="weaponEdit">
+				<div ng-show="weaponEdit" class="anim-fade">
 					<div style="display: inline-block;" class="pull-right">
 						<p>
 							<div class="btn btn-danger btn-sm" ng-click="deleteWeapon($index)">
@@ -601,12 +602,12 @@
 
 				<select class="selectpicker form-control" ng-options="g.name for g in flatData.gear" ng-model="create.itemType"></select>
 				<select class="selectpicker form-control" ng-options="g.name for g in create.itemType.items" ng-model="create.item" ng-show="create.itemType"></select>
-				<a class="list-group-item" ng-show="create.item.description">
+				<li class="list-group-item" ng-show="create.item.description">
 					Beskrivning: {{create.item.description}}
-				</a>
-				<a class="list-group-item" ng-show="create.item.cost">
+				</li>
+				<li class="list-group-item" ng-show="create.item.cost">
 					Kostnad: {{create.item.cost}} krediter
-				</a>
+				</li>
 				<div class="form-group">
 					<div class="btn btn-primary" ng-click="createItem(create.item)">
 						<i class="glyphicon glyphicon-plus"></i> Lägg till

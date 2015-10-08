@@ -37,3 +37,7 @@ input[type="number"] {
 	max-height: 200px;
 	overflow-x: hidden;
 }
+.list-group-item-highlight:hover {
+	background-color: cornflowerblue;
+	color: aliceblue;
+}
