@@ -2,7 +2,7 @@
 
 angular.module('chargenNgApp')
 	.factory('mutantStaticdataFactory', ['$localStorage', '$log', 'Tabletop', function ($localStorage, $log, Tabletop) {
-		var version = '0.1';
+		var version = '0.2';
 		var dataLoaded = false;
 		var attrPrimShort = [
 			{
